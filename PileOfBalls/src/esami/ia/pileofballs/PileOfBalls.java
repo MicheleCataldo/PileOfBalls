@@ -3,7 +3,6 @@ package esami.ia.pileofballs;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
@@ -15,12 +14,16 @@ import javax.swing.JFrame;
 
 public class PileOfBalls extends Canvas implements Runnable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private MatriceAlternata m;
 	private TriplePalle p;
 	private ArrayList<Coppia> array_coppie;
 	private boolean running = false;
     private Thread thread;
-    private boolean isCompl = true;
+   // private boolean isCompl = true;
 	
 	public static void main(String[] args) {
 		PileOfBalls pob = new PileOfBalls();
@@ -44,13 +47,13 @@ public class PileOfBalls extends Canvas implements Runnable {
 	private void createTriple() {
 		Random r = new Random();
 		int j = r.nextInt(m.getDim()-1);
-		//int j = 5; 
+		//int j = 8; 
 		int i = 0;
 		p = new TriplePalle(m.get(i,j),m.get(i+1,j),m.get(i+1,j+1));
 	}
 	
-	private void init() {
-		 m = new MatriceAlternata(10);
+	private void init() throws IncorrectInitAltMatrixException {
+		 m = new MatriceAlternata(9);
 		 array_coppie = new ArrayList<Coppia>();
 		 createTriple();
 		 
@@ -115,26 +118,6 @@ public class PileOfBalls extends Canvas implements Runnable {
 		for(int i = 0; i < array_coppie.size(); i++)
 			if(array_coppie.get(i).equals(c))
 				array_coppie.remove(i);
-	}
-	
-	private int settaI(int i) {
-		i++;
-		if(i>=m.getDim()-1)
-			i = 8;
-		return i;
-	}
-	
-	private int settaJ(int j, boolean w) {
-		if(w) {
-			j--;
-			if(j < 0)
-				j = 0;
-		}else {
-			j++;
-			if(j >=9)
-				j = 8;
-		}
-		return j;	
 	}
 	
 	private void aggiustaMatrice() {
@@ -421,7 +404,12 @@ public class PileOfBalls extends Canvas implements Runnable {
 
 	@Override
 	public void run() {
-		init();
+		try {
+			init();
+		} catch (IncorrectInitAltMatrixException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		//disegna();
 		while(running) {
 			disegna();

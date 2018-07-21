@@ -1,13 +1,15 @@
 package esami.ia.pileofballs;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 public class MatriceAlternata {
 	private Palla matrix[][];
 	private int dim;
 	
-	public MatriceAlternata(int dim) {
+	public MatriceAlternata(int dim) throws IncorrectInitAltMatrixException {
+		if(dim%2!=0 || dim < 10)
+			throw new IncorrectInitAltMatrixException();
+		
 		matrix = new Palla[dim][];
 		this.dim = dim;
 		int x = 0;
@@ -39,7 +41,7 @@ public class MatriceAlternata {
 
 	public Palla get(int i, int j) {
 		if(i >= getDim())
-			i=9;
+			i=getDim()-1;
 		
 		if(j >= this.getInternSize(i))
 			j=this.getInternSize(i)-1;
