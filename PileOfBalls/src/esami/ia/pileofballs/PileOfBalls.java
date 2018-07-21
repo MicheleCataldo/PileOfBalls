@@ -47,13 +47,13 @@ public class PileOfBalls extends Canvas implements Runnable {
 	private void createTriple() {
 		Random r = new Random();
 		int j = r.nextInt(m.getDim()-1);
-		//int j = 8; 
+		//int j = 5; 
 		int i = 0;
 		p = new TriplePalle(m.get(i,j),m.get(i+1,j),m.get(i+1,j+1));
 	}
 	
 	private void init() throws IncorrectInitAltMatrixException {
-		 m = new MatriceAlternata(9);
+		 m = new MatriceAlternata(10);
 		 array_coppie = new ArrayList<Coppia>();
 		 createTriple();
 		 
