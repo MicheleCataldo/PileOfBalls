@@ -46,8 +46,8 @@ public class PileOfBalls extends Canvas implements Runnable {
 	
 	private void createTriple() {
 		Random r = new Random();
-		int j = r.nextInt(m.getDim()-1);
-		//int j = 5; 
+		//int j = r.nextInt(m.getDim()-1);
+		int j = 5; 
 		int i = 0;
 		p = new TriplePalle(m.get(i,j),m.get(i+1,j),m.get(i+1,j+1));
 	}
@@ -124,10 +124,8 @@ public class PileOfBalls extends Canvas implements Runnable {
 		Coppia c;
 		Color col;
 		boolean ok = false;
-		//int cont = 0;
 		while(!ok) {
 			ok = true;
-			//cont++;
 			for(int i = 0; i < m.getDim(); i++) {
 				if(m.getInternSize(i)%2 == 0) {
 					for(int j = 0; j < m.getInternSize(i); j++) {
@@ -195,6 +193,38 @@ public class PileOfBalls extends Canvas implements Runnable {
 						}
 					}
 				}
+			}
+		}
+	}
+	
+	private void scoppiaPalline() {
+		int cont = 0;
+		int x = 1;
+		int y = 1;
+		ArrayList<Coppia> tmp = new ArrayList<Coppia>();
+		for(int i = 0; i < m.getDim(); i++) {
+			for(int j = 0; j < m.getInternSize(i); j++) {
+				if(!m.get(i, j).isWhite()) {
+					while(m.get(i, j+x).getColor().equals(m.get(i, j).getColor())) {
+						cont++;
+						x++;
+						tmp.add(new Coppia(i, j+x));
+					}
+					x = 1;
+					while(m.get(i, j-x).getColor().equals(m.get(i, j).getColor())) {
+						x++;
+						cont++;
+						tmp.add(new Coppia(i, j-x));
+					}
+				}
+			}
+			if(cont > 4)
+				break;
+		}
+		
+		if(cont > 4) {
+			for(int i = 0; i < tmp.size(); i++) {
+				m.get(tmp.get(i).getI(), tmp.get(i).getJ()).setC(Color.WHITE);
 			}
 		}
 	}
@@ -270,7 +300,6 @@ public class PileOfBalls extends Canvas implements Runnable {
 						array_coppie.add(new Coppia(tmp3i, tmp3j));
 					}else {
 						settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
-						//aggiustaMatrice();
 					}
 					createTriple();
 					break;
@@ -289,7 +318,6 @@ public class PileOfBalls extends Canvas implements Runnable {
 						array_coppie.add(new Coppia(tmp3i, tmp3j));
 					}else {
 						settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
-						//aggiustaMatrice();
 					}
 					createTriple();
 					break;
@@ -309,7 +337,6 @@ public class PileOfBalls extends Canvas implements Runnable {
 						array_coppie.add(new Coppia(tmp3i, tmp3j));
 					}else {
 						settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
-						//aggiustaMatrice();
 					}
 					createTriple();
 					break;
@@ -330,7 +357,6 @@ public class PileOfBalls extends Canvas implements Runnable {
 						array_coppie.add(new Coppia(tmp3i, tmp3j));
 					}else {
 						settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
-						//aggiustaMatrice();
 					}
 					createTriple();
 					break;
@@ -350,7 +376,6 @@ public class PileOfBalls extends Canvas implements Runnable {
 						array_coppie.add(new Coppia(tmp3i, tmp3j));
 					}else {
 						settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
-						//aggiustaMatrice();
 					}
 					createTriple();
 					break;
@@ -371,14 +396,14 @@ public class PileOfBalls extends Canvas implements Runnable {
 						array_coppie.add(new Coppia(tmp3i, tmp3j));
 					}else {
 						settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
-						//aggiustaMatrice();
 					}
 					createTriple();
 					break;
 				}		
 			}
 		}
-		aggiustaMatrice();
+		//aggiustaMatrice();
+		scoppiaPalline();
 	}
 	 private synchronized void start(){
 	        if(running)
