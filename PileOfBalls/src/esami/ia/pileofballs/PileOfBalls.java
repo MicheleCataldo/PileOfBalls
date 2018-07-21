@@ -56,7 +56,8 @@ public class PileOfBalls extends Canvas implements Runnable {
 		 m = new MatriceAlternata(10);
 		 array_coppie = new ArrayList<Coppia>();
 		 createTriple();
-		 
+		 m.get(9, 4).setC(Color.GREEN);
+		 m.get(9, 7).setC(Color.GREEN);
 	}
 	
 	private void disegna() {
@@ -198,7 +199,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 	}
 	
 	private void scoppiaPalline() {
-		int cont = 0;
+		int cont = 1;
 		int x = 1;
 		int y = 1;
 		ArrayList<Coppia> tmp = new ArrayList<Coppia>();
@@ -216,14 +217,17 @@ public class PileOfBalls extends Canvas implements Runnable {
 						cont++;
 						tmp.add(new Coppia(i, j-x));
 					}
+					System.out.println(cont);
+					break;
 				}
 			}
-			if(cont > 4)
+			if(cont >= 4) 
 				break;
 		}
 		
-		if(cont > 4) {
+		if(cont >= 4) {
 			for(int i = 0; i < tmp.size(); i++) {
+				System.out.println(tmp.get(i).toString());
 				m.get(tmp.get(i).getI(), tmp.get(i).getJ()).setC(Color.WHITE);
 			}
 		}

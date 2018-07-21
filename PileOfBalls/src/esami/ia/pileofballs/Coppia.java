@@ -34,5 +34,10 @@ public class Coppia {
 		return false;
 	}
 	
+	public String toString() {
+		return getI()+" "+getJ()+"\n";
+		
+	}
+	
 	
 }

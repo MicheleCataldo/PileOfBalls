@@ -18,7 +18,7 @@ public class TriplePalle {
 		
 		this.cont = 0;
 		
-		this.p1 = new Palla(p1.getX(), p1.getY(), tmp1, p1.getCoppia().getI(), p1.getCoppia().getJ());
+		this.p1 = new Palla(p1.getX(), p1.getY(), 2, p1.getCoppia().getI(), p1.getCoppia().getJ());
 		this.p2 = new Palla(p2.getX(), p2.getY(), 1, p2.getCoppia().getI(), p2.getCoppia().getJ());
 		this.p3 = new Palla(p3.getX(), p3.getY(), 1, p3.getCoppia().getI(), p3.getCoppia().getJ());
 	}
