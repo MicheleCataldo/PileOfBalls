@@ -46,7 +46,8 @@ public class PileOfBalls extends Canvas implements Runnable {
 	
 	private void createTriple() {
 		Random r = new Random();
-		int j = 4; 
+		int j = r.nextInt(9);
+		//int j = 4; 
 		int i = 0;
 		p = new TriplePalle(m.get(i,j),m.get(i+1,j),m.get(i+1,j+1));
 	}
@@ -437,11 +438,12 @@ public class PileOfBalls extends Canvas implements Runnable {
 			e1.printStackTrace();
 		}
 		//disegna();
-		p.giraSx();
+		
 		while(running) {
 			disegna();
 			try {
 				Thread.sleep(2000);
+				p.giraDx();
 				aggiorna();
 				
 			} catch (InterruptedException e) {

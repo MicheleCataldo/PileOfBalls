@@ -12,7 +12,15 @@ public class Palla {
 	private int h;
 	private Color c;
 	private Coppia coppia;
-	
+	private int serial;
+	public int getSerial() {
+		return serial;
+	}
+
+	public void setSerial(int serial) {
+		this.serial = serial;
+	}
+
 	public Palla(int x, int y, int i, int j) {
 		this.x = x;
 		this.y = y;
@@ -20,13 +28,15 @@ public class Palla {
 		this.h= 50;
 		this.coppia = new Coppia(i,j);
 		this.c = Color.WHITE;
+		this.serial = 0;
 	}
 	
-	public Palla(int x, int y, int c, int i, int j) {
+	public Palla(int x, int y, int c, int i, int j, int serial) {
 		this.x = x;
 		this.y = y;
 		this.w = 50;
 		this.h= 50;
+		this.serial = serial;
 		this.coppia = new Coppia(i,j);
 		switch(c) {
 			case 0:
