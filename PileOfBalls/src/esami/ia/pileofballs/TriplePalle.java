@@ -18,9 +18,9 @@ public class TriplePalle {
 		
 		this.cont = 0;
 		
-		this.p1 = new Palla(p1.getX(), p1.getY(), 2, p1.getCoppia().getI(), p1.getCoppia().getJ());
-		this.p2 = new Palla(p2.getX(), p2.getY(), 1, p2.getCoppia().getI(), p2.getCoppia().getJ());
-		this.p3 = new Palla(p3.getX(), p3.getY(), 1, p3.getCoppia().getI(), p3.getCoppia().getJ());
+		this.p1 = new Palla(p1.getX(), p1.getY(), tmp1, p1.getCoppia().getI(), p1.getCoppia().getJ());
+		this.p2 = new Palla(p2.getX(), p2.getY(), tmp2, p2.getCoppia().getI(), p2.getCoppia().getJ());
+		this.p3 = new Palla(p3.getX(), p3.getY(), tmp3, p3.getCoppia().getI(), p3.getCoppia().getJ());
 	}
 	
 	public void disegna(Graphics g) {
@@ -48,6 +48,46 @@ public class TriplePalle {
 			p3.getCoppia().setI(p3.getCoppia().getI()-2);
 			return false;
 		}
+	}
+	
+	public void goRight() {
+		if(p3.getCoppia().getJ() < 9) {
+			p1.getCoppia().setJ(p1.getCoppia().getJ()+1);
+			p2.getCoppia().setJ(p2.getCoppia().getJ()+1);
+			p3.getCoppia().setJ(p3.getCoppia().getJ()+1);
+			System.out.println(p3.getCoppia().getJ());
+			p1.setX(p1.getX()+50);
+			p2.setX(p2.getX()+50);
+			p3.setX(p3.getX()+50);
+		}
+	}
+	public void goLeft() {
+		if(p2.getCoppia().getJ() > 0) {
+			p1.getCoppia().setJ(p1.getCoppia().getJ()-1);
+			p2.getCoppia().setJ(p2.getCoppia().getJ()-1);
+			p3.getCoppia().setJ(p3.getCoppia().getJ()-1);
+			System.out.println(p2.getCoppia().getJ());
+			p1.setX(p1.getX()-50);
+			p2.setX(p2.getX()-50);
+			p3.setX(p3.getX()-50);
+		}
+	}
+	
+	public void giraDx() {
+		p1.getCoppia().setJ(p1.getCoppia().getJ()+1);
+		p2.getCoppia().setI(p2.getCoppia().getI()-1);
+		p1.setX(p1.getX()+50);
+		p2.setY(p2.getY()-50);
+		p2.setX(p2.getX()+25);
+	}
+	
+	public void giraSx() {
+		p1.getCoppia().setJ(p1.getCoppia().getJ()-1);
+		p3.getCoppia().setI(p3.getCoppia().getI()-1);
+		p3.getCoppia().setJ(p3.getCoppia().getJ()-1);
+		p1.setX(p1.getX()-50);
+		p3.setY(p3.getY()-50);
+		p3.setX(p3.getX()-25);
 	}
 	
 	public Palla getP1() {

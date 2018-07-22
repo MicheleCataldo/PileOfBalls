@@ -46,8 +46,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 	
 	private void createTriple() {
 		Random r = new Random();
-		//int j = r.nextInt(m.getDim()-1);
-		int j = 5; 
+		int j = 4; 
 		int i = 0;
 		p = new TriplePalle(m.get(i,j),m.get(i+1,j),m.get(i+1,j+1));
 	}
@@ -56,8 +55,6 @@ public class PileOfBalls extends Canvas implements Runnable {
 		 m = new MatriceAlternata(10);
 		 array_coppie = new ArrayList<Coppia>();
 		 createTriple();
-		 m.get(9, 4).setC(Color.GREEN);
-		 m.get(9, 7).setC(Color.GREEN);
 	}
 	
 	private void disegna() {
@@ -197,7 +194,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 			}
 		}
 	}
-	
+	//messa in pausa
 	private void scoppiaPalline() {
 		int cont = 1;
 		int x = 1;
@@ -406,8 +403,8 @@ public class PileOfBalls extends Canvas implements Runnable {
 				}		
 			}
 		}
-		//aggiustaMatrice();
-		scoppiaPalline();
+		aggiustaMatrice();
+		//scoppiaPalline();
 	}
 	 private synchronized void start(){
 	        if(running)
@@ -440,11 +437,13 @@ public class PileOfBalls extends Canvas implements Runnable {
 			e1.printStackTrace();
 		}
 		//disegna();
+		p.giraSx();
 		while(running) {
 			disegna();
 			try {
-				Thread.sleep(500);
+				Thread.sleep(2000);
 				aggiorna();
+				
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
