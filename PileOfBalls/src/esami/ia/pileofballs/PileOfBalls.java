@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -194,38 +195,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 	}
 	//messa in pausa
 	private void scoppiaPalline() {
-		int cont = 1;
-		int x = 1;
-		int y = 1;
-		ArrayList<Coppia> tmp = new ArrayList<Coppia>();
-		for(int i = 0; i < m.getDim(); i++) {
-			for(int j = 0; j < m.getInternSize(i); j++) {
-				if(!m.get(i, j).isWhite()) {
-					while(m.get(i, j+x).getColor().equals(m.get(i, j).getColor())) {
-						cont++;
-						x++;
-						tmp.add(new Coppia(i, j+x));
-					}
-					x = 1;
-					while(m.get(i, j-x).getColor().equals(m.get(i, j).getColor())) {
-						x++;
-						cont++;
-						tmp.add(new Coppia(i, j-x));
-					}
-					System.out.println(cont);
-					break;
-				}
-			}
-			if(cont >= 4) 
-				break;
-		}
 		
-		if(cont >= 4) {
-			for(int i = 0; i < tmp.size(); i++) {
-				System.out.println(tmp.get(i).toString());
-				m.get(tmp.get(i).getI(), tmp.get(i).getJ()).setC(Color.WHITE);
-			}
-		}
 	}
 	
 	private void settaPalline(int i1, int i2, int i3, int j1, int j2, int j3) {
@@ -238,6 +208,8 @@ public class PileOfBalls extends Canvas implements Runnable {
 	}
 	
 	private void aggiorna() {
+		
+		
 		
 		if(!p.aggiorna(m)) {
 			
@@ -434,6 +406,8 @@ public class PileOfBalls extends Canvas implements Runnable {
 		}
 		aggiustaMatrice();
 		//scoppiaPalline();
+		if(!m.get(0, 4).isWhite() || !m.get(1, 4).isWhite() && m.get(1,5).isWhite())
+			running = false;
 	}
 	 private synchronized void start(){
 	        if(running)
