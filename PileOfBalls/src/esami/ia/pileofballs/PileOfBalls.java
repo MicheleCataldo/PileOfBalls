@@ -142,7 +142,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 									break;
 								}
 							}else {
-								System.out.println("ERROR! j-1 < 0.");
+								//System.out.println("ERROR! j-1 < 0.");
 							}
 							
 							if(!m.get(i, j).isWhite() && m.get(i+1, j).isWhite()) {
@@ -155,7 +155,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 								break;
 							}
 						}else {
-							System.out.println("ERROR! i+1 >= dim");
+							//System.out.println("ERROR! i+1 >= dim");
 						}
 					}
 				}
@@ -185,7 +185,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 									break;
 								}
 							}else {
-								System.out.println("ERROR! j+1 >= internalSize");
+								//System.out.println("ERROR! j+1 >= internalSize");
 							}
 						}else {
 							System.out.println("ERROR! i+1 >= dim");
@@ -258,8 +258,9 @@ public class PileOfBalls extends Canvas implements Runnable {
 				int tmp1j = c1.getJ()+1;
 				int tmp2j = c2.getJ()-1;
 				int tmp3j = c3.getJ()+1;
+				
 				if(this.collide1(c1, i) && tmp2j >=0 && tmp3j < 10) {
-					
+					System.out.println("Collide1");
 					if(this.isOccup(tmp1i, tmp1j)) {
 						tmp1i--;
 						tmp1j--;
@@ -288,6 +289,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 					break;
 				}
 				else if(this.collide1(c1, i) && tmp3j >= 10) {
+					System.out.println("Collide2");
 					tmp3i -=2;
 					tmp3j--;
 					tmp1j-=2;
@@ -307,6 +309,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 					break;
 				}
 				else if(this.collide1(c1, i) && tmp2j < 0) {
+					System.out.println("Collide3");
 					tmp2i-=2;
 					tmp2j++;
 					if(m.get(tmp1i, tmp1j).isWhite() &&
@@ -325,9 +328,18 @@ public class PileOfBalls extends Canvas implements Runnable {
 					break;
 				}
 				else if((this.collide2(c1, i) || this.collide1(c2, i)) && tmp3j < 10) {
-					tmp1j = c1.getJ()+1;
-					tmp2j = c2.getJ()+1;
-					tmp3j = c3.getJ()+1;
+					System.out.println("Collide4");
+					if(m.get(c1.getI(), c1.getJ()).isWhite() &&
+							!m.get(c2.getI(), c2.getJ()).isWhite()
+							&& !m.get(c3.getI(), c3.getJ()).isWhite()) {
+						tmp2j = c2.getJ()-1;
+						tmp3j = c3.getJ()+1;
+						tmp1j = c1.getJ();
+					}else {
+						tmp1j = c1.getJ()+1;
+						tmp2j = c2.getJ()+1;
+						tmp3j = c3.getJ()+1;
+					}
 					if(m.get(tmp1i, tmp1j).isWhite() &&
 							m.get(tmp2i, tmp2j).isWhite()
 							&& m.get(tmp3i, tmp3j).isWhite()) {
@@ -344,6 +356,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 					break;
 				}
 				else if((this.collide2(c1, i) || this.collide1(c2, i)) && tmp3j >=10) {
+					System.out.println("Collide5");
 					tmp1j = c1.getJ();
 					tmp2j = c2.getJ()+1;
 					tmp3i -=2;
@@ -364,6 +377,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 					break;
 				}
 				else if((this.collide3(c1, i) || this.collide1(c3,i)) && tmp2j >=0) {
+					System.out.println("Collide6");
 					tmp1j = c1.getJ()-1;
 					tmp2j = c2.getJ()-1;
 					tmp3j = c3.getJ()-1;
@@ -383,30 +397,11 @@ public class PileOfBalls extends Canvas implements Runnable {
 					break;
 				}
 				else if((this.collide3(c1, i) || this.collide1(c3,i)) && tmp2j < 0) {
+					System.out.println("Collide7");
 					tmp1j = c1.getJ();
 					tmp2i-=2;
 					tmp2j = c2.getJ();
 					tmp3j = c3.getJ()-1;
-					if(m.get(tmp1i, tmp1j).isWhite() &&
-							m.get(tmp2i, tmp2j).isWhite()
-							&& m.get(tmp3i, tmp3j).isWhite()) {
-						m.get(tmp1i, tmp1j).setC(p.getP0().getColor());
-						m.get(tmp2i, tmp2j).setC(p.getP1().getColor());
-						m.get(tmp3i, tmp3j).setC(p.getP2().getColor());
-						array_coppie.add(new Coppia(tmp1i, tmp1j));
-						array_coppie.add(new Coppia(tmp2i, tmp2j));
-						array_coppie.add(new Coppia(tmp3i, tmp3j));
-					}else {
-						settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
-					}
-					createTriple();
-					break;
-				}
-				else if(this.collide1(c2, i) && this.collide1(c3, i)) {
-					System.out.println("Collide");
-					tmp1i+=2;
-					tmp2j--;
-					tmp3j++;
 					if(m.get(tmp1i, tmp1j).isWhite() &&
 							m.get(tmp2i, tmp2j).isWhite()
 							&& m.get(tmp3i, tmp3j).isWhite()) {
@@ -462,7 +457,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 		while(running) {
 			disegna();
 			try {
-				Thread.sleep(2000);
+				Thread.sleep(500);
 				aggiorna();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
