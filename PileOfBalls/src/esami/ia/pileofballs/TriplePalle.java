@@ -24,9 +24,9 @@ public class TriplePalle {
 		
 		this.cont = 0;
 		
-		this.p0 = new Palla(p0.getX(), p0.getY(), 1, p0.getCoppia().getI(), p0.getCoppia().getJ(), 0);
-		this.p1 = new Palla(p1.getX(), p1.getY(), 2, p1.getCoppia().getI(), p1.getCoppia().getJ(), 1);
-		this.p2 = new Palla(p2.getX(), p2.getY(), 3, p2.getCoppia().getI(), p2.getCoppia().getJ(), 2);
+		this.p0 = new Palla(p0.getX(), p0.getY(), tmp0, p0.getCoppia().getI(), p0.getCoppia().getJ(), 0);
+		this.p1 = new Palla(p1.getX(), p1.getY(), tmp1, p1.getCoppia().getI(), p1.getCoppia().getJ(), 1);
+		this.p2 = new Palla(p2.getX(), p2.getY(), tmp2, p2.getCoppia().getI(), p2.getCoppia().getJ(), 2);
 	}
 	
 	
@@ -123,12 +123,6 @@ public class TriplePalle {
 		if(this.tipo == true) {
 			this.tipo = false;
 			this.direz = 2;
-			/*returnWithSerial(0).getCoppia().setJ(returnWithSerial(0).getCoppia().getJ()-1);
-			returnWithSerial(2).getCoppia().setI(returnWithSerial(2).getCoppia().getI()-1);
-			returnWithSerial(2).getCoppia().setJ(returnWithSerial(2).getCoppia().getJ()-1);
-			returnWithSerial(0).setX(returnWithSerial(0).getX()-50);
-			returnWithSerial(2).setY(returnWithSerial(2).getY()-50);
-			returnWithSerial(2).setX(returnWithSerial(2).getX()-25);*/
 			
 			returnWithSerial(2).getCoppia().setI(returnWithSerial(2).getCoppia().getI()-1);
 			returnWithSerial(1).getCoppia().setJ(returnWithSerial(1).getCoppia().getJ()+1);
