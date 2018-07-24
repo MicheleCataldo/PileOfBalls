@@ -4,6 +4,8 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -11,7 +13,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 
-public class PileOfBalls extends Canvas implements Runnable {
+public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 
 	private static final long serialVersionUID = 1L;
 	private AlternateMatrix m;
@@ -36,7 +38,7 @@ public class PileOfBalls extends Canvas implements Runnable {
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        //frame.addKeyListener(pob);
+        frame.addKeyListener(pob);
         
         pob.start();
 	}
@@ -398,7 +400,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 						break;
 					}
 				}else {
-					if(this.collide1(c1, i) ||
+					/*if(this.collide1(c1, i) ||
 							this.collide1(c2, i) ||
 								this.collide1(c3, i) ||
 									this.collide2(c1, i) ||
@@ -410,7 +412,9 @@ public class PileOfBalls extends Canvas implements Runnable {
 						settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
 						coll = true;
 						break;
-					}
+					}*/
+					
+					
 				}
 			}	
 		}
@@ -461,7 +465,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 		while(running) {
 			disegna();
 			try {
-				Thread.sleep(500);
+				Thread.sleep(1000);
 				aggiorna();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
@@ -469,4 +473,35 @@ public class PileOfBalls extends Canvas implements Runnable {
 			}
 		}stop();
 	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		int botton = arg0.getKeyCode();
+		switch(botton) {
+			case KeyEvent.VK_RIGHT:
+				p.goRight();
+				disegna();
+				break;
+			case KeyEvent.VK_LEFT:
+				p.goLeft();
+				disegna();
+				break;
+			case KeyEvent.VK_UP:
+				p.giraSx();
+				disegna();
+				break;
+			case KeyEvent.VK_DOWN:
+				p.giraDx();
+				disegna();
+				break;
+			default:
+				System.out.println("Comando non valido");
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {}
 }

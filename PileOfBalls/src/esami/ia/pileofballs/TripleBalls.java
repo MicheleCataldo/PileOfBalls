@@ -58,25 +58,35 @@ public class TripleBalls {
 	}
 	
 	public void goRight() {
-		if(returnWithSerial(2).getCoppia().getJ() < 9) {
-			returnWithSerial(0).getCoppia().setJ(returnWithSerial(0).getCoppia().getJ()+1);
-			returnWithSerial(1).getCoppia().setJ(returnWithSerial(1).getCoppia().getJ()+1);
-			returnWithSerial(2).getCoppia().setJ(returnWithSerial(2).getCoppia().getJ()+1);
-			System.out.println(returnWithSerial(2).getCoppia().getJ());
-			returnWithSerial(0).setX(returnWithSerial(0).getX()+50);
-			returnWithSerial(1).setX(returnWithSerial(1).getX()+50);
-			returnWithSerial(2).setX(returnWithSerial(2).getX()+50);
+		int s = 9;
+		if(!this.tipo)
+			s = 8;
+		if(returnWithSerial(2).getCoppia().getJ() < s) {
+			if(returnWithSerial(0).getX()%2 == 0) {
+				returnWithSerial(0).getCoppia().setJ(returnWithSerial(0).getCoppia().getJ()+1);
+				returnWithSerial(1).getCoppia().setJ(returnWithSerial(1).getCoppia().getJ()+1);
+				returnWithSerial(2).getCoppia().setJ(returnWithSerial(2).getCoppia().getJ()+1);
+			}
+		
+			returnWithSerial(0).setX(returnWithSerial(0).getX()+25);
+			returnWithSerial(1).setX(returnWithSerial(1).getX()+25);
+			returnWithSerial(2).setX(returnWithSerial(2).getX()+25);
 		}
 	}
 	public void goLeft() {
-		if(returnWithSerial(1).getCoppia().getJ() > 0) {
-			returnWithSerial(0).getCoppia().setJ(returnWithSerial(0).getCoppia().getJ()-1);
-			returnWithSerial(1).getCoppia().setJ(returnWithSerial(1).getCoppia().getJ()-1);
-			returnWithSerial(2).getCoppia().setJ(returnWithSerial(2).getCoppia().getJ()-1);
-			System.out.println(returnWithSerial(1).getCoppia().getJ());
-			returnWithSerial(0).setX(returnWithSerial(0).getX()-50);
-			returnWithSerial(1).setX(returnWithSerial(1).getX()-50);
-			returnWithSerial(2).setX(returnWithSerial(2).getX()-50);
+		int s = 0;
+		if(!this.tipo)
+			s = 1;
+		if(returnWithSerial(1).getCoppia().getJ() > s) {
+			if(returnWithSerial(0).getX()%2 == 0) {
+				returnWithSerial(0).getCoppia().setJ(returnWithSerial(0).getCoppia().getJ()-1);
+				returnWithSerial(1).getCoppia().setJ(returnWithSerial(1).getCoppia().getJ()-1);
+				returnWithSerial(2).getCoppia().setJ(returnWithSerial(2).getCoppia().getJ()-1);
+			}
+			
+			returnWithSerial(0).setX(returnWithSerial(0).getX()-25);
+			returnWithSerial(1).setX(returnWithSerial(1).getX()-25);
+			returnWithSerial(2).setX(returnWithSerial(2).getX()-25);
 		}
 	}
 	
@@ -84,11 +94,23 @@ public class TripleBalls {
 		if(this.tipo == true) {
 			this.tipo = false;
 			this.direz = 1;
+			
 			returnWithSerial(0).getCoppia().setJ(returnWithSerial(0).getCoppia().getJ()+1);
 			returnWithSerial(1).getCoppia().setI(returnWithSerial(1).getCoppia().getI()-1);
 			returnWithSerial(0).setX(returnWithSerial(0).getX()+50);
 			returnWithSerial(1).setY(returnWithSerial(1).getY()-50);
 			returnWithSerial(1).setX(returnWithSerial(1).getX()+25);
+			
+			if(returnWithSerial(0).getCoppia().getJ() == 9) {
+				returnWithSerial(0).setX(returnWithSerial(0).getX()-50);
+				returnWithSerial(1).setX(returnWithSerial(1).getX()-50);
+				returnWithSerial(2).setX(returnWithSerial(2).getX()-50);
+				
+				returnWithSerial(0).getCoppia().setJ(returnWithSerial(0).getCoppia().getJ()-1);
+				returnWithSerial(1).getCoppia().setJ(returnWithSerial(1).getCoppia().getJ()-1);
+				returnWithSerial(2).getCoppia().setJ(returnWithSerial(2).getCoppia().getJ()-1);
+			}
+			
 		}else {
 			this.tipo = true;
 			
@@ -98,6 +120,15 @@ public class TripleBalls {
 				returnWithSerial(0).setX(returnWithSerial(0).getX()-50);
 				returnWithSerial(1).setY(returnWithSerial(1).getY()+50);
 				returnWithSerial(1).setX(returnWithSerial(1).getX()-25);
+				
+				Color c0 = returnWithSerial(0).getColor();
+				Color c1 = returnWithSerial(1).getColor();
+				Color c2 = returnWithSerial(2).getColor();
+				
+				
+				returnWithSerial(0).setC(c1);
+				returnWithSerial(1).setC(c2);
+				returnWithSerial(2).setC(c0);
 			}else {
 				returnWithSerial(2).getCoppia().setI(returnWithSerial(2).getCoppia().getI()+1);
 				returnWithSerial(1).getCoppia().setJ(returnWithSerial(1).getCoppia().getJ()-1);
@@ -106,15 +137,6 @@ public class TripleBalls {
 				returnWithSerial(1).setX(returnWithSerial(1).getX()-50);
 			}
 			
-			Color c0 = returnWithSerial(0).getColor();
-			Color c1 = returnWithSerial(1).getColor();
-			Color c2 = returnWithSerial(2).getColor();
-			
-			if(direz == 1) {
-				returnWithSerial(0).setC(c1);
-				returnWithSerial(1).setC(c2);
-				returnWithSerial(2).setC(c0);
-			}
 			direz = 0;
 		}
 	}
@@ -130,6 +152,16 @@ public class TripleBalls {
 			returnWithSerial(2).setY(returnWithSerial(2).getY()-50);
 			returnWithSerial(1).setX(returnWithSerial(1).getX()+50);
 			
+			if(returnWithSerial(0).getCoppia().getJ() == 8) {
+				returnWithSerial(0).setX(returnWithSerial(0).getX()-50);
+				returnWithSerial(1).setX(returnWithSerial(1).getX()-50);
+				returnWithSerial(2).setX(returnWithSerial(2).getX()-50);
+				
+				returnWithSerial(0).getCoppia().setJ(returnWithSerial(0).getCoppia().getJ()-1);
+				returnWithSerial(1).getCoppia().setJ(returnWithSerial(1).getCoppia().getJ()-1);
+				returnWithSerial(2).getCoppia().setJ(returnWithSerial(2).getCoppia().getJ()-1);
+			}
+			
 		}else {
 			this.tipo = true;
 			if(direz == 2) {
@@ -138,6 +170,15 @@ public class TripleBalls {
 				returnWithSerial(2).setX(returnWithSerial(2).getX()-25);
 				returnWithSerial(2).setY(returnWithSerial(2).getY()+50);
 				returnWithSerial(1).setX(returnWithSerial(1).getX()-50);
+				
+				Color c0 = returnWithSerial(0).getColor();
+				Color c1 = returnWithSerial(1).getColor();
+				Color c2 = returnWithSerial(2).getColor();
+				
+				
+				returnWithSerial(0).setC(c2);
+				returnWithSerial(1).setC(c0);
+				returnWithSerial(2).setC(c1);
 			}else {
 				returnWithSerial(0).getCoppia().setJ(returnWithSerial(0).getCoppia().getJ()-1);
 				returnWithSerial(1).getCoppia().setI(returnWithSerial(1).getCoppia().getI()+1);
@@ -145,15 +186,7 @@ public class TripleBalls {
 				returnWithSerial(1).setY(returnWithSerial(1).getY()+50);
 				returnWithSerial(1).setX(returnWithSerial(1).getX()-25);
 			}
-			Color c0 = returnWithSerial(0).getColor();
-			Color c1 = returnWithSerial(1).getColor();
-			Color c2 = returnWithSerial(2).getColor();
-			
-			if(direz == 2) {
-				returnWithSerial(0).setC(c2);
-				returnWithSerial(1).setC(c0);
-				returnWithSerial(2).setC(c1);
-			}
+		
 			direz = 0;
 		}
 	}
