@@ -21,6 +21,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 	private ArrayList<Coppia> array_coppie;
 	private boolean running = false;
     private Thread thread;
+    private boolean coll = false;
    // private boolean isCompl = true;
 	
 	public static void main(String[] args) {
@@ -43,7 +44,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 	}
 	
 	private void createTriple() {
-		Random r = new Random();
+		//Random r = new Random();
 		//int j = r.nextInt(9);
 		int j = 4; 
 		int i = 0;
@@ -51,7 +52,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 	}
 	
 	private void init() throws IncorrectInitAltMatrixException {
-		 m = new MatriceAlternata(10);
+		 m = new MatriceAlternata(12);
 		 array_coppie = new ArrayList<Coppia>();
 		 createTriple();
 	}
@@ -73,14 +74,17 @@ public class PileOfBalls extends Canvas implements Runnable {
         bs.show();
 	}
 	
-	private void settaPalline() {
+	/*private void settaPalline() {
+		p.getP0().setY(p.getP0().getY()+50);
+		p.getP1().setY(p.getP1().getY()+50);
+		p.getP2().setY(p.getP2().getY()+50);
 		m.setInPos(p.getP0(), p.getP0().getCoppia().getI(), p.getP0().getCoppia().getJ());
 		m.setInPos(p.getP1(), p.getP1().getCoppia().getI(), p.getP1().getCoppia().getJ());
 		m.setInPos(p.getP2(), p.getP2().getCoppia().getI(), p.getP2().getCoppia().getJ());
 		array_coppie.add(new Coppia(p.getP0().getCoppia().getI(), p.getP0().getCoppia().getJ()));
 		array_coppie.add(new Coppia(p.getP1().getCoppia().getI(), p.getP1().getCoppia().getJ()));
 		array_coppie.add(new Coppia(p.getP2().getCoppia().getI(), p.getP2().getCoppia().getJ()));
-	}
+	}*/
 	
 	private boolean collide1(Coppia c, int i) {
 		//if(array_coppie.get(i).getI() == c.getI() && array_coppie.get(i).getJ() == c.getJ())
@@ -208,17 +212,25 @@ public class PileOfBalls extends Canvas implements Runnable {
 	}
 	
 	private void aggiorna() {
-		
-		
+		if(coll) {
+			try {
+				Thread.sleep(300);
+				createTriple();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		coll = false;
+		Coppia c1 = new Coppia(p.getP0().getCoppia().getI(), p.getP0().getCoppia().getJ());
+		Coppia c2 = new Coppia(p.getP1().getCoppia().getI(), p.getP1().getCoppia().getJ());
+		Coppia c3 = new Coppia(p.getP2().getCoppia().getI(), p.getP2().getCoppia().getJ());
 		
 		if(!p.aggiorna(m)) {
-			
-			settaPalline();
-			createTriple();
+			settaPalline(c1.getI(), c2.getI(), c3.getI(), c1.getJ(), c2.getJ(), c3.getJ());
+			coll = true;
 		}else {
-			Coppia c1 = new Coppia(p.getP0().getCoppia().getI(), p.getP0().getCoppia().getJ());
-			Coppia c2 = new Coppia(p.getP1().getCoppia().getI(), p.getP1().getCoppia().getJ());
-			Coppia c3 = new Coppia(p.getP2().getCoppia().getI(), p.getP2().getCoppia().getJ());
+			
 			for(int i = 0; i < array_coppie.size(); i++) {
 				
 				int tmp1i = c1.getI();
@@ -255,7 +267,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 							settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
 							aggiustaMatrice();
 						}
-						createTriple();
+						coll = true;
 						break;
 					}
 					else if(this.collide1(c1, i) && tmp3j >= 10) {
@@ -275,7 +287,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 						}else {
 							settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
 						}
-						createTriple();
+						coll = true;
 						break;
 					}
 					else if(this.collide1(c1, i) && tmp2j < 0) {
@@ -294,7 +306,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 						}else {
 							settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
 						}
-						createTriple();
+						coll = true;
 						break;
 					}
 					else if((this.collide2(c1, i) || this.collide1(c2, i)) && tmp3j < 10) {
@@ -322,7 +334,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 						}else {
 							settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
 						}
-						createTriple();
+						coll = true;
 						break;
 					}
 					else if((this.collide2(c1, i) || this.collide1(c2, i)) && tmp3j >=10) {
@@ -343,7 +355,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 						}else {
 							settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
 						}
-						createTriple();
+						coll = true;
 						break;
 					}
 					else if((this.collide3(c1, i) || this.collide1(c3,i)) && tmp2j >=0) {
@@ -363,7 +375,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 						}else {
 							settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
 						}
-						createTriple();
+						coll = true;
 						break;
 					}
 					else if((this.collide3(c1, i) || this.collide1(c3,i)) && tmp2j < 0) {
@@ -384,7 +396,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 						}else {
 							settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
 						}
-						createTriple();
+						coll = true;
 						break;
 					}
 				}else {
@@ -398,7 +410,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 													this.collide3(c2, i) ||
 														this.collide3(c3, i)) {
 						settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
-						createTriple();
+						coll = true;
 						break;
 					}
 				}
@@ -406,6 +418,13 @@ public class PileOfBalls extends Canvas implements Runnable {
 		}
 		aggiustaMatrice();
 		//scoppiaPalline();
+		
+		if(coll) {
+			p.getP0().setX(-500);
+			p.getP1().setX(-500);
+			p.getP2().setX(-500);
+		}
+			
 		if(!m.get(0, 4).isWhite() || !m.get(1, 4).isWhite() && m.get(1,5).isWhite())
 			running = false;
 	}
