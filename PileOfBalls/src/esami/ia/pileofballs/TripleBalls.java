@@ -29,6 +29,9 @@ public class TripleBalls {
 		this.p2 = new Ball(p2.getX(), p2.getY()-50, tmp2, p2.getCoppia().getI(), p2.getCoppia().getJ(), 2);
 	}
 	
+	public int getDirez() {
+		return this.direz;
+	}
 	
 	public void disegna(Graphics g) {
 		returnWithSerial(0).disegna(g);
@@ -58,35 +61,34 @@ public class TripleBalls {
 	}
 	
 	public void goRight() {
-		int s = 9;
-		if(!this.tipo)
-			s = 8;
-		if(returnWithSerial(2).getCoppia().getJ() < s) {
-			if(returnWithSerial(0).getX()%2 == 0) {
+
+		if(returnWithSerial(2).getCoppia().getJ() < 9 && direz == 0
+				|| returnWithSerial(2).getCoppia().getJ() < 8 && direz == 2
+					|| returnWithSerial(0).getCoppia().getJ() < 8 && direz == 1) {
 				returnWithSerial(0).getCoppia().setJ(returnWithSerial(0).getCoppia().getJ()+1);
 				returnWithSerial(1).getCoppia().setJ(returnWithSerial(1).getCoppia().getJ()+1);
 				returnWithSerial(2).getCoppia().setJ(returnWithSerial(2).getCoppia().getJ()+1);
-			}
+			
 		
-			returnWithSerial(0).setX(returnWithSerial(0).getX()+25);
-			returnWithSerial(1).setX(returnWithSerial(1).getX()+25);
-			returnWithSerial(2).setX(returnWithSerial(2).getX()+25);
+			returnWithSerial(0).setX(returnWithSerial(0).getX()+50);
+			returnWithSerial(1).setX(returnWithSerial(1).getX()+50);
+			returnWithSerial(2).setX(returnWithSerial(2).getX()+50);
 		}
 	}
 	public void goLeft() {
-		int s = 0;
-		if(!this.tipo)
-			s = 1;
-		if(returnWithSerial(1).getCoppia().getJ() > s) {
-			if(returnWithSerial(0).getX()%2 == 0) {
-				returnWithSerial(0).getCoppia().setJ(returnWithSerial(0).getCoppia().getJ()-1);
-				returnWithSerial(1).getCoppia().setJ(returnWithSerial(1).getCoppia().getJ()-1);
-				returnWithSerial(2).getCoppia().setJ(returnWithSerial(2).getCoppia().getJ()-1);
-			}
+		
+		if((returnWithSerial(1).getCoppia().getJ() > 0 && direz == 0)
+				|| returnWithSerial(1).getCoppia().getJ() > 0 && direz == 1
+					|| returnWithSerial(0).getCoppia().getJ() > 0 && direz == 2) {
 			
-			returnWithSerial(0).setX(returnWithSerial(0).getX()-25);
-			returnWithSerial(1).setX(returnWithSerial(1).getX()-25);
-			returnWithSerial(2).setX(returnWithSerial(2).getX()-25);
+			returnWithSerial(0).getCoppia().setJ(returnWithSerial(0).getCoppia().getJ()-1);
+			returnWithSerial(1).getCoppia().setJ(returnWithSerial(1).getCoppia().getJ()-1);
+			returnWithSerial(2).getCoppia().setJ(returnWithSerial(2).getCoppia().getJ()-1);
+			
+			
+			returnWithSerial(0).setX(returnWithSerial(0).getX()-50);
+			returnWithSerial(1).setX(returnWithSerial(1).getX()-50);
+			returnWithSerial(2).setX(returnWithSerial(2).getX()-50);
 		}
 	}
 	

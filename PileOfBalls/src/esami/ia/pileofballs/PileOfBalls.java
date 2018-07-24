@@ -232,15 +232,15 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 		}else {
 			
 			for(int i = 0; i < array_coppie.size(); i++) {
-				
-				int tmp1i = c1.getI();
-				int tmp2i = c2.getI();
-				int tmp3i = c3.getI();
-				int tmp1j = c1.getJ()+1;
-				int tmp2j = c2.getJ()-1;
-				int tmp3j = c3.getJ()+1;
-				
-				if(p.isTipo() == true) {
+				if(p.isTipo()) {	
+					int tmp1i = c1.getI();
+					int tmp2i = c2.getI();
+					int tmp3i = c3.getI();
+					int tmp1j = c1.getJ()+1;
+					int tmp2j = c2.getJ()-1;
+					int tmp3j = c3.getJ()+1;
+					
+					
 					if(this.collide1(c1, i) && tmp2j >=0 && tmp3j < 10) {
 						System.out.println("Collide1");
 						if(this.isOccup(tmp1i, tmp1j)) {
@@ -413,11 +413,18 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 						coll = true;
 						break;
 					}*/
-					
-					
+					if(this.collide1(c3, i) && p.getDirez() == 1) {
+						settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
+						coll = true;
+						break;
+					}else if(this.collide1(c2, i) && p.getDirez() == 2) {
+						settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
+						coll = true;
+						break;
+					}
 				}
-			}	
-		}
+			}
+		}	
 		aggiustaMatrice();
 		//scoppiaPalline();
 		
