@@ -2,29 +2,29 @@ package esami.ia.pileofballs;
 
 import java.awt.Graphics;
 
-public class MatriceAlternata {
-	private Palla matrix[][];
+public class AlternateMatrix {
+	private Ball matrix[][];
 	private int dim;
 	
-	public MatriceAlternata(int dim) throws IncorrectInitAltMatrixException {
+	public AlternateMatrix(int dim) throws IncorrectInitAltMatrixException {
 		if(dim%2!=0 || dim < 10)
 			throw new IncorrectInitAltMatrixException();
 		
-		matrix = new Palla[dim][];
+		matrix = new Ball[dim][];
 		this.dim = dim;
 		int x = 0;
 		int y = 0;
 		for(int i = 0; i < dim; i++) {
 			if(i%2==0) {
-				matrix[i] = new Palla[9];
+				matrix[i] = new Ball[9];
 				x = 25;
 			}	
 			else {
-				matrix[i] = new Palla[10];
+				matrix[i] = new Ball[10];
 				x = 0;
 			}	
 			for(int j = 0; j < matrix[i].length; j++) {
-				matrix[i][j] = new Palla(x,y,i,j);
+				matrix[i][j] = new Ball(x,y,i,j);
 				x+=50;
 			}
 			y+=50;
@@ -39,7 +39,7 @@ public class MatriceAlternata {
 		this.dim = dim;
 	}*/
 
-	public Palla get(int i, int j) {
+	public Ball get(int i, int j) {
 		if(i >= getDim())
 			i=getDim()-1;
 		
@@ -55,7 +55,7 @@ public class MatriceAlternata {
 		return matrix[i][j];
 	}
 	
-	public void setInPos(Palla p, int i, int j) {
+	public void setInPos(Ball p, int i, int j) {
 		this.matrix[i][j] = p;
 	}
 	

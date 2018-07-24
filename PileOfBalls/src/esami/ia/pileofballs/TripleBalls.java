@@ -4,16 +4,16 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Random;
 
-public class TriplePalle {
-	private Palla p0;
-	private Palla p1;
-	private Palla p2;
+public class TripleBalls {
+	private Ball p0;
+	private Ball p1;
+	private Ball p2;
 	private Random r;
 	private int cont;
 	private boolean tipo;
 	private int direz;
 	
-	public TriplePalle(Palla p0, Palla p1, Palla p2) {
+	public TripleBalls(Ball p0, Ball p1, Ball p2) {
 		
 		r = new Random();
 		this.direz = 0;
@@ -24,9 +24,9 @@ public class TriplePalle {
 		
 		this.cont = 0;
 		
-		this.p0 = new Palla(p0.getX(), p0.getY()-50, tmp0, p0.getCoppia().getI(), p0.getCoppia().getJ(), 0);
-		this.p1 = new Palla(p1.getX(), p1.getY()-50, tmp1, p1.getCoppia().getI(), p1.getCoppia().getJ(), 1);
-		this.p2 = new Palla(p2.getX(), p2.getY()-50, tmp2, p2.getCoppia().getI(), p2.getCoppia().getJ(), 2);
+		this.p0 = new Ball(p0.getX(), p0.getY()-50, tmp0, p0.getCoppia().getI(), p0.getCoppia().getJ(), 0);
+		this.p1 = new Ball(p1.getX(), p1.getY()-50, tmp1, p1.getCoppia().getI(), p1.getCoppia().getJ(), 1);
+		this.p2 = new Ball(p2.getX(), p2.getY()-50, tmp2, p2.getCoppia().getI(), p2.getCoppia().getJ(), 2);
 	}
 	
 	
@@ -36,7 +36,7 @@ public class TriplePalle {
 		returnWithSerial(2).disegna(g);
 	}
 	
-	public boolean aggiorna(MatriceAlternata m) {
+	public boolean aggiorna(AlternateMatrix m) {
 		if(this.cont%2==0) {
 			returnWithSerial(0).getCoppia().setI(returnWithSerial(0).getCoppia().getI()+2);
 			returnWithSerial(1).getCoppia().setI(returnWithSerial(1).getCoppia().getI()+2);
@@ -158,7 +158,7 @@ public class TriplePalle {
 		}
 	}
 	
-	private Palla returnWithSerial(int i) {
+	private Ball returnWithSerial(int i) {
 		if(p0.getSerial() == i)
 			return p0;
 		else if(p1.getSerial() == i)
@@ -169,15 +169,15 @@ public class TriplePalle {
 			return null;
 	}
 	
-	public Palla getP0() {
+	public Ball getP0() {
 		return this.returnWithSerial(0);
 	}
 
-	public Palla getP1() {
+	public Ball getP1() {
 		return this.returnWithSerial(1);
 	}
 
-	public Palla getP2() {
+	public Ball getP2() {
 		return this.returnWithSerial(2);
 	}
 	

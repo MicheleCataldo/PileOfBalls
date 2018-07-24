@@ -6,8 +6,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,9 +14,9 @@ import javax.swing.JFrame;
 public class PileOfBalls extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
-	private MatriceAlternata m;
-	private TriplePalle p;
-	private ArrayList<Coppia> array_coppie;
+	private AlternateMatrix m;
+	private TripleBalls p;
+	private ArrayList<Pair> array_coppie;
 	private boolean running = false;
     private Thread thread;
     private boolean coll = false;
@@ -48,12 +46,12 @@ public class PileOfBalls extends Canvas implements Runnable {
 		//int j = r.nextInt(9);
 		int j = 4; 
 		int i = 0;
-		p = new TriplePalle(m.get(i,j),m.get(i+1,j),m.get(i+1,j+1));
+		p = new TripleBalls(m.get(i,j),m.get(i+1,j),m.get(i+1,j+1));
 	}
 	
 	private void init() throws IncorrectInitAltMatrixException {
-		 m = new MatriceAlternata(12);
-		 array_coppie = new ArrayList<Coppia>();
+		 m = new AlternateMatrix(12);
+		 array_coppie = new ArrayList<Pair>();
 		 createTriple();
 	}
 	
@@ -86,7 +84,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 		array_coppie.add(new Coppia(p.getP2().getCoppia().getI(), p.getP2().getCoppia().getJ()));
 	}*/
 	
-	private boolean collide1(Coppia c, int i) {
+	private boolean collide1(Pair c, int i) {
 		//if(array_coppie.get(i).getI() == c.getI() && array_coppie.get(i).getJ() == c.getJ())
 		if(array_coppie.get(i).equals(c))
 			return true;
@@ -94,20 +92,20 @@ public class PileOfBalls extends Canvas implements Runnable {
 		return false;
 	}
 	
-	private boolean collide2(Coppia c, int i) {
+	private boolean collide2(Pair c, int i) {
 		if(array_coppie.get(i).getI() == c.getI() && array_coppie.get(i).getJ() == c.getJ()-1)
 			return true;
 		return false;
 	}
 	
-	private boolean collide3(Coppia c, int i) {
+	private boolean collide3(Pair c, int i) {
 		if(array_coppie.get(i).getI() == c.getI() && array_coppie.get(i).getJ() == c.getJ()+1)
 			return true;
 		return false;
 	}
 	
 	private boolean isOccup(int x, int y) {
-		Coppia c = new Coppia(x, y);
+		Pair c = new Pair(x, y);
 		for(int i = 0; i < array_coppie.size(); i++) {
 			if(array_coppie.get(i).equals(c)) 
 				return true;
@@ -115,14 +113,14 @@ public class PileOfBalls extends Canvas implements Runnable {
 		return false;
 	}
 	
-	private void rimuoviDaArray(Coppia c) {
+	private void rimuoviDaArray(Pair c) {
 		for(int i = 0; i < array_coppie.size(); i++)
 			if(array_coppie.get(i).equals(c))
 				array_coppie.remove(i);
 	}
 	
 	private void aggiustaMatrice() {
-		Coppia c;
+		Pair c;
 		Color col;
 		boolean ok = false;
 		while(!ok) {
@@ -131,14 +129,14 @@ public class PileOfBalls extends Canvas implements Runnable {
 				if(m.getInternSize(i)%2 == 0) {
 					for(int j = 0; j < m.getInternSize(i); j++) {
 						col = m.get(i, j).getColor();
-						c = new Coppia(i, j);
+						c = new Pair(i, j);
 						if(i+1 < m.getDim()) {
 							if(j-1 >= 0) {
 								if(!m.get(i, j).isWhite() && m.get(i+1, j-1).isWhite()) {
 									this.rimuoviDaArray(c);
 									m.get(i, j).setC(Color.WHITE);
 									
-									array_coppie.add(new Coppia(i+1, j-1));
+									array_coppie.add(new Pair(i+1, j-1));
 									m.get(i+1, j-1).setC(col);
 									ok = false;
 									break;
@@ -151,7 +149,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 								this.rimuoviDaArray(c);
 								m.get(i, j).setC(Color.WHITE);
 								
-								array_coppie.add(new Coppia(i+1, j));
+								array_coppie.add(new Pair(i+1, j));
 								m.get(i+1, j).setC(col);
 								ok = false;
 								break;
@@ -164,13 +162,13 @@ public class PileOfBalls extends Canvas implements Runnable {
 				else {
 					for(int j = 0; j < m.getInternSize(i); j++) {
 						col = m.get(i, j).getColor();
-						c = new Coppia(i, j);
+						c = new Pair(i, j);
 						if(i+1 < m.getDim()) {
 							if(!m.get(i, j).isWhite() && m.get(i+1, j).isWhite()) {
 								this.rimuoviDaArray(c);
 								m.get(i, j).setC(Color.WHITE);
 								
-								array_coppie.add(new Coppia(i+1, j));
+								array_coppie.add(new Pair(i+1, j));
 								m.get(i+1, j).setC(col);
 								ok = false;
 								break;
@@ -181,7 +179,7 @@ public class PileOfBalls extends Canvas implements Runnable {
 									this.rimuoviDaArray(c);
 									m.get(i, j).setC(Color.WHITE);
 									
-									array_coppie.add(new Coppia(i+1, j+1));
+									array_coppie.add(new Pair(i+1, j+1));
 									m.get(i+1, j+1).setC(col);
 									ok = false;
 									break;
@@ -206,9 +204,9 @@ public class PileOfBalls extends Canvas implements Runnable {
 		m.get(i1, j1).setC(p.getP0().getColor());
 		m.get(i2, j2).setC(p.getP1().getColor());
 		m.get(i3, j3).setC(p.getP2().getColor());
-		array_coppie.add(new Coppia(i1, j1));
-		array_coppie.add(new Coppia(i2, j2));
-		array_coppie.add(new Coppia(i3, j3));
+		array_coppie.add(new Pair(i1, j1));
+		array_coppie.add(new Pair(i2, j2));
+		array_coppie.add(new Pair(i3, j3));
 	}
 	
 	private void aggiorna() {
@@ -222,9 +220,9 @@ public class PileOfBalls extends Canvas implements Runnable {
 			}
 		}
 		coll = false;
-		Coppia c1 = new Coppia(p.getP0().getCoppia().getI(), p.getP0().getCoppia().getJ());
-		Coppia c2 = new Coppia(p.getP1().getCoppia().getI(), p.getP1().getCoppia().getJ());
-		Coppia c3 = new Coppia(p.getP2().getCoppia().getI(), p.getP2().getCoppia().getJ());
+		Pair c1 = new Pair(p.getP0().getCoppia().getI(), p.getP0().getCoppia().getJ());
+		Pair c2 = new Pair(p.getP1().getCoppia().getI(), p.getP1().getCoppia().getJ());
+		Pair c3 = new Pair(p.getP2().getCoppia().getI(), p.getP2().getCoppia().getJ());
 		
 		if(!p.aggiorna(m)) {
 			settaPalline(c1.getI(), c2.getI(), c3.getI(), c1.getJ(), c2.getJ(), c3.getJ());
@@ -260,9 +258,9 @@ public class PileOfBalls extends Canvas implements Runnable {
 							m.get(tmp1i, tmp1j).setC(p.getP0().getColor());
 							m.get(tmp2i, tmp2j).setC(p.getP1().getColor());
 							m.get(tmp3i, tmp3j).setC(p.getP2().getColor());
-							array_coppie.add(new Coppia(tmp1i, tmp1j));
-							array_coppie.add(new Coppia(tmp2i, tmp2j));
-							array_coppie.add(new Coppia(tmp3i, tmp3j));
+							array_coppie.add(new Pair(tmp1i, tmp1j));
+							array_coppie.add(new Pair(tmp2i, tmp2j));
+							array_coppie.add(new Pair(tmp3i, tmp3j));
 						}else {
 							settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
 							aggiustaMatrice();
@@ -281,9 +279,9 @@ public class PileOfBalls extends Canvas implements Runnable {
 							m.get(tmp1i, tmp1j).setC(p.getP0().getColor());
 							m.get(tmp2i, tmp2j).setC(p.getP1().getColor());
 							m.get(tmp3i, tmp3j).setC(p.getP2().getColor());
-							array_coppie.add(new Coppia(tmp1i, tmp1j));
-							array_coppie.add(new Coppia(tmp2i, tmp2j));
-							array_coppie.add(new Coppia(tmp3i, tmp3j));
+							array_coppie.add(new Pair(tmp1i, tmp1j));
+							array_coppie.add(new Pair(tmp2i, tmp2j));
+							array_coppie.add(new Pair(tmp3i, tmp3j));
 						}else {
 							settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
 						}
@@ -300,9 +298,9 @@ public class PileOfBalls extends Canvas implements Runnable {
 							m.get(tmp1i, tmp1j).setC(p.getP0().getColor());
 							m.get(tmp2i, tmp2j).setC(p.getP1().getColor());
 							m.get(tmp3i, tmp3j).setC(p.getP2().getColor());
-							array_coppie.add(new Coppia(tmp1i, tmp1j));
-							array_coppie.add(new Coppia(tmp2i, tmp2j));
-							array_coppie.add(new Coppia(tmp3i, tmp3j));
+							array_coppie.add(new Pair(tmp1i, tmp1j));
+							array_coppie.add(new Pair(tmp2i, tmp2j));
+							array_coppie.add(new Pair(tmp3i, tmp3j));
 						}else {
 							settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
 						}
@@ -328,9 +326,9 @@ public class PileOfBalls extends Canvas implements Runnable {
 							m.get(tmp1i, tmp1j).setC(p.getP0().getColor());
 							m.get(tmp2i, tmp2j).setC(p.getP1().getColor());
 							m.get(tmp3i, tmp3j).setC(p.getP2().getColor());
-							array_coppie.add(new Coppia(tmp1i, tmp1j));
-							array_coppie.add(new Coppia(tmp2i, tmp2j));
-							array_coppie.add(new Coppia(tmp3i, tmp3j));
+							array_coppie.add(new Pair(tmp1i, tmp1j));
+							array_coppie.add(new Pair(tmp2i, tmp2j));
+							array_coppie.add(new Pair(tmp3i, tmp3j));
 						}else {
 							settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
 						}
@@ -349,9 +347,9 @@ public class PileOfBalls extends Canvas implements Runnable {
 							m.get(tmp1i, tmp1j).setC(p.getP0().getColor());
 							m.get(tmp2i, tmp2j).setC(p.getP1().getColor());
 							m.get(tmp3i, tmp3j).setC(p.getP2().getColor());
-							array_coppie.add(new Coppia(tmp1i, tmp1j));
-							array_coppie.add(new Coppia(tmp2i, tmp2j));
-							array_coppie.add(new Coppia(tmp3i, tmp3j));
+							array_coppie.add(new Pair(tmp1i, tmp1j));
+							array_coppie.add(new Pair(tmp2i, tmp2j));
+							array_coppie.add(new Pair(tmp3i, tmp3j));
 						}else {
 							settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
 						}
@@ -369,9 +367,9 @@ public class PileOfBalls extends Canvas implements Runnable {
 							m.get(tmp1i, tmp1j).setC(p.getP0().getColor());
 							m.get(tmp2i, tmp2j).setC(p.getP1().getColor());
 							m.get(tmp3i, tmp3j).setC(p.getP2().getColor());
-							array_coppie.add(new Coppia(tmp1i, tmp1j));
-							array_coppie.add(new Coppia(tmp2i, tmp2j));
-							array_coppie.add(new Coppia(tmp3i, tmp3j));
+							array_coppie.add(new Pair(tmp1i, tmp1j));
+							array_coppie.add(new Pair(tmp2i, tmp2j));
+							array_coppie.add(new Pair(tmp3i, tmp3j));
 						}else {
 							settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
 						}
@@ -390,9 +388,9 @@ public class PileOfBalls extends Canvas implements Runnable {
 							m.get(tmp1i, tmp1j).setC(p.getP0().getColor());
 							m.get(tmp2i, tmp2j).setC(p.getP1().getColor());
 							m.get(tmp3i, tmp3j).setC(p.getP2().getColor());
-							array_coppie.add(new Coppia(tmp1i, tmp1j));
-							array_coppie.add(new Coppia(tmp2i, tmp2j));
-							array_coppie.add(new Coppia(tmp3i, tmp3j));
+							array_coppie.add(new Pair(tmp1i, tmp1j));
+							array_coppie.add(new Pair(tmp2i, tmp2j));
+							array_coppie.add(new Pair(tmp3i, tmp3j));
 						}else {
 							settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
 						}

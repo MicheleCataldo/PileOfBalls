@@ -3,7 +3,7 @@ package esami.ia.pileofballs;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Palla {
+public class Ball {
 
 	public static int maxY = 400;
 	private int x;
@@ -11,7 +11,7 @@ public class Palla {
 	private int w;
 	private int h;
 	private Color c;
-	private Coppia coppia;
+	private Pair coppia;
 	private int serial;
 	public int getSerial() {
 		return serial;
@@ -21,23 +21,23 @@ public class Palla {
 		this.serial = serial;
 	}
 
-	public Palla(int x, int y, int i, int j) {
+	public Ball(int x, int y, int i, int j) {
 		this.x = x;
 		this.y = y;
 		this.w = 50;
 		this.h= 50;
-		this.coppia = new Coppia(i,j);
+		this.coppia = new Pair(i,j);
 		this.c = Color.WHITE;
 		this.serial = 0;
 	}
 	
-	public Palla(int x, int y, int c, int i, int j, int serial) {
+	public Ball(int x, int y, int c, int i, int j, int serial) {
 		this.x = x;
 		this.y = y;
 		this.w = 50;
 		this.h= 50;
 		this.serial = serial;
-		this.coppia = new Coppia(i,j);
+		this.coppia = new Pair(i,j);
 		switch(c) {
 			case 0:
 				this.c = Color.BLUE;
@@ -54,11 +54,11 @@ public class Palla {
 		}
 	}
 	
-	public Coppia getCoppia() {
+	public Pair getCoppia() {
 		return coppia;
 	}
 
-	public void setCoppia(Coppia coppia) {
+	public void setCoppia(Pair coppia) {
 		this.coppia = coppia;
 	}
 

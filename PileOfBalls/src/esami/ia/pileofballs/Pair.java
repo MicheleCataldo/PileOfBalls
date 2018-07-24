@@ -1,15 +1,15 @@
 package esami.ia.pileofballs;
 
-public class Coppia {
+public class Pair {
 	private int i;
 	private int j;
 	
-	public Coppia(int i, int j) {
+	public Pair(int i, int j) {
 		this.i = i;
 		this.j = j;
 	}
 	
-	public Coppia() {}
+	public Pair() {}
 
 	public int getI() {
 		return i;
@@ -28,7 +28,7 @@ public class Coppia {
 	}
 	
 	
-	public boolean equals(Coppia c) {
+	public boolean equals(Pair c) {
 		if(c.getI() == this.i && c.getJ() == this.j)
 			return true;
 		return false;
