@@ -106,12 +106,6 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 		return false;
 	}
 	
-	private void rimuoviDaArray(Pair c) {
-		for(int i = 0; i < array_coppie.size(); i++)
-			if(array_coppie.get(i).equals(c))
-				array_coppie.remove(i);
-	}
-	
 	private void occupMatrix(Pair c) {
 		boolean is = false;
 		for(int i = 0; i < array_coppie.size(); i++)
@@ -152,7 +146,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 						if(i+1 < m.getDim()) {
 							if(j-1 >= 0) {
 								if(!m.get(i, j).isWhite() && m.get(i+1, j-1).isWhite()) {
-									this.rimuoviDaArray(c);
+									array_coppie.remove(c);
 									m.get(i, j).setC(Color.WHITE);
 									
 									this.occupMatrix(new Pair(i+1, j-1));
@@ -165,7 +159,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 							}
 							
 							if(!m.get(i, j).isWhite() && m.get(i+1, j).isWhite()) {
-								this.rimuoviDaArray(c);
+								array_coppie.remove(c);
 								m.get(i, j).setC(Color.WHITE);
 								
 								this.occupMatrix(new Pair(i+1, j));
@@ -184,7 +178,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 						c = new Pair(i, j);
 						if(i+1 < m.getDim()) {
 							if(!m.get(i, j).isWhite() && m.get(i+1, j).isWhite()) {
-								this.rimuoviDaArray(c);
+								array_coppie.remove(c);
 								m.get(i, j).setC(Color.WHITE);
 								
 								this.occupMatrix(new Pair(i+1, j));
@@ -195,7 +189,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 							
 							if(j+1 < m.getInternSize(i+1)) {
 								if(!m.get(i, j).isWhite() && m.get(i+1, j+1).isWhite()) {
-									this.rimuoviDaArray(c);
+									array_coppie.remove(c);
 									m.get(i, j).setC(Color.WHITE);
 									
 									this.occupMatrix(new Pair(i+1, j+1));
