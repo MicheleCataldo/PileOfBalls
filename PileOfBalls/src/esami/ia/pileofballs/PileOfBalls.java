@@ -494,14 +494,14 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 		
 		
 		aggiustaMatrice();
-		
 		if(coll) {
 			p.getP0().setX(-500);
 			p.getP1().setX(-500);
 			p.getP2().setX(-500);
-			while(scoppiaPalline())
+			disegna();
+			while(scoppiaPalline()) {
 				aggiustaMatrice();
-		
+			}
 			createTriple();
 		}
 			
