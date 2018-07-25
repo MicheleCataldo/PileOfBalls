@@ -24,9 +24,9 @@ public class TripleBalls {
 		
 		this.cont = 0;
 		
-		this.p0 = new Ball(p0.getX(), p0.getY()-50, 1, p0.getCoppia().getI(), p0.getCoppia().getJ(), 0);
-		this.p1 = new Ball(p1.getX(), p1.getY()-50, 1, p1.getCoppia().getI(), p1.getCoppia().getJ(), 1);
-		this.p2 = new Ball(p2.getX(), p2.getY()-50, 1, p2.getCoppia().getI(), p2.getCoppia().getJ(), 2);
+		this.p0 = new Ball(p0.getX(), p0.getY()-50, tmp0, p0.getCoppia().getI(), p0.getCoppia().getJ(), 0);
+		this.p1 = new Ball(p1.getX(), p1.getY()-50, tmp1, p1.getCoppia().getI(), p1.getCoppia().getJ(), 1);
+		this.p2 = new Ball(p2.getX(), p2.getY()-50, tmp2, p2.getCoppia().getI(), p2.getCoppia().getJ(), 2);
 	}
 	
 	public int getDirez() {

@@ -43,8 +43,14 @@ public class AlternateMatrix {
 		if(i >= getDim())
 			i=getDim()-1;
 		
-		if(j >= this.getInternSize(i))
-			j=this.getInternSize(i)-1;
+		int intDim;
+		if(i%2 == 0)
+			intDim = 8;
+		else
+			intDim = 9;
+		
+		if(j >= intDim)
+			j=intDim-1;
 		
 		if(i < 0)
 			i = 0;
