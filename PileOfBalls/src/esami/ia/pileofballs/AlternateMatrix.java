@@ -49,7 +49,7 @@ public class AlternateMatrix {
 		else
 			intDim = 9;
 		
-		if(j >= intDim)
+		if(j > intDim)
 			j=intDim-1;
 		
 		if(i < 0)

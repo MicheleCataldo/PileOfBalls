@@ -61,7 +61,6 @@ public class TripleBalls {
 	}
 	
 	public void goRight() {
-
 		if(returnWithSerial(2).getCoppia().getJ() < 9 && direz == 0
 				|| returnWithSerial(2).getCoppia().getJ() < 8 && direz == 2
 					|| returnWithSerial(0).getCoppia().getJ() < 8 && direz == 1) {

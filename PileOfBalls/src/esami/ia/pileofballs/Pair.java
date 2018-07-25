@@ -35,8 +35,7 @@ public class Pair {
 	}
 	
 	public String toString() {
-		return getI()+" "+getJ()+"\n";
-		
+		return getI()+" "+getJ();
 	}
 	
 	
