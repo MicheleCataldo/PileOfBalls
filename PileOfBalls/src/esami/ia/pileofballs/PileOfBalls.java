@@ -3,6 +3,7 @@ package esami.ia.pileofballs;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -17,6 +18,8 @@ import javax.swing.JFrame;
 public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 
 	private static final long serialVersionUID = 1L;
+	private static int WIDTH = 700;
+	private static int HEIGHT = 680;
 	private AlternateMatrix m;
 	private TripleBalls p;
 	private ArrayList<Pair> array_coppie;
@@ -24,14 +27,15 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 	private boolean running = false;
     private Thread thread;
     private boolean coll = false;
+    private int punteggio = 0;
    // private boolean isCompl = true;
 	
 	public static void main(String[] args) {
 		PileOfBalls pob = new PileOfBalls();
         
-        pob.setPreferredSize(new Dimension(700, 680));
-        pob.setMaximumSize(new Dimension(700, 680));
-        pob.setMinimumSize(new Dimension(700, 680));
+        pob.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        pob.setMaximumSize(new Dimension(WIDTH, HEIGHT));
+        pob.setMinimumSize(new Dimension(WIDTH, HEIGHT));
         
         JFrame frame = new JFrame("Pile of Balls");
         frame.add(pob);
@@ -72,6 +76,11 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
         g.fillRect(0, 0, 800, 800);
         m.getElements(g);
         p.disegna(g);
+        g.setColor(Color.WHITE);
+        g.drawLine(505, 0, 505, PileOfBalls.HEIGHT);
+        Font fnt0 = new Font("8-bit pusab", Font.BOLD, 10);
+        g.setFont(fnt0);
+        g.drawString("Punteggio: "+this.punteggio, 510, 50);
         
         g.dispose();
         bs.show();
@@ -298,6 +307,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 					System.out.println(balls.get(y).toString());
 					contin = true;
 				}
+				punteggio += balls.size()*10;
 			}
 			balls = new ArrayList<Pair>();
 			System.out.println("Array size: "+array_coppie.size());
