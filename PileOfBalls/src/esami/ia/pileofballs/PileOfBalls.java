@@ -294,7 +294,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 				if(balls.get(j).getI()+1 < m.getDim() && balls.get(j).getJ() <= intDim2 && balls.get(j).getJ() >= 0) {
 					if(m.get(balls.get(j).getI()+1, balls.get(j).getJ()).getColor().equals(col)) {
 						System.out.println("caso 3");
-						System.out.println(balls.get(j).getI()+1+" "+balls.get(j).getJ()+t);
+						
 						p = new Pair(balls.get(j).getI()+1, balls.get(j).getJ());
 						this.addBalls(p);
 					}
@@ -303,13 +303,13 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 				if(balls.get(j).getI()-1 >= 0 && balls.get(j).getJ() <= intDim2 && balls.get(j).getJ() >= 0) {
 					if(m.get(balls.get(j).getI()-1, balls.get(j).getJ()).getColor().equals(col) ) {
 						System.out.println("caso 4");
-						System.out.println(balls.get(j).getI()-1+" "+balls.get(j).getJ());
+						
 						p = new Pair(balls.get(j).getI()-1, balls.get(j).getJ());
 						this.addBalls(p);
 					}
 				}
 					
-				System.out.println(balls.get(j).getI()+1+" "+balls.get(j).getJ()+t);
+				
 				if(balls.get(j).getI()+1 < m.getDim() && balls.get(j).getJ()+t >=0 && balls.get(j).getJ()+t <= intDim2) {
 					if(m.get(balls.get(j).getI()+1, balls.get(j).getJ()+t).getColor().equals(col) ) {
 						System.out.println("caso 5");
@@ -318,7 +318,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 					}
 				}
 				
-				System.out.println(balls.get(j).getI()-1+" "+balls.get(j).getJ()+t);
+				
 				if(balls.get(j).getI()-1 >= 0 && balls.get(j).getJ()+t >=0 && balls.get(j).getJ()+t <= intDim2) {
 					if(m.get(balls.get(j).getI()-1, balls.get(j).getJ()+t).getColor().equals(col)) {
 						System.out.println("caso 6");
@@ -327,19 +327,16 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 					}
 				}
 			}
-			System.out.println("Balls size: "+balls.size());
+			
 			if(balls.size() > 3) {
 				for(int y = 0; y < balls.size(); y++) {
 					m.get(balls.get(y).getI(), balls.get(y).getJ()).setC(Color.WHITE);
 					this.freeMatrix(balls.get(y));
-					System.out.println(balls.get(y).toString());
 					contin = true;
 				}
 				punteggio += balls.size()*10;
 			}
 			balls = new ArrayList<Pair>();
-			System.out.println("Array size: "+array_coppie.size());
-			System.out.println("Balls size: "+balls.size());
 		}
 		
 		return contin;
@@ -620,20 +617,28 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 		int botton = arg0.getKeyCode();
 		switch(botton) {
 			case KeyEvent.VK_RIGHT:
-				p.goRight();
-				disegna();
+				if(parts.equals(Parts.PLAY)) {
+					p.goRight();
+					disegna();
+				}
 				break;
 			case KeyEvent.VK_LEFT:
-				p.goLeft();
-				disegna();
+				if(parts.equals(Parts.PLAY)) {
+					p.goLeft();
+					disegna();
+				}
 				break;
 			case KeyEvent.VK_UP:
-				p.giraSx();
-				disegna();
+				if(parts.equals(Parts.PLAY)) {
+					p.giraSx();
+					disegna();
+				}
 				break;
 			case KeyEvent.VK_DOWN:
-				p.giraDx();
-				disegna();
+				if(parts.equals(Parts.PLAY)) {
+					p.giraDx();
+					disegna();
+				}
 				break;
 			case KeyEvent.VK_ENTER:
 				switch(parts) {

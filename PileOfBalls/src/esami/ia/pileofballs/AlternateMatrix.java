@@ -60,9 +60,6 @@ public class AlternateMatrix {
 		if(j < 0)
 			j = 0;
 		
-		
-		
-		System.out.println(i+" "+j);
 		return matrix[i][j];
 	}
 	
