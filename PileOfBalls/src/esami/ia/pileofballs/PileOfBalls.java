@@ -27,7 +27,8 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 	private boolean running = false;
     private Thread thread;
     private boolean coll = false;
-    private int punteggio = 0;
+    private int punteggio;
+    private Parts parts = Parts.MENU;
    // private boolean isCompl = true;
 	
 	public static void main(String[] args) {
@@ -61,6 +62,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 		 m = new AlternateMatrix(12);
 		 array_coppie = new ArrayList<Pair>();
 		 balls = new ArrayList<Pair>();
+		 punteggio = 0;
 		 createTriple();
 	}
 	
@@ -74,13 +76,39 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
         
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, 800, 800);
-        m.getElements(g);
-        p.disegna(g);
-        g.setColor(Color.WHITE);
-        g.drawLine(505, 0, 505, PileOfBalls.HEIGHT);
-        Font fnt0 = new Font("8-bit pusab", Font.BOLD, 10);
-        g.setFont(fnt0);
-        g.drawString("Punteggio: "+this.punteggio, 510, 50);
+        
+        if(parts.equals(Parts.PLAY) || parts.equals(Parts.PAUSE)
+        		|| parts.equals(Parts.LOST)) {
+	        m.getElements(g);
+	        p.disegna(g);
+	        g.setColor(Color.WHITE);
+	        g.drawLine(505, 0, 505, PileOfBalls.HEIGHT);
+	        Font fnt0 = new Font("8-bit pusab", Font.BOLD, 10);
+	        g.setFont(fnt0);
+	        g.drawString("Punteggio: "+this.punteggio, 510, 50);
+	        g.drawLine(505, 60, PileOfBalls.WIDTH+20, 60);
+	        if(parts.equals(Parts.PAUSE)) {
+	        	Font fnt1 = new Font("8-bit pusab", Font.BOLD, 40);
+		        g.setFont(fnt1);
+		        g.setColor(Color.GRAY);
+		        g.drawString("PAUSE", 120, PileOfBalls.HEIGHT/2);
+	        }
+	        else if(parts.equals(Parts.LOST)) {
+	        	Font fnt1 = new Font("8-bit pusab", Font.BOLD, 40);
+		        g.setFont(fnt1);
+		        g.setColor(Color.GRAY);
+		        g.drawString("GAME OVER", 120, PileOfBalls.HEIGHT/2);
+	        }
+        }
+        else if(parts.equals(Parts.MENU)) {
+        	g.setColor(Color.RED);
+	        Font fnt0 = new Font("8-bit pusab", Font.BOLD, 40);
+	        g.setFont(fnt0);
+	        g.drawString("Pile of Balls", 120, 100);
+	        Font fnt1 = new Font("8-bit pusab", Font.BOLD, 20); 
+	        g.setFont(fnt1);
+	        g.drawString("Press ENTER to start", 150, 300);
+        }
         
         g.dispose();
         bs.show();
@@ -327,219 +355,221 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 	}
 	
 	private void aggiorna() throws InterruptedException {
-		coll = false;
-		Pair c1 = new Pair(p.getP0().getCoppia().getI(), p.getP0().getCoppia().getJ());
-		Pair c2 = new Pair(p.getP1().getCoppia().getI(), p.getP1().getCoppia().getJ());
-		Pair c3 = new Pair(p.getP2().getCoppia().getI(), p.getP2().getCoppia().getJ());
-		
-		if(!p.aggiorna(m)) {
-			settaPalline(c1.getI(), c2.getI(), c3.getI(), c1.getJ(), c2.getJ(), c3.getJ());
-			coll = true;
-		}else {
+		if(parts.equals(Parts.PLAY)) {
+			coll = false;
+			Pair c1 = new Pair(p.getP0().getCoppia().getI(), p.getP0().getCoppia().getJ());
+			Pair c2 = new Pair(p.getP1().getCoppia().getI(), p.getP1().getCoppia().getJ());
+			Pair c3 = new Pair(p.getP2().getCoppia().getI(), p.getP2().getCoppia().getJ());
 			
-			for(int i = 0; i < array_coppie.size(); i++) {
-				if(p.isTipo()) {	
-					int tmp1i = c1.getI();
-					int tmp2i = c2.getI();
-					int tmp3i = c3.getI();
-					int tmp1j = c1.getJ()+1;
-					int tmp2j = c2.getJ()-1;
-					int tmp3j = c3.getJ()+1;
-					
-					
-					if(this.collide1(c1, i) && tmp2j >=0 && tmp3j < 10) {
-						System.out.println("Collide1");
-						if(this.isOccup(tmp1i, tmp1j)) {
-							tmp1i--;
-							tmp1j--;
+			if(!p.aggiorna(m)) {
+				settaPalline(c1.getI(), c2.getI(), c3.getI(), c1.getJ(), c2.getJ(), c3.getJ());
+				coll = true;
+			}else {
+				
+				for(int i = 0; i < array_coppie.size(); i++) {
+					if(p.isTipo()) {	
+						int tmp1i = c1.getI();
+						int tmp2i = c2.getI();
+						int tmp3i = c3.getI();
+						int tmp1j = c1.getJ()+1;
+						int tmp2j = c2.getJ()-1;
+						int tmp3j = c3.getJ()+1;
+						
+						
+						if(this.collide1(c1, i) && tmp2j >=0 && tmp3j < 10) {
+							System.out.println("Collide1");
+							if(this.isOccup(tmp1i, tmp1j)) {
+								tmp1i--;
+								tmp1j--;
+							}
+							if(this.isOccup(tmp2i, tmp2j)) {
+								tmp2i--;
+							}
+							if(this.isOccup(tmp3i, tmp3j)) {
+								tmp3i-=2;
+								tmp3j--;
+							}
+							if(m.get(tmp1i, tmp1j).isWhite() &&
+									m.get(tmp2i, tmp2j).isWhite()
+									&& m.get(tmp3i, tmp3j).isWhite()) {
+								m.get(tmp1i, tmp1j).setC(p.getP0().getColor());
+								m.get(tmp2i, tmp2j).setC(p.getP1().getColor());
+								m.get(tmp3i, tmp3j).setC(p.getP2().getColor());
+								this.occupMatrix(new Pair(tmp1i, tmp1j));
+								this.occupMatrix(new Pair(tmp2i, tmp2j));
+								this.occupMatrix(new Pair(tmp3i, tmp3j));
+							}else {
+								settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
+								aggiustaMatrice();
+							}
+							coll = true;
+							break;
 						}
-						if(this.isOccup(tmp2i, tmp2j)) {
-							tmp2i--;
-						}
-						if(this.isOccup(tmp3i, tmp3j)) {
-							tmp3i-=2;
+						else if(this.collide1(c1, i) && tmp3j >= 10) {
+							System.out.println("Collide2");
+							tmp3i -=2;
 							tmp3j--;
+							tmp1j-=2;
+							if(m.get(tmp1i, tmp1j).isWhite() &&
+									m.get(tmp2i, tmp2j).isWhite()
+									&& m.get(tmp3i, tmp3j).isWhite()) {
+								m.get(tmp1i, tmp1j).setC(p.getP0().getColor());
+								m.get(tmp2i, tmp2j).setC(p.getP1().getColor());
+								m.get(tmp3i, tmp3j).setC(p.getP2().getColor());
+								this.occupMatrix(new Pair(tmp1i, tmp1j));
+								this.occupMatrix(new Pair(tmp2i, tmp2j));
+								this.occupMatrix(new Pair(tmp3i, tmp3j));
+							}else {
+								settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
+							}
+							coll = true;
+							break;
 						}
-						if(m.get(tmp1i, tmp1j).isWhite() &&
-								m.get(tmp2i, tmp2j).isWhite()
-								&& m.get(tmp3i, tmp3j).isWhite()) {
-							m.get(tmp1i, tmp1j).setC(p.getP0().getColor());
-							m.get(tmp2i, tmp2j).setC(p.getP1().getColor());
-							m.get(tmp3i, tmp3j).setC(p.getP2().getColor());
-							this.occupMatrix(new Pair(tmp1i, tmp1j));
-							this.occupMatrix(new Pair(tmp2i, tmp2j));
-							this.occupMatrix(new Pair(tmp3i, tmp3j));
-						}else {
-							settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
-							aggiustaMatrice();
+						else if(this.collide1(c1, i) && tmp2j < 0) {
+							System.out.println("Collide3");
+							tmp2i-=2;
+							tmp2j++;
+							if(m.get(tmp1i, tmp1j).isWhite() &&
+									m.get(tmp2i, tmp2j).isWhite()
+									&& m.get(tmp3i, tmp3j).isWhite()) {
+								m.get(tmp1i, tmp1j).setC(p.getP0().getColor());
+								m.get(tmp2i, tmp2j).setC(p.getP1().getColor());
+								m.get(tmp3i, tmp3j).setC(p.getP2().getColor());
+								this.occupMatrix(new Pair(tmp1i, tmp1j));
+								this.occupMatrix(new Pair(tmp2i, tmp2j));
+								this.occupMatrix(new Pair(tmp3i, tmp3j));
+							}else {
+								settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
+							}
+							coll = true;
+							break;
 						}
-						coll = true;
-						break;
-					}
-					else if(this.collide1(c1, i) && tmp3j >= 10) {
-						System.out.println("Collide2");
-						tmp3i -=2;
-						tmp3j--;
-						tmp1j-=2;
-						if(m.get(tmp1i, tmp1j).isWhite() &&
-								m.get(tmp2i, tmp2j).isWhite()
-								&& m.get(tmp3i, tmp3j).isWhite()) {
-							m.get(tmp1i, tmp1j).setC(p.getP0().getColor());
-							m.get(tmp2i, tmp2j).setC(p.getP1().getColor());
-							m.get(tmp3i, tmp3j).setC(p.getP2().getColor());
-							this.occupMatrix(new Pair(tmp1i, tmp1j));
-							this.occupMatrix(new Pair(tmp2i, tmp2j));
-							this.occupMatrix(new Pair(tmp3i, tmp3j));
-						}else {
-							settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
+						else if((this.collide2(c1, i) || this.collide1(c2, i)) && tmp3j < 10) {
+							System.out.println("Collide4");
+							if(m.get(c1.getI(), c1.getJ()).isWhite() &&
+									!m.get(c2.getI(), c2.getJ()).isWhite()
+									&& !m.get(c3.getI(), c3.getJ()).isWhite()) {
+								tmp2j = c2.getJ()-1;
+								tmp3j = c3.getJ()+1;
+								tmp1j = c1.getJ();
+							}else {
+								tmp1j = c1.getJ()+1;
+								tmp2j = c2.getJ()+1;
+								tmp3j = c3.getJ()+1;
+							}
+							if(m.get(tmp1i, tmp1j).isWhite() &&
+									m.get(tmp2i, tmp2j).isWhite()
+									&& m.get(tmp3i, tmp3j).isWhite()) {
+								m.get(tmp1i, tmp1j).setC(p.getP0().getColor());
+								m.get(tmp2i, tmp2j).setC(p.getP1().getColor());
+								m.get(tmp3i, tmp3j).setC(p.getP2().getColor());
+								this.occupMatrix(new Pair(tmp1i, tmp1j));
+								this.occupMatrix(new Pair(tmp2i, tmp2j));
+								this.occupMatrix(new Pair(tmp3i, tmp3j));
+							}else {
+								settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
+							}
+							coll = true;
+							break;
 						}
-						coll = true;
-						break;
-					}
-					else if(this.collide1(c1, i) && tmp2j < 0) {
-						System.out.println("Collide3");
-						tmp2i-=2;
-						tmp2j++;
-						if(m.get(tmp1i, tmp1j).isWhite() &&
-								m.get(tmp2i, tmp2j).isWhite()
-								&& m.get(tmp3i, tmp3j).isWhite()) {
-							m.get(tmp1i, tmp1j).setC(p.getP0().getColor());
-							m.get(tmp2i, tmp2j).setC(p.getP1().getColor());
-							m.get(tmp3i, tmp3j).setC(p.getP2().getColor());
-							this.occupMatrix(new Pair(tmp1i, tmp1j));
-							this.occupMatrix(new Pair(tmp2i, tmp2j));
-							this.occupMatrix(new Pair(tmp3i, tmp3j));
-						}else {
-							settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
-						}
-						coll = true;
-						break;
-					}
-					else if((this.collide2(c1, i) || this.collide1(c2, i)) && tmp3j < 10) {
-						System.out.println("Collide4");
-						if(m.get(c1.getI(), c1.getJ()).isWhite() &&
-								!m.get(c2.getI(), c2.getJ()).isWhite()
-								&& !m.get(c3.getI(), c3.getJ()).isWhite()) {
-							tmp2j = c2.getJ()-1;
-							tmp3j = c3.getJ()+1;
+						else if((this.collide2(c1, i) || this.collide1(c2, i)) && tmp3j >=10) {
+							System.out.println("Collide5");
 							tmp1j = c1.getJ();
-						}else {
-							tmp1j = c1.getJ()+1;
 							tmp2j = c2.getJ()+1;
-							tmp3j = c3.getJ()+1;
+							tmp3i -=2;
+							tmp3j = c3.getJ();
+							if(m.get(tmp1i, tmp1j).isWhite() &&
+									m.get(tmp2i, tmp2j).isWhite()
+									&& m.get(tmp3i, tmp3j).isWhite()) {
+								m.get(tmp1i, tmp1j).setC(p.getP0().getColor());
+								m.get(tmp2i, tmp2j).setC(p.getP1().getColor());
+								m.get(tmp3i, tmp3j).setC(p.getP2().getColor());
+								this.occupMatrix(new Pair(tmp1i, tmp1j));
+								this.occupMatrix(new Pair(tmp2i, tmp2j));
+								this.occupMatrix(new Pair(tmp3i, tmp3j));
+							}else {
+								settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
+							}
+							coll = true;
+							break;
 						}
-						if(m.get(tmp1i, tmp1j).isWhite() &&
-								m.get(tmp2i, tmp2j).isWhite()
-								&& m.get(tmp3i, tmp3j).isWhite()) {
-							m.get(tmp1i, tmp1j).setC(p.getP0().getColor());
-							m.get(tmp2i, tmp2j).setC(p.getP1().getColor());
-							m.get(tmp3i, tmp3j).setC(p.getP2().getColor());
-							this.occupMatrix(new Pair(tmp1i, tmp1j));
-							this.occupMatrix(new Pair(tmp2i, tmp2j));
-							this.occupMatrix(new Pair(tmp3i, tmp3j));
-						}else {
+						else if((this.collide3(c1, i) || this.collide1(c3,i)) && tmp2j >=0) {
+							System.out.println("Collide6");
+							tmp1j = c1.getJ()-1;
+							tmp2j = c2.getJ()-1;
+							tmp3j = c3.getJ()-1;
+							if(m.get(tmp1i, tmp1j).isWhite() &&
+									m.get(tmp2i, tmp2j).isWhite()
+									&& m.get(tmp3i, tmp3j).isWhite()) {
+								m.get(tmp1i, tmp1j).setC(p.getP0().getColor());
+								m.get(tmp2i, tmp2j).setC(p.getP1().getColor());
+								m.get(tmp3i, tmp3j).setC(p.getP2().getColor());
+								this.occupMatrix(new Pair(tmp1i, tmp1j));
+								this.occupMatrix(new Pair(tmp2i, tmp2j));
+								this.occupMatrix(new Pair(tmp3i, tmp3j));
+							}else {
+								settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
+							}
+							coll = true;
+							break;
+						}
+						else if((this.collide3(c1, i) || this.collide1(c3,i)) && tmp2j < 0) {
+							System.out.println("Collide7");
+							tmp1j = c1.getJ();
+							tmp2i-=2;
+							tmp2j = c2.getJ();
+							tmp3j = c3.getJ()-1;
+							if(m.get(tmp1i, tmp1j).isWhite() &&
+									m.get(tmp2i, tmp2j).isWhite()
+									&& m.get(tmp3i, tmp3j).isWhite()) {
+								m.get(tmp1i, tmp1j).setC(p.getP0().getColor());
+								m.get(tmp2i, tmp2j).setC(p.getP1().getColor());
+								m.get(tmp3i, tmp3j).setC(p.getP2().getColor());
+								this.occupMatrix(new Pair(tmp1i, tmp1j));
+								this.occupMatrix(new Pair(tmp2i, tmp2j));
+								this.occupMatrix(new Pair(tmp3i, tmp3j));
+							}else {
+								settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
+							}
+							coll = true;
+							break;
+						}
+					}else {
+						if(this.collide1(c3, i) && p.getDirez() == 1) {
 							settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
-						}
-						coll = true;
-						break;
-					}
-					else if((this.collide2(c1, i) || this.collide1(c2, i)) && tmp3j >=10) {
-						System.out.println("Collide5");
-						tmp1j = c1.getJ();
-						tmp2j = c2.getJ()+1;
-						tmp3i -=2;
-						tmp3j = c3.getJ();
-						if(m.get(tmp1i, tmp1j).isWhite() &&
-								m.get(tmp2i, tmp2j).isWhite()
-								&& m.get(tmp3i, tmp3j).isWhite()) {
-							m.get(tmp1i, tmp1j).setC(p.getP0().getColor());
-							m.get(tmp2i, tmp2j).setC(p.getP1().getColor());
-							m.get(tmp3i, tmp3j).setC(p.getP2().getColor());
-							this.occupMatrix(new Pair(tmp1i, tmp1j));
-							this.occupMatrix(new Pair(tmp2i, tmp2j));
-							this.occupMatrix(new Pair(tmp3i, tmp3j));
-						}else {
+							coll = true;
+							break;
+						}else if(this.collide1(c2, i) && p.getDirez() == 2) {
 							settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
+							coll = true;
+							break;
 						}
-						coll = true;
-						break;
-					}
-					else if((this.collide3(c1, i) || this.collide1(c3,i)) && tmp2j >=0) {
-						System.out.println("Collide6");
-						tmp1j = c1.getJ()-1;
-						tmp2j = c2.getJ()-1;
-						tmp3j = c3.getJ()-1;
-						if(m.get(tmp1i, tmp1j).isWhite() &&
-								m.get(tmp2i, tmp2j).isWhite()
-								&& m.get(tmp3i, tmp3j).isWhite()) {
-							m.get(tmp1i, tmp1j).setC(p.getP0().getColor());
-							m.get(tmp2i, tmp2j).setC(p.getP1().getColor());
-							m.get(tmp3i, tmp3j).setC(p.getP2().getColor());
-							this.occupMatrix(new Pair(tmp1i, tmp1j));
-							this.occupMatrix(new Pair(tmp2i, tmp2j));
-							this.occupMatrix(new Pair(tmp3i, tmp3j));
-						}else {
-							settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
-						}
-						coll = true;
-						break;
-					}
-					else if((this.collide3(c1, i) || this.collide1(c3,i)) && tmp2j < 0) {
-						System.out.println("Collide7");
-						tmp1j = c1.getJ();
-						tmp2i-=2;
-						tmp2j = c2.getJ();
-						tmp3j = c3.getJ()-1;
-						if(m.get(tmp1i, tmp1j).isWhite() &&
-								m.get(tmp2i, tmp2j).isWhite()
-								&& m.get(tmp3i, tmp3j).isWhite()) {
-							m.get(tmp1i, tmp1j).setC(p.getP0().getColor());
-							m.get(tmp2i, tmp2j).setC(p.getP1().getColor());
-							m.get(tmp3i, tmp3j).setC(p.getP2().getColor());
-							this.occupMatrix(new Pair(tmp1i, tmp1j));
-							this.occupMatrix(new Pair(tmp2i, tmp2j));
-							this.occupMatrix(new Pair(tmp3i, tmp3j));
-						}else {
-							settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
-						}
-						coll = true;
-						break;
-					}
-				}else {
-					if(this.collide1(c3, i) && p.getDirez() == 1) {
-						settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
-						coll = true;
-						break;
-					}else if(this.collide1(c2, i) && p.getDirez() == 2) {
-						settaPalline(c1.getI()-2, c2.getI()-2, c3.getI()-2, c1.getJ(), c2.getJ(), c3.getJ());
-						coll = true;
-						break;
 					}
 				}
-			}
-		}	
-		
-		Thread.sleep(500);
-		aggiustaMatrice();
-		disegna();
-		if(coll) {
-			p.getP0().setX(-500);
-			p.getP1().setX(-500);
-			p.getP2().setX(-500);
-			disegna();
-			while(scoppiaPalline()) {
-				Thread.sleep(1000);
-				disegna();
-				Thread.sleep(1000);
-				aggiustaMatrice();
-				disegna();
-				Thread.sleep(1000);
-			}
-			createTriple();
-		}
+			}	
 			
-		if(!m.get(0, 4).isWhite() || !m.get(1, 4).isWhite() && m.get(1,5).isWhite())
-			running = false;
+			Thread.sleep(500);
+			aggiustaMatrice();
+			disegna();
+			if(coll) {
+				p.getP0().setX(-500);
+				p.getP1().setX(-500);
+				p.getP2().setX(-500);
+				disegna();
+				while(scoppiaPalline()) {
+					Thread.sleep(1000);
+					disegna();
+					Thread.sleep(1000);
+					aggiustaMatrice();
+					disegna();
+					Thread.sleep(1000);
+				}
+				createTriple();
+			}
+				
+			if(!m.get(0, 4).isWhite() || !m.get(1, 4).isWhite() && m.get(1,5).isWhite())
+				parts = Parts.LOST;
+		}	
 	}
 	 private synchronized void start(){
 	        if(running)
@@ -605,8 +635,31 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 				p.giraDx();
 				disegna();
 				break;
+			case KeyEvent.VK_ENTER:
+				switch(parts) {
+					case MENU:
+					try {
+						init();
+						parts = Parts.PLAY;
+						break;
+					} catch (IncorrectInitAltMatrixException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					case PLAY:
+						parts = Parts.PAUSE;
+						break;
+					case PAUSE:
+						parts = Parts.PLAY;
+						break;
+					case LOST:
+						parts = Parts.MENU;
+						break;
+				default:
+					break;
+				}
 			default:
-				System.out.println("Comando non valido");
+				break;
 		}
 	}
 
