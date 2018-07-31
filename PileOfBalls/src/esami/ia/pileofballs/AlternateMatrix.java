@@ -52,12 +52,17 @@ public class AlternateMatrix {
 		if(j > intDim)
 			j=intDim-1;
 		
-		if(i < 0)
+		if(i < 0) {
 			i = 0;
-		
+			if(j > intDim)
+				j=intDim-1;
+		}
 		if(j < 0)
 			j = 0;
 		
+		
+		
+		System.out.println(i+" "+j);
 		return matrix[i][j];
 	}
 	
