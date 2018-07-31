@@ -54,7 +54,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 	}
 	
 	private void init() throws IncorrectInitAltMatrixException {
-		 m = new AlternateMatrix(10);
+		 m = new AlternateMatrix(12);
 		 array_coppie = new ArrayList<Pair>();
 		 balls = new ArrayList<Pair>();
 		 createTriple();
@@ -222,6 +222,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 		Pair p;
 		int t;
 		int intDim;
+		int intDim2;
 		boolean contin = false;
 		for(int i = 0; i < array_coppie.size(); i++) {
 			this.addBalls(array_coppie.get(i));
@@ -230,10 +231,12 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 				if(balls.get(j).getI()%2 == 0) {
 					t = 1;
 					intDim = 8;
+					intDim2 = 9;
 				}	
 				else {
 					t = -1;
 					intDim = 9;
+					intDim2 = 8;
 				}
 				if(m.get(balls.get(j).getI(), balls.get(j).getJ()+1).getColor().equals(col) && balls.get(j).getJ()+1 < intDim) {
 					System.out.println("caso 1");
@@ -247,27 +250,29 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 					this.addBalls(p);
 				}
 						
-				if(m.get(balls.get(j).getI()+1, balls.get(j).getJ()).getColor().equals(col) && balls.get(j).getI()+1 < m.getDim()) {
+				if(m.get(balls.get(j).getI()+1, balls.get(j).getJ()).getColor().equals(col) && balls.get(j).getI()+1 < m.getDim()&&
+						balls.get(j).getJ() < intDim2 && balls.get(j).getJ() >= 0) {
 					System.out.println("caso 3");
 					p = new Pair(balls.get(j).getI()+1, balls.get(j).getJ());
 					this.addBalls(p);
 				}
 						
-				if(m.get(balls.get(j).getI()-1, balls.get(j).getJ()).getColor().equals(col) && balls.get(j).getI()-1 >= 0) {
+				if(m.get(balls.get(j).getI()-1, balls.get(j).getJ()).getColor().equals(col) && balls.get(j).getI()-1 >= 0 &&
+						balls.get(j).getJ() < intDim2 && balls.get(j).getJ() >= 0) {
 					System.out.println("caso 4");
 					p = new Pair(balls.get(j).getI()-1, balls.get(j).getJ());
 					this.addBalls(p);
 				}
 						
 				if(m.get(balls.get(j).getI()+1, balls.get(j).getJ()+t).getColor().equals(col) && balls.get(j).getI()+1 < m.getDim() 
-					&& balls.get(j).getJ()+t >=0 && balls.get(j).getJ()+t < intDim) {
+					&& balls.get(j).getJ()+t >=0 && balls.get(j).getJ()+t < intDim2) {
 					System.out.println("caso 5");
 					p = new Pair(balls.get(j).getI()+1, balls.get(j).getJ()+t);
 					this.addBalls(p);
 				}
 						
 				if(m.get(balls.get(j).getI()-1, balls.get(j).getJ()+t).getColor().equals(col) && balls.get(j).getI()-1 >= 0
-					&& balls.get(j).getJ()+t >=0 && balls.get(j).getJ()+t < intDim) {
+					&& balls.get(j).getJ()+t >=0 && balls.get(j).getJ()+t < intDim2) {
 					System.out.println("caso 6");
 					p = new Pair(balls.get(j).getI()-1, balls.get(j).getJ()+t);
 					this.addBalls(p);
