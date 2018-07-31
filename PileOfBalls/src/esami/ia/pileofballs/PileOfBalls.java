@@ -316,7 +316,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 		this.occupMatrix(new Pair(i3, j3));
 	}
 	
-	private void aggiorna() {
+	private void aggiorna() throws InterruptedException {
 		coll = false;
 		Pair c1 = new Pair(p.getP0().getCoppia().getI(), p.getP0().getCoppia().getJ());
 		Pair c2 = new Pair(p.getP1().getCoppia().getI(), p.getP1().getCoppia().getJ());
@@ -509,15 +509,21 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 			}
 		}	
 		
-		
+		Thread.sleep(500);
 		aggiustaMatrice();
+		disegna();
 		if(coll) {
 			p.getP0().setX(-500);
 			p.getP1().setX(-500);
 			p.getP2().setX(-500);
 			disegna();
 			while(scoppiaPalline()) {
+				Thread.sleep(1000);
+				disegna();
+				Thread.sleep(1000);
 				aggiustaMatrice();
+				disegna();
+				Thread.sleep(1000);
 			}
 			createTriple();
 		}
