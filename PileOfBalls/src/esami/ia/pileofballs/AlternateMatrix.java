@@ -13,7 +13,7 @@ public class AlternateMatrix {
 		matrix = new Ball[dim][];
 		this.dim = dim;
 		int x = 0;
-		int y = 0;
+		int y = 50;
 		for(int i = 0; i < dim; i++) {
 			if(i%2==0) {
 				matrix[i] = new Ball[9];

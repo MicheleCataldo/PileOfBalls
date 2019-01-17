@@ -1,0 +1,51 @@
+public class IA{
+	java.util.ArrayList<esame.ia.pileofballs.Lista> risultato;
+	java.util.ArrayList<esame.ia.pileofballs.Lista> vuoto;
+	int num;
+	public IA(){}
+	
+	public java.util.ArrayList<esame.ia.pileofballs.Lista> scegliPosizione(java.util.ArrayList<esami.ia.pileofballs.Lista> occupati, java.util.ArrayList<esami.ia.pileofballs.Lista> tripla){
+		this.risultato = new java.util.ArrayList<esame.ia.pileofballs.Lista>();
+		this.vuoto = new java.util.ArrayList<esame.ia.pileofballs.Lista>();
+		this.num = occupati.size()-1;
+		
+		<#
+			IN=occupati::occ,tripla::el,num::num;
+			OUT=risultato::scelta;
+			pari(0).
+			pari(2).
+			pari(4).
+			pari(6).
+			pari(8).
+			pari(10).
+			dispari(1).
+			dispari(3).
+			dispari(5).
+			dispari(7).
+			dispari(9).
+			dispari(11).
+			s(ID,I,J,COL) v nos(ID,I,J,COL) :- occ(ID,I,J,COL).
+			coloritripla(COL) :- el(_,_,_,COL).
+			:- not #count{J:s(_,_,J,_)} = 1.
+			:- s(_,_,J,_), J>8.
+			:- s(_,_,_,COL), not coloritripla(COL).
+			nonvicini(ID,V) :- s(ID,I1,J1,COL1), occ(V,I2,J2,COL2), I1=I2, J2=J1+1, ID<>V, COL1<>COL2.
+			nonvicini(ID,V) :- s(ID,I1,J1,COL1), occ(V,I2,J2,COL2), I1=I2, J2=J1-1, ID<>V, COL1<>COL2.
+			nonvicini(ID,V) :- s(ID,I1,J1,COL1), occ(V,I2,J2,COL2), J1=J2, I2=I1-1, ID<>V, COL1<>COL2.
+			nonvicini(ID,V) :- s(ID,I1,J1,COL1), occ(V,I2,J2,COL2), J1=J2, I2=I1+1, ID<>V, COL1<>COL2.
+			nonvicini(ID,V) :- s(ID,I1,J1,COL1), occ(V,I2,J2,COL2), dispari(I1), I2=I1-1, J2=J1-1, ID<>V, COL1<>COL2.
+			nonvicini(ID,V) :- s(ID,I1,J1,COL1), occ(V,I2,J2,COL2), dispari(I1), I2=I1+1, J2=J1-1, ID<>V, COL1<>COL2.
+			nonvicini(ID,V) :- s(ID,I1,J1,COL1), occ(V,I2,J2,COL2), pari(I1), I2=I1+1, J2=J1+1, ID<>V, COL1<>COL2.
+			nonvicini(ID,V) :- s(ID,I1,J1,COL1), occ(V,I2,J2,COL2), pari(I1), I2=I1-1, J2=J1+1, ID<>V, COL1<>COL2.
+			:~ nonvicini(ID,V). [1:1]
+			scelta(A,B,X,Y) :- s(A,B,X,Y).
+		#>
+		for_each_answerset{return risultato;}
+		if(!risultato.isEmpty()){
+				System.out.println("Trovato");
+				return risultato;
+		}	
+		else 
+			return  vuoto ;
+	} 
+}

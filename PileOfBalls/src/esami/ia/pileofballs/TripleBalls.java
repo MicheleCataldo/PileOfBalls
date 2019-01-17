@@ -218,4 +218,18 @@ public class TripleBalls {
 	public boolean isTipo() {
 		return tipo;
 	}
+
+	public void setP0(Ball p0) {
+		this.p0 = p0;
+	}
+
+	public void setP1(Ball p1) {
+		this.p1 = p1;
+	}
+
+	public void setP2(Ball p2) {
+		this.p2 = p2;
+	}
+	
+	
 }

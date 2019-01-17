@@ -26,8 +26,8 @@ public class Ball {
 		this.y = y;
 		this.w = 50;
 		this.h= 50;
-		this.coppia = new Pair(i,j);
 		this.c = Color.WHITE;
+		this.coppia = new Pair(i,j,this.c);
 		this.serial = 0;
 	}
 	
@@ -37,7 +37,6 @@ public class Ball {
 		this.w = 50;
 		this.h= 50;
 		this.serial = serial;
-		this.coppia = new Pair(i,j);
 		switch(c) {
 			case 0:
 				this.c = Color.BLUE;
@@ -52,6 +51,7 @@ public class Ball {
 				this.c = Color.ORANGE;
 				break;
 		}
+		this.coppia = new Pair(i,j,this.c);
 	}
 	
 	public Pair getCoppia() {
