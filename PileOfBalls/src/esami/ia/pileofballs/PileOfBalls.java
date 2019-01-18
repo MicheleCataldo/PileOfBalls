@@ -687,6 +687,9 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 			disegna();
 			ArrayList<Lista> ris = ia.scegliPosizione(occupati, tripla);
 			if(!ris.isEmpty()){
+				if(ris.get(0).getThird() == 9)
+					ris.get(0).setThird(ris.get(0).getThird()-1);
+				
 				System.out.println("Colore: "+ris.get(0).getFour());
 				System.out.println((50*(p.getP1().getCoppia().getJ()-ris.get(0).getThird())));
 				System.out.println(p.getP1().getCoppia().getJ()-ris.get(0).getThird());
