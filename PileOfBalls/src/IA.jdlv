@@ -42,13 +42,26 @@ public class IA{
 			vicini(ID,V,COL) :- scelta(ID,I1,J1,_), occ(V,I2,J2,COL), I1=I2, J2=J1-1, ID<>V.
 			vicini(ID,V,COL) :- scelta(ID,I1,J1,_), occ(V,I2,J2,COL), J1=J2, I2=I1-1, ID<>V.
 			vicini(ID,V,COL) :- scelta(ID,I1,J1,_), occ(V,I2,J2,COL), J1=J2, I2=I1+1, ID<>V.
-			vicini(ID,V,COL) :- scelta(ID,I1,J1,_), occ(V,I2,J2,COL), dispari(I1), I2=I1-1.
-			vicini(ID,V,COL) :- scelta(ID,I1,J1,_), occ(V,I2,J2,COL), dispari(I1), I2=I1+1.
-			vicini(ID,V,COL) :- scelta(ID,I1,J1,_), occ(V,I2,J2,COL), pari(I1), I2=I1+1, J2=J1+1.
-			vicini(ID,V,COL) :- scelta(ID,I1,J1,_), occ(V,I2,J2,COL), pari(I1), I2=I1-1, J2=J1+1.
+			vicini(ID,V,COL) :- scelta(ID,I1,J1,_), occ(V,I2,J2,COL), dispari(I1), I2=I1-1, J2=J1-1, ID<>V.
+			vicini(ID,V,COL) :- scelta(ID,I1,J1,_), occ(V,I2,J2,COL), dispari(I1), I2=I1+1, J2=J1-1, ID<>V.
+			vicini(ID,V,COL) :- scelta(ID,I1,J1,_), occ(V,I2,J2,COL), pari(I1), I2=I1+1, J2=J1+1, ID<>V.
+			vicini(ID,V,COL) :- scelta(ID,I1,J1,_), occ(V,I2,J2,COL), pari(I1), I2=I1-1, J2=J1+1, ID<>V.
 			
 			//trova le palline vicine con colore diverso dalla pallina scelta
 			vicinidiversi(ID,V) :- scelta(ID,_,_,COL1), vicini(ID,V,COL2), COL1<>COL2.
+			
+			//calcolo il numero massimo di vicini che può avere quella pallina
+			maxvicini(ID,M) :- scelta(ID,I,J,_), I=11, J>0, J<9, M=4.
+			maxvicini(ID,M) :- scelta(ID,I,J,_), dispari(I), J=0, M=3.
+			maxvicini(ID,M) :- scelta(ID,I,J,_), dispari(I), J>7, M=3.
+			maxvicini(ID,M) :- scelta(ID,I,J,_), pari(I), J=0, M=5.
+			maxvicini(ID,M) :- scelta(ID,I,J,_), pari(I), J>7, M=5.
+			maxvicini(ID,M) :- scelta(ID,I,J,_), I=11, J=0, M=2.
+			maxvicini(ID,M) :- scelta(ID,I,J,_), I=11, J=9, M=2.
+			maxvicini(ID,M) :- scelta(ID,I,J,_), I<11, J>0, J<8, M=6.
+			
+			//tolgo tutte le scelte completamente coperte
+			:- #count{V:vicini(_,V,_)} = M, maxvicini(_,M).
 			
 			//minimizziamo il numero di palline diverse attaccate
 			:~ vicinidiversi(ID,V). [1:2]

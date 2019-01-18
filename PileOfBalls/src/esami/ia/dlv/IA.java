@@ -64,6 +64,15 @@ public class IA {
 			_JDLV_PROGRAM_EXECUTING.addText("vicini(ID,V,COL) :- scelta(ID,I1,J1,_), occ(V,I2,J2,COL), pari(I1), I2=I1+1, J2=J1+1, ID<>V."+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText("vicini(ID,V,COL) :- scelta(ID,I1,J1,_), occ(V,I2,J2,COL), pari(I1), I2=I1-1, J2=J1+1, ID<>V."+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText("vicinidiversi(ID,V) :- scelta(ID,_,_,COL1), vicini(ID,V,COL2), COL1<>COL2."+'\n');
+			_JDLV_PROGRAM_EXECUTING.addText("maxvicini(ID,M) :- scelta(ID,I,J,_), I=11, J>0, J<9, M=4."+'\n');
+			_JDLV_PROGRAM_EXECUTING.addText("maxvicini(ID,M) :- scelta(ID,I,J,_), dispari(I), J=0, M=3."+'\n');
+			_JDLV_PROGRAM_EXECUTING.addText("maxvicini(ID,M) :- scelta(ID,I,J,_), dispari(I), J>7, M=3."+'\n');
+			_JDLV_PROGRAM_EXECUTING.addText("maxvicini(ID,M) :- scelta(ID,I,J,_), pari(I), J=0, M=5."+'\n');
+			_JDLV_PROGRAM_EXECUTING.addText("maxvicini(ID,M) :- scelta(ID,I,J,_), pari(I), J>7, M=5."+'\n');
+			_JDLV_PROGRAM_EXECUTING.addText("maxvicini(ID,M) :- scelta(ID,I,J,_), I=11, J=0, M=2."+'\n');
+			_JDLV_PROGRAM_EXECUTING.addText("maxvicini(ID,M) :- scelta(ID,I,J,_), I=11, J=9, M=2."+'\n');
+			_JDLV_PROGRAM_EXECUTING.addText("maxvicini(ID,M) :- scelta(ID,I,J,_), I<11, J>0, J<8, M=6."+'\n');
+			_JDLV_PROGRAM_EXECUTING.addText(":- #count{V:vicini(_,V,_)} = M, maxvicini(_,M)."+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText(":~ vicinidiversi(ID,V). [1:2]"+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText(":~ vicini(ID,V,COL). [1:1]"+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText(":~ scelta(_,_,_,COL1), el(_,_,_,COL2), COL1<>COL2. [1:2]"+'\n');
