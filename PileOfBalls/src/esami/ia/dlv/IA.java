@@ -71,6 +71,7 @@ public class IA {
 			_JDLV_PROGRAM_EXECUTING.addText("vicinidiversi(ID,V) :- scelta(ID,_,_,COL1), vicini(ID,V,COL2), COL1<>COL2."+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText(":~ vicinidiversi(ID,V). [1:2]"+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText(":~ vicini(ID,V,COL). [1:1]"+'\n');
+			_JDLV_PROGRAM_EXECUTING.addText(":~ scelta(_,_,_,COL1), coloritripla(COL2), COL1<>COL2. [1:2]"+'\n');
 			_JDLV_PROGRAM_BUFFER_EXECUTING.append("");
 			_JDLV_INVOCATION_EXECUTING.setInputProgram(_JDLV_PROGRAM_EXECUTING);
 			it.unical.mat.wrapper.ModelBufferedHandler _BUFFERED_HANDLER_EXECUTING=new it.unical.mat.wrapper.ModelBufferedHandler(_JDLV_INVOCATION_EXECUTING);

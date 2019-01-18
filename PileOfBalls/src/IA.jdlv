@@ -45,7 +45,7 @@ public class IA{
 			vicinidiversi(ID,V) :- scelta(ID,_,_,COL1), vicini(ID,V,COL2), COL1<>COL2.
 			:~ vicinidiversi(ID,V). [1:2]
 			:~ vicini(ID,V,COL). [1:1]
-		
+			:~ scelta(_,_,_,COL1), coloritripla(COL2), COL1<>COL2. [1:2]
 		#>
 		for_each_answerset{return risultato;}
 		if(!risultato.isEmpty()){
