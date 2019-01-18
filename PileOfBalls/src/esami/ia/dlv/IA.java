@@ -52,11 +52,6 @@ public class IA {
 			_JDLV_PROGRAM_EXECUTING.addText("dispari(9)."+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText("dispari(11)."+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText("scelta(ID,I,J,COL) v noscelta(ID,I,J,COL) :- occ(ID,I,J,COL)."+'\n');
-			_JDLV_PROGRAM_EXECUTING.addText("pos(I,J) :- pari(I), dispari(J)."+'\n');
-			_JDLV_PROGRAM_EXECUTING.addText("pos(I,J) :- dispari(I), pari(J)."+'\n');
-			_JDLV_PROGRAM_EXECUTING.addText("pos(I,J) :- pari(I), pari(J)."+'\n');
-			_JDLV_PROGRAM_EXECUTING.addText("pos(I,J) :- dispari(I), dispari(J)."+'\n');
-			_JDLV_PROGRAM_EXECUTING.addText("libere(I1,J1) :- pos(I1,J1), occ(_,I2,J2,_), I1<>I2, J1<>J2."+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText("coloritripla(COL) :- el(_,_,_,COL)."+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText(":- not #count{ID:scelta(ID,_,_,_)} = 1."+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText(":- scelta(_,_,_,COL), not coloritripla(COL)."+'\n');
@@ -71,7 +66,7 @@ public class IA {
 			_JDLV_PROGRAM_EXECUTING.addText("vicinidiversi(ID,V) :- scelta(ID,_,_,COL1), vicini(ID,V,COL2), COL1<>COL2."+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText(":~ vicinidiversi(ID,V). [1:2]"+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText(":~ vicini(ID,V,COL). [1:1]"+'\n');
-			_JDLV_PROGRAM_EXECUTING.addText(":~ scelta(_,_,_,COL1), coloritripla(COL2), COL1<>COL2. [1:2]"+'\n');
+			_JDLV_PROGRAM_EXECUTING.addText(":~ scelta(_,_,_,COL1), el(_,_,_,COL2), COL1<>COL2. [1:2]"+'\n');
 			_JDLV_PROGRAM_BUFFER_EXECUTING.append("");
 			_JDLV_INVOCATION_EXECUTING.setInputProgram(_JDLV_PROGRAM_EXECUTING);
 			it.unical.mat.wrapper.ModelBufferedHandler _BUFFERED_HANDLER_EXECUTING=new it.unical.mat.wrapper.ModelBufferedHandler(_JDLV_INVOCATION_EXECUTING);

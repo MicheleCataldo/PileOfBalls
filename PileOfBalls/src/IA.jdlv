@@ -24,16 +24,20 @@ public class IA{
 			dispari(7).
 			dispari(9).
 			dispari(11).
-			col(3).
+			
+			//scegliamo la pallina su cui far cadere la tripla
 			scelta(ID,I,J,COL) v noscelta(ID,I,J,COL) :- occ(ID,I,J,COL).
-			pos(I,J) :- pari(I), dispari(J).
-			pos(I,J) :- dispari(I), pari(J).
-			pos(I,J) :- pari(I), pari(J).
-			pos(I,J) :- dispari(I), dispari(J).
-			libere(I1,J1) :- pos(I1,J1), occ(_,I2,J2,_), I1<>I2, J1<>J2.
+			
+			//prende i colori delle palline della tripla
 			coloritripla(COL) :- el(_,_,_,COL).
+			
+			//scarta gli answerset con più palline scelte e nessuna
 			:- not #count{ID:scelta(ID,_,_,_)} = 1.
+			
+			//scarta gli answerset con la pallina scelta di colore diverso alle palline nella tripla
 			:- scelta(_,_,_,COL), not coloritripla(COL).
+			
+			//trova le posizioni occupate attaccate alla pallina scelta
 			vicini(ID,V,COL) :- scelta(ID,I1,J1,_), occ(V,I2,J2,COL), I1=I2, J2=J1+1, ID<>V.
 			vicini(ID,V,COL) :- scelta(ID,I1,J1,_), occ(V,I2,J2,COL), I1=I2, J2=J1-1, ID<>V.
 			vicini(ID,V,COL) :- scelta(ID,I1,J1,_), occ(V,I2,J2,COL), J1=J2, I2=I1-1, ID<>V.
@@ -42,10 +46,18 @@ public class IA{
 			vicini(ID,V,COL) :- scelta(ID,I1,J1,_), occ(V,I2,J2,COL), dispari(I1), I2=I1+1.
 			vicini(ID,V,COL) :- scelta(ID,I1,J1,_), occ(V,I2,J2,COL), pari(I1), I2=I1+1, J2=J1+1.
 			vicini(ID,V,COL) :- scelta(ID,I1,J1,_), occ(V,I2,J2,COL), pari(I1), I2=I1-1, J2=J1+1.
+			
+			//trova le palline vicine con colore diverso dalla pallina scelta
 			vicinidiversi(ID,V) :- scelta(ID,_,_,COL1), vicini(ID,V,COL2), COL1<>COL2.
+			
+			//minimizziamo il numero di palline diverse attaccate
 			:~ vicinidiversi(ID,V). [1:2]
+			
+			//minimizziamo il numero di posizioni occupate intorno la pallina
 			:~ vicini(ID,V,COL). [1:1]
-			:~ scelta(_,_,_,COL1), coloritripla(COL2), COL1<>COL2. [1:2]
+			
+			//minimizziamo il numero di palline nella tripla diverse dalla scelta
+			:~ scelta(_,_,_,COL1), el(_,_,_,COL2), COL1<>COL2. [1:2]
 		#>
 		for_each_answerset{return risultato;}
 		if(!risultato.isEmpty()){
