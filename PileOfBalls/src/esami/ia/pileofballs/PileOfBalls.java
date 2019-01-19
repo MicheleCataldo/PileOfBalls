@@ -691,8 +691,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 					ris.get(0).setThird(ris.get(0).getThird()-1);
 				
 				System.out.println("Colore: "+ris.get(0).getFour());
-				System.out.println((50*(p.getP1().getCoppia().getJ()-ris.get(0).getThird())));
-				System.out.println(p.getP1().getCoppia().getJ()-ris.get(0).getThird());
+				System.out.println(ris.get(0));
 				p.getP0().setX(p.getP0().getX()-(50*(p.getP0().getCoppia().getJ()-ris.get(0).getThird())));
 				p.getP1().setX(p.getP1().getX()-(50*(p.getP1().getCoppia().getJ()-ris.get(0).getThird())));
 				p.getP2().setX(p.getP2().getX()-(50*((p.getP2().getCoppia().getJ()-1)-ris.get(0).getThird())));
@@ -700,23 +699,36 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 				p.getP0().getCoppia().setJ(ris.get(0).getThird());
 				p.getP1().getCoppia().setJ(ris.get(0).getThird());
 				p.getP2().getCoppia().setJ(ris.get(0).getThird()+1);
-				System.out.println(ris.get(0));
 				
-				if(ris.get(0).getThird() < 4 && ris.get(0).getSecond()%2==1){
+				
+				if(ris.get(0).getThird() < 5 && ris.get(0).getSecond()%2==1){
 					while(!p.getP1().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
 						p.giraDx();
+						p.giraDx();
 					}
-				}else if(ris.get(0).getThird() < 4 && ris.get(0).getSecond()%2==0){
+				}else if(ris.get(0).getThird() >= 5 && ris.get(0).getSecond()%2==1){
 					while(!p.getP2().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
 						p.giraDx();
-					}
-				}else if(ris.get(0).getThird() >= 4 && ris.get(0).getSecond()%2==1){
-					while(!p.getP1().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
 						p.giraDx();
 					}
-				}else if(ris.get(0).getThird() >= 4 && ris.get(0).getSecond()%2==0){
-					while(!p.getP2().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
-						p.giraDx();
+				}else if(ris.get(0).getSecond()%2==0){
+					if(array_coppie.contains(new Pair(ris.get(0).getSecond(), ris.get(0).getThird()-1,
+							ris.get(0).getFourColor(ris.get(0).getFour())))){
+						while(!p.getP1().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
+							p.giraDx();
+							p.giraDx();
+						}
+					}else if(array_coppie.contains(new Pair(ris.get(0).getSecond(), ris.get(0).getThird()-1,
+							ris.get(0).getFourColor(ris.get(0).getFour())))){
+						while(!p.getP2().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
+							p.giraDx();
+							p.giraDx();
+						}
+					}else{
+						while(!p.getP1().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
+							p.giraDx();
+							p.giraDx();
+						}
 					}
 				}
 				
