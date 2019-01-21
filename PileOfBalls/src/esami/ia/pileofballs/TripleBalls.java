@@ -29,6 +29,13 @@ public class TripleBalls {
 		this.p2 = new Ball(p2.getX(), p2.getY()-50, tmp2, p2.getCoppia().getI(), p2.getCoppia().getJ(), 2);
 	}
 	
+	public Ball getBallDown(int j){
+		if(j == this.p0.getCoppia().getI())
+			return this.p1;
+		else
+			return  this.p2;
+	}
+	
 	public int getDirez() {
 		return this.direz;
 	}

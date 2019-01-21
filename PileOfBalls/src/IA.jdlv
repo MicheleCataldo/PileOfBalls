@@ -60,17 +60,23 @@ public class IA{
 			maxvicini(ID,M) :- scelta(ID,I,J,_), I=11, J=9, M=2.
 			maxvicini(ID,M) :- scelta(ID,I,J,_), I<11, J>0, J<8, M=6.
 			
+			//prendo gli elementi della tripla con colore diverso dalla scelta
+			eldiversi(ID, COL2) :- scelta(_,_,_,COL1), el(ID,_,_,COL2), COL1<>COL2.
+			
 			//tolgo tutte le scelte completamente coperte
 			:- #count{V:vicini(_,V,_)} = M, maxvicini(_,M).
 			
 			//minimizziamo il numero di palline diverse attaccate
-			:~ vicinidiversi(ID,V). [1:2]
+			:~ vicinidiversi(ID,V). [1:1]
 			
 			//minimizziamo il numero di posizioni occupate intorno la pallina
-			:~ vicini(ID,V,COL). [1:1]
+			:~ vicini(ID,V,COL). [1:2]
 			
 			//minimizziamo il numero di palline nella tripla diverse dalla scelta
-			:~ scelta(_,_,_,COL1), el(_,_,_,COL2), COL1<>COL2. [1:2]
+			:~ eldiversi(ID,COL). [1:2]
+			
+			//minimizziamo il numero di vicini diversi dalla tripla
+			:~ eldiversi(ID,COL1), vicini(_,V,COL2), vicinidiversi(_,V), COL1<>COL2. [1:2]
 		#>
 		for_each_answerset{return risultato;}
 		if(!risultato.isEmpty()){

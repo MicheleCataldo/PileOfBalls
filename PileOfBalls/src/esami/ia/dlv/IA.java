@@ -72,10 +72,12 @@ public class IA {
 			_JDLV_PROGRAM_EXECUTING.addText("maxvicini(ID,M) :- scelta(ID,I,J,_), I=11, J=0, M=2."+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText("maxvicini(ID,M) :- scelta(ID,I,J,_), I=11, J=9, M=2."+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText("maxvicini(ID,M) :- scelta(ID,I,J,_), I<11, J>0, J<8, M=6."+'\n');
+			_JDLV_PROGRAM_EXECUTING.addText("eldiversi(ID, COL2) :- scelta(_,_,_,COL1), el(ID,_,_,COL2), COL1<>COL2."+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText(":- #count{V:vicini(_,V,_)} = M, maxvicini(_,M)."+'\n');
-			_JDLV_PROGRAM_EXECUTING.addText(":~ vicinidiversi(ID,V). [1:2]"+'\n');
-			_JDLV_PROGRAM_EXECUTING.addText(":~ vicini(ID,V,COL). [1:1]"+'\n');
-			_JDLV_PROGRAM_EXECUTING.addText(":~ scelta(_,_,_,COL1), el(_,_,_,COL2), COL1<>COL2. [1:2]"+'\n');
+			_JDLV_PROGRAM_EXECUTING.addText(":~ vicinidiversi(ID,V). [1:1]"+'\n');
+			_JDLV_PROGRAM_EXECUTING.addText(":~ vicini(ID,V,COL). [1:2]"+'\n');
+			_JDLV_PROGRAM_EXECUTING.addText(":~ eldiversi(ID,COL). [1:2]"+'\n');
+			_JDLV_PROGRAM_EXECUTING.addText(":~ eldiversi(ID,COL1), vicini(_,V,COL2), vicinidiversi(_,V), COL1<>COL2. [1:2]"+'\n');
 			_JDLV_PROGRAM_BUFFER_EXECUTING.append("");
 			_JDLV_INVOCATION_EXECUTING.setInputProgram(_JDLV_PROGRAM_EXECUTING);
 			it.unical.mat.wrapper.ModelBufferedHandler _BUFFERED_HANDLER_EXECUTING=new it.unical.mat.wrapper.ModelBufferedHandler(_JDLV_INVOCATION_EXECUTING);

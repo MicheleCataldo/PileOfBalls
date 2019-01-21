@@ -28,7 +28,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
     private Thread thread;
     private boolean coll = false;
     private int punteggio;
-    private Parts parts = Parts.MENU;
+    private Parts parts = Parts.PLAY;
     private IA ia;
    // private boolean isCompl = true;
 	
@@ -340,7 +340,8 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 				}
 				punteggio += balls.size()*10;
 			}
-			balls = new ArrayList<Pair>();
+			//balls = new ArrayList<Pair>();
+			balls.clear();
 		}
 		
 		return contin;
@@ -701,17 +702,19 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 				p.getP2().getCoppia().setJ(ris.get(0).getThird()+1);
 				
 				
-				if(ris.get(0).getThird() < 5 && ris.get(0).getSecond()%2==1){
-					while(!p.getP1().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
-						p.giraDx();
-						p.giraDx();
-					}
-				}else if(ris.get(0).getThird() >= 5 && ris.get(0).getSecond()%2==1){
-					while(!p.getP2().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
-						p.giraDx();
-						p.giraDx();
-					}
-				}else if(ris.get(0).getSecond()%2==0){
+				if(ris.get(0).getSecond()%2==1){
+					if(ris.get(0).getThird() < 5){
+						while(!p.getP1().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
+							p.giraDx();
+							p.giraDx();
+						}
+					}else if(ris.get(0).getThird() >= 5){
+						while(!p.getP2().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
+							p.giraDx();
+							p.giraDx();
+						}
+				}	
+				}else{
 					if(array_coppie.contains(new Pair(ris.get(0).getSecond(), ris.get(0).getThird()-1,
 							ris.get(0).getFourColor(ris.get(0).getFour())))){
 						while(!p.getP1().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
