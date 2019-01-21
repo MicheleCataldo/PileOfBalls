@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,6 +31,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
     private int punteggio;
     private Parts parts = Parts.PLAY;
     private IA ia;
+    private int sogliaLivello = 500;
    // private boolean isCompl = true;
 	
 	public static void main(String[] args) {
@@ -69,6 +71,30 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 		 //this.dlv();
 	}
 	
+	private void init2() throws IncorrectInitAltMatrixException{
+		this.init();
+		Random r = new Random();
+		int c = 0;
+		for(int i = 0; i < 10; i+=2){
+			c = r.nextInt(4);
+			m.setColor(c, 11, i);
+			array_coppie.add(new Pair(11, i, m.get(11, i).getColor()));
+		}
+		this.dlv();
+	}
+	
+	private void init3() throws IncorrectInitAltMatrixException{
+		this.init();
+		Random r = new Random();
+		int c = 0;
+		for(int i = 0; i < 10; i++){
+			c = r.nextInt(4);
+			m.setColor(c, 11, i);
+			array_coppie.add(new Pair(11, i, m.get(11, i).getColor()));
+		}
+		this.dlv();
+	}
+	
 	private void disegna() {
 		BufferStrategy bs = this.getBufferStrategy();
         if(bs == null){
@@ -90,6 +116,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 	        g.setFont(fnt0);
 	        g.drawString("Punteggio: "+this.punteggio, 510, 50);
 	        g.drawLine(505, 60, PileOfBalls.WIDTH+20, 60);
+	        g.drawString("Soglia lvl: "+this.sogliaLivello, 510, 100);
 	        if(parts.equals(Parts.PAUSE)) {
 	        	Font fnt1 = new Font("8-bit pusab", Font.BOLD, 40);
 		        g.setFont(fnt1);
@@ -102,6 +129,12 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 		        g.setColor(Color.GRAY);
 		        g.drawString("GAME OVER", 120, PileOfBalls.HEIGHT/2);
 	        }
+	        
+	        if(sogliaLivello < punteggio){
+	        	g.fillRect(150, 200, 250, 250);
+	        	g.setColor(Color.BLACK);
+	        	g.drawString("Livello passato!", 200, 300);
+	        }	
         }
         else if(parts.equals(Parts.MENU)) {
         	g.setColor(Color.RED);
@@ -338,7 +371,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 					this.freeMatrix(balls.get(y));
 					contin = true;
 				}
-				punteggio += balls.size()*10;
+				punteggio += balls.size()*5;
 			}
 			//balls = new ArrayList<Pair>();
 			balls.clear();
@@ -598,7 +631,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 
 	public void run() {
 		try {
-			init();
+			this.init();
 		} catch (IncorrectInitAltMatrixException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -606,6 +639,25 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 		//disegna();
 		
 		while(running) {
+			if(sogliaLivello < punteggio){
+				sogliaLivello+=250;
+				punteggio = 0;
+				if(sogliaLivello == 750){
+					try {
+						this.init2();
+					} catch (IncorrectInitAltMatrixException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}else if(sogliaLivello == 1000){
+					try {
+						this.init3();
+					} catch (IncorrectInitAltMatrixException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}	
 			disegna();
 			try {
 				Thread.sleep(100);
@@ -700,41 +752,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 				p.getP0().getCoppia().setJ(ris.get(0).getThird());
 				p.getP1().getCoppia().setJ(ris.get(0).getThird());
 				p.getP2().getCoppia().setJ(ris.get(0).getThird()+1);
-				
-				
-				if(ris.get(0).getSecond()%2==1){
-					if(ris.get(0).getThird() < 5){
-						while(!p.getP1().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
-							p.giraDx();
-							p.giraDx();
-						}
-					}else if(ris.get(0).getThird() >= 5){
-						while(!p.getP2().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
-							p.giraDx();
-							p.giraDx();
-						}
-				}	
-				}else{
-					if(array_coppie.contains(new Pair(ris.get(0).getSecond(), ris.get(0).getThird()-1,
-							ris.get(0).getFourColor(ris.get(0).getFour())))){
-						while(!p.getP1().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
-							p.giraDx();
-							p.giraDx();
-						}
-					}else if(array_coppie.contains(new Pair(ris.get(0).getSecond(), ris.get(0).getThird()-1,
-							ris.get(0).getFourColor(ris.get(0).getFour())))){
-						while(!p.getP2().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
-							p.giraDx();
-							p.giraDx();
-						}
-					}else{
-						while(!p.getP1().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
-							p.giraDx();
-							p.giraDx();
-						}
-					}
-				}
-				
+			
 			}
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {

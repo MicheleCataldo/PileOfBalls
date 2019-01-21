@@ -1,5 +1,6 @@
 package esami.ia.pileofballs;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class AlternateMatrix {
@@ -81,5 +82,26 @@ public class AlternateMatrix {
 			
 			System.out.println();
 		}
+	}
+	
+	public void setColor(int color, int i, int j){
+		Color c = null;
+		
+		switch(color) {
+			case 0:
+				c = Color.BLUE;
+				break;
+			case 1:
+				c = Color.GREEN;
+				break;
+			case 2:
+				c = Color.RED;
+				break;
+			case 3:
+				c = Color.ORANGE;
+				break;
+		}
+		
+		this.get(i, j).setC(c);
 	}
 }
