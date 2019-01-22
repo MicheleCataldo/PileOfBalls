@@ -27,6 +27,9 @@ public class Pair {
 		
 		else if(color.equals(Color.ORANGE))
 			this.color = 3;
+		
+		else if (color.equals(Color.MAGENTA))
+			this.color = 4;
 	}
 	
 	public Pair() {}

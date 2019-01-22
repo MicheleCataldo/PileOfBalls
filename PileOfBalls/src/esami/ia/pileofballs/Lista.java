@@ -23,6 +23,9 @@ public class Lista {
 		
 		else if(color.equals(Color.ORANGE))
 			this.four = 3;
+		
+		else if (color.equals(Color.MAGENTA))
+			this.four = 4;
 	}
 
 	public Lista(int first, int second, int third, int four){
@@ -81,6 +84,8 @@ public class Lista {
 				return Color.RED;
 			case 3:
 				return Color.ORANGE;
+			case 4:
+				return Color.MAGENTA;
 			default:
 				return null;
 		}

@@ -50,6 +50,9 @@ public class Ball {
 			case 3:
 				this.c = Color.ORANGE;
 				break;
+			case 4:
+				this.c = Color.MAGENTA;
+				break;
 		}
 		this.coppia = new Pair(i,j,this.c);
 	}

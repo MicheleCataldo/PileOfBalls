@@ -100,6 +100,9 @@ public class AlternateMatrix {
 			case 3:
 				c = Color.ORANGE;
 				break;
+			case 4:
+				c = Color.MAGENTA;
+				break;
 		}
 		
 		this.get(i, j).setC(c);

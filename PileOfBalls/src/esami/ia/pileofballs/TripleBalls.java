@@ -16,11 +16,15 @@ public class TripleBalls {
 	public TripleBalls(Ball p0, Ball p1, Ball p2) {
 		
 		r = new Random();
+		int limite = 4;
+		if(PileOfBalls.sogliaLivello >= 1000)
+			limite = 5;
+		
 		this.direz = 0;
 		this.tipo = true;
-		int tmp0 = r.nextInt(4);
-		int tmp1 = r.nextInt(4);
-		int tmp2 = r.nextInt(4);
+		int tmp0 = r.nextInt(limite);
+		int tmp1 = r.nextInt(limite);
+		int tmp2 = r.nextInt(limite);
 		
 		this.cont = 0;
 		

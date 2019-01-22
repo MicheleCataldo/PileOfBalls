@@ -31,7 +31,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
     private int punteggio;
     private Parts parts = Parts.PLAY;
     private IA ia;
-    private int sogliaLivello = 500;
+    public static int sogliaLivello = 500;
    // private boolean isCompl = true;
 	
 	public static void main(String[] args) {
@@ -88,7 +88,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 		Random r = new Random();
 		int c = 0;
 		for(int i = 0; i < 10; i++){
-			c = r.nextInt(4);
+			c = r.nextInt(5);
 			m.setColor(c, 11, i);
 			array_coppie.add(new Pair(11, i, m.get(11, i).getColor()));
 		}
