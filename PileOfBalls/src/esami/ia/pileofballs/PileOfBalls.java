@@ -175,7 +175,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 	private boolean isOccup(int x, int y) {
 		Pair c = new Pair(x, y);
 		for(int i = 0; i < array_coppie.size(); i++) {
-			if(array_coppie.get(i).equals(c)) 
+			if(array_coppie.get(i).getI() == c.getI() && array_coppie.get(i).getJ() == c.getJ()) 
 				return true;
 		}	
 		return false;
@@ -374,7 +374,8 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 					this.freeMatrix(balls.get(y));
 					contin = true;
 				}
-				punteggio += balls.size()*5;
+				if(balls.size()<=10)
+					punteggio += balls.size()*5;
 			}
 			balls.clear();
 		}
@@ -733,6 +734,9 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 				default:
 					break;
 				}
+			case KeyEvent.VK_I:
+				ia_attivo = !ia_attivo;
+				break;
 			default:
 				break;
 		}
