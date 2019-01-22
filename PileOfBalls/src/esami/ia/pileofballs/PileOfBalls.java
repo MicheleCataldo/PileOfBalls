@@ -645,23 +645,23 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 		
 		while(running) {
 			if(sogliaLivello < punteggio){
-				sogliaLivello+=250;
+				sogliaLivello+=100;
 				punteggio = 0;
-				if(sogliaLivello == 750){
+				if(sogliaLivello == 600){
 					try {
 						this.init2();
 					} catch (IncorrectInitAltMatrixException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-				}else if(sogliaLivello == 1000){
+				}else if(sogliaLivello == 700){
 					try {
 						this.init3();
 					} catch (IncorrectInitAltMatrixException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-				}else if(sogliaLivello > 1000){
+				}else if(sogliaLivello > 700){
 					try {
 						Thread.sleep(3000);
 						running = false;
