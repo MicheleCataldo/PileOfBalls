@@ -32,6 +32,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
     private Parts parts = Parts.PLAY;
     private IA ia;
     public static int sogliaLivello = 500;
+    private boolean ia_attivo = true;
    // private boolean isCompl = true;
 	
 	public static void main(String[] args) {
@@ -117,6 +118,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 	        g.drawString("Punteggio: "+this.punteggio, 510, 50);
 	        g.drawLine(505, 60, PileOfBalls.WIDTH+20, 60);
 	        g.drawString("Soglia lvl: "+this.sogliaLivello, 510, 100);
+	        g.drawString("IA: "+this.ia_attivo, 510, 150);
 	        if(parts.equals(Parts.PAUSE)) {
 	        	Font fnt1 = new Font("8-bit pusab", Font.BOLD, 40);
 		        g.setFont(fnt1);
@@ -667,14 +669,16 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 						e.printStackTrace();
 					}
 				}
-			}	
-			disegna();
-			try {
-				Thread.sleep(100);
-				aggiorna();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			}
+			if(running){
+				disegna();
+				try {
+					Thread.sleep(100);
+					aggiorna();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}stop();
 	}
@@ -735,54 +739,53 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 	}
 
 	private void dlv(){
-		//ArrayList<Pair> tripla = new ArrayList<Pair>();
-		ArrayList<Lista> tripla = new ArrayList<Lista>();
-		tripla.add(new Lista(0, p.getP0().getCoppia().getI(), p.getP0().getCoppia().getJ(), p.getP0().getColor()));
-		tripla.add(new Lista(1, p.getP1().getCoppia().getI(), p.getP1().getCoppia().getJ(), p.getP1().getColor()));
-		tripla.add(new Lista(2, p.getP2().getCoppia().getI(), p.getP2().getCoppia().getJ(), p.getP2().getColor()));
-		
-		ArrayList<Lista> occupati = new ArrayList<Lista>();
-		for(int i = 0; i < array_coppie.size(); i++)
-			occupati.add(new Lista(i, array_coppie.get(i).getI(), array_coppie.get(i).getJ(), array_coppie.get(i).getColor()));
-		
-		try {
+		if(this.ia_attivo){
+			ArrayList<Lista> tripla = new ArrayList<Lista>();
+			tripla.add(new Lista(0, p.getP0().getCoppia().getI(), p.getP0().getCoppia().getJ(), p.getP0().getColor()));
+			tripla.add(new Lista(1, p.getP1().getCoppia().getI(), p.getP1().getCoppia().getJ(), p.getP1().getColor()));
+			tripla.add(new Lista(2, p.getP2().getCoppia().getI(), p.getP2().getCoppia().getJ(), p.getP2().getColor()));
 			
-			disegna();
-			ArrayList<Lista> ris = ia.scegliPosizione(occupati, tripla);
-			if(!ris.isEmpty()){
-				if(ris.get(0).getThird() == 9)
-					ris.get(0).setThird(ris.get(0).getThird()-1);
-				
-				System.out.println("Colore: "+ris.get(0).getFour());
-				System.out.println(ris.get(0));
-				p.getP0().setX(p.getP0().getX()-(50*(p.getP0().getCoppia().getJ()-ris.get(0).getThird())));
-				p.getP1().setX(p.getP1().getX()-(50*(p.getP1().getCoppia().getJ()-ris.get(0).getThird())));
-				p.getP2().setX(p.getP2().getX()-(50*((p.getP2().getCoppia().getJ()-1)-ris.get(0).getThird())));
-				
-				p.getP0().getCoppia().setJ(ris.get(0).getThird());
-				p.getP1().getCoppia().setJ(ris.get(0).getThird());
-				p.getP2().getCoppia().setJ(ris.get(0).getThird()+1);
+			ArrayList<Lista> occupati = new ArrayList<Lista>();
+			for(int i = 0; i < array_coppie.size(); i++)
+				occupati.add(new Lista(i, array_coppie.get(i).getI(), array_coppie.get(i).getJ(), array_coppie.get(i).getColor()));
 			
-				if(ris.get(0).getThird()%2==0){
-					while(!p.getP1().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
-						p.giraDx();
-						p.giraDx();
-					}
-				}else{
-					while(!p.getP2().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
-						p.giraDx();
-						p.giraDx();
+			try {
+				
+				disegna();
+				ArrayList<Lista> ris = ia.scegliPosizione(occupati, tripla);
+				if(!ris.isEmpty()){
+					if(ris.get(0).getThird() == 9)
+						ris.get(0).setThird(ris.get(0).getThird()-1);
+					
+					System.out.println("Colore: "+ris.get(0).getFour());
+					System.out.println(ris.get(0));
+					p.getP0().setX(p.getP0().getX()-(50*(p.getP0().getCoppia().getJ()-ris.get(0).getThird())));
+					p.getP1().setX(p.getP1().getX()-(50*(p.getP1().getCoppia().getJ()-ris.get(0).getThird())));
+					p.getP2().setX(p.getP2().getX()-(50*((p.getP2().getCoppia().getJ()-1)-ris.get(0).getThird())));
+					
+					p.getP0().getCoppia().setJ(ris.get(0).getThird());
+					p.getP1().getCoppia().setJ(ris.get(0).getThird());
+					p.getP2().getCoppia().setJ(ris.get(0).getThird()+1);
+				
+					if(ris.get(0).getThird()%2==0){
+						while(!p.getP1().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
+							p.giraDx();
+							p.giraDx();
+						}
+					}else{
+						while(!p.getP2().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
+							p.giraDx();
+							p.giraDx();
+						}
 					}
 				}
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		
-		disegna();
-				
+		disegna();		
 	}
 	
 	public void keyReleased(KeyEvent arg0) {}
