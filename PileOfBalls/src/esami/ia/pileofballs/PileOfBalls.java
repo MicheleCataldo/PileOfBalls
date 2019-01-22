@@ -298,6 +298,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 		int intDim;
 		int intDim2;
 		boolean contin = false;
+		balls.clear();
 		for(int i = 0; i < array_coppie.size(); i++) {
 			this.addBalls(array_coppie.get(i));
 			col = m.get(array_coppie.get(i).getI(), array_coppie.get(i).getJ()).getColor();
@@ -371,9 +372,8 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 					this.freeMatrix(balls.get(y));
 					contin = true;
 				}
-				punteggio += balls.size()*5;
+				punteggio += balls.size()*10;
 			}
-			//balls = new ArrayList<Pair>();
 			balls.clear();
 		}
 		
@@ -591,6 +591,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 				p.getP1().setX(-500);
 				p.getP2().setX(-500);
 				disegna();
+				balls.clear();
 				while(scoppiaPalline()) {
 					Thread.sleep(200);
 					disegna();
@@ -598,6 +599,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 					aggiustaMatrice();
 					disegna();
 					Thread.sleep(200);
+					balls.clear();
 				}
 				createTriple();
 				this.dlv();
@@ -655,6 +657,14 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 					} catch (IncorrectInitAltMatrixException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
+					}
+				}else if(sogliaLivello > 1000){
+					try {
+						Thread.sleep(3000);
+						running = false;
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				}
 			}	
