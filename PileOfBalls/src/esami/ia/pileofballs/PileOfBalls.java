@@ -372,7 +372,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 					this.freeMatrix(balls.get(y));
 					contin = true;
 				}
-				punteggio += balls.size()*10;
+				punteggio += balls.size()*5;
 			}
 			balls.clear();
 		}

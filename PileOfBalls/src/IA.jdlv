@@ -70,7 +70,7 @@ public class IA{
 			:~ vicinidiversi(ID,V). [1:1]
 			
 			//minimizziamo il numero di posizioni occupate intorno la pallina
-			:~ vicini(ID,V,COL). [1:2]
+			:~ vicini(ID,V,COL). [1:1]
 			
 			//minimizziamo il numero di palline nella tripla diverse dalla scelta
 			:~ eldiversi(ID,COL). [1:2]
