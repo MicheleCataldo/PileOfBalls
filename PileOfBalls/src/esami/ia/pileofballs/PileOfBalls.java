@@ -31,6 +31,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
     private int punteggio;
     private Parts parts = Parts.PLAY;
     private IA ia;
+    private int livello = 1;
     public static int sogliaLivello = 500;
     private boolean ia_attivo = true;
    // private boolean isCompl = true;
@@ -74,6 +75,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 	
 	private void init2() throws IncorrectInitAltMatrixException{
 		this.init();
+		livello++;
 		Random r = new Random();
 		int c = 0;
 		for(int i = 0; i < 10; i+=2){
@@ -86,6 +88,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 	
 	private void init3() throws IncorrectInitAltMatrixException{
 		this.init();
+		livello++;
 		Random r = new Random();
 		int c = 0;
 		for(int i = 0; i < 10; i++){
@@ -117,8 +120,9 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 	        g.setFont(fnt0);
 	        g.drawString("Punteggio: "+this.punteggio, 510, 50);
 	        g.drawLine(505, 60, PileOfBalls.WIDTH+20, 60);
-	        g.drawString("Soglia lvl: "+this.sogliaLivello, 510, 100);
-	        g.drawString("IA: "+this.ia_attivo, 510, 150);
+	        g.drawString("Livello "+this.livello, 510, 100);
+	        g.drawString("Soglia lvl: "+this.sogliaLivello, 510, 150);
+	        g.drawString("IA: "+this.ia_attivo, 510, 200);
 	        if(parts.equals(Parts.PAUSE)) {
 	        	Font fnt1 = new Font("8-bit pusab", Font.BOLD, 40);
 		        g.setFont(fnt1);
@@ -758,7 +762,8 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 				disegna();
 				ArrayList<Lista> ris = ia.scegliPosizione(occupati, tripla);
 				if(!ris.isEmpty()){
-					if(ris.get(0).getThird() == 9)
+					int j = ris.get(0).getThird();
+					if(j == 9)
 						ris.get(0).setThird(ris.get(0).getThird()-1);
 					
 					System.out.println("Colore: "+ris.get(0).getFour());
@@ -771,7 +776,11 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 					p.getP1().getCoppia().setJ(ris.get(0).getThird());
 					p.getP2().getCoppia().setJ(ris.get(0).getThird()+1);
 				
-					if(ris.get(0).getThird()%2==0){
+					int ultimo = 9;
+					if(ris.get(0).getSecond()%2 == 0)
+						ultimo--;
+					
+					if(j < ultimo){
 						while(!p.getP1().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
 							p.giraDx();
 							p.giraDx();
