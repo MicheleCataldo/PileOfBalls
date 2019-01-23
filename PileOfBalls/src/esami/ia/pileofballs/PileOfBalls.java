@@ -32,7 +32,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
     private Parts parts = Parts.PLAY;
     private IA ia;
     private int livello = 1;
-    public static int sogliaLivello = 500;
+    public static int sogliaLivello = 300;
     private boolean ia_attivo = true;
    // private boolean isCompl = true;
 	
@@ -651,21 +651,21 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 			if(sogliaLivello < punteggio){
 				sogliaLivello+=100;
 				punteggio = 0;
-				if(sogliaLivello == 600){
+				if(sogliaLivello == 400){
 					try {
 						this.init2();
 					} catch (IncorrectInitAltMatrixException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-				}else if(sogliaLivello == 700){
+				}else if(sogliaLivello == 500){
 					try {
 						this.init3();
 					} catch (IncorrectInitAltMatrixException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-				}else if(sogliaLivello > 700){
+				}else if(sogliaLivello > 500){
 					try {
 						Thread.sleep(3000);
 						running = false;

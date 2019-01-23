@@ -17,7 +17,7 @@ public class TripleBalls {
 		
 		r = new Random();
 		int limite = 4;
-		if(PileOfBalls.sogliaLivello >= 700)
+		if(PileOfBalls.sogliaLivello >= 500)
 			limite = 5;
 		
 		this.direz = 0;
