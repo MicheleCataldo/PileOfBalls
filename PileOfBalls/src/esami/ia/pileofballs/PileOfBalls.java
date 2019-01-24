@@ -857,11 +857,6 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 
 	private void dlv(){
 		if(this.ia_attivo){
-			for(int i = 0; i < array_coppie.size(); i++){
-				System.out.print(array_coppie.get(i)+" paga "+this.formaUnaTripla(array_coppie.get(i))+" ");
-			}
-			
-			
 			ArrayList<Lista> tripla = new ArrayList<Lista>();
 			tripla.add(new Lista(0, p.getP0().getCoppia().getI(), p.getP0().getCoppia().getJ(), p.getP0().getColor()));
 			tripla.add(new Lista(1, p.getP1().getCoppia().getI(), p.getP1().getCoppia().getJ(), p.getP1().getColor()));
@@ -873,13 +868,16 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 			triplasucc.add(new Lista(2, p_succ.getP2().getCoppia().getI(), p_succ.getP2().getCoppia().getJ(), p_succ.getP2().getColor()));
 		
 			ArrayList<Lista> occupati = new ArrayList<Lista>();
-			for(int i = 0; i < array_coppie.size(); i++)
+			ArrayList<Pair> costo = new ArrayList<Pair>();
+			
+			for(int i = 0; i < array_coppie.size(); i++){
 				occupati.add(new Lista(i, array_coppie.get(i).getI(), array_coppie.get(i).getJ(), array_coppie.get(i).getColor()));
+				costo.add(new Pair(i, this.formaUnaTripla(array_coppie.get(i))));
+			}
 			
 			try {
-				
 				disegna();
-				ArrayList<Lista> ris = ia.scegliPosizione(occupati, tripla, triplasucc);
+				ArrayList<Lista> ris = ia.scegliPosizione(occupati, tripla, triplasucc, costo);
 				if(!ris.isEmpty()){
 					int j = ris.get(0).getThird();
 					if(j == 9)
