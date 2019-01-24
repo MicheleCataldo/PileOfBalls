@@ -2,18 +2,18 @@ package esami.ia.pileofballs;
 
 import java.awt.Color;
 
-public class Pair {
+public class Tris {
 	private int i;
 	private int j;
 	private int color;
 	
-	public Pair(int i, int j) {
+	public Tris(int i, int j) {
 		this.i = i;
 		this.j = j;
 		this.color = 0;
 	}
 	
-	public Pair(int i, int j, Color color){
+	public Tris(int i, int j, Color color){
 		this.i = i;
 		this.j = j;
 		if(color.equals(Color.BLUE))
@@ -32,7 +32,7 @@ public class Pair {
 			this.color = 4;
 	}
 	
-	public Pair() {}
+	public Tris() {}
 
 	public int getI() {
 		return i;
@@ -58,7 +58,7 @@ public class Pair {
 		this.color = color;
 	}
 
-	public boolean equals(Pair c) {
+	public boolean equals(Tris c) {
 		if(c.getI() == this.i && c.getJ() == this.j)
 			return true;
 		return false;

@@ -11,7 +11,7 @@ public class Ball {
 	private int w;
 	private int h;
 	private Color c;
-	private Pair coppia;
+	private Tris coppia;
 	private int serial;
 	public int getSerial() {
 		return serial;
@@ -27,7 +27,7 @@ public class Ball {
 		this.w = 50;
 		this.h= 50;
 		this.c = Color.WHITE;
-		this.coppia = new Pair(i,j,this.c);
+		this.coppia = new Tris(i,j,this.c);
 		this.serial = 0;
 	}
 	
@@ -54,14 +54,14 @@ public class Ball {
 				this.c = Color.MAGENTA;
 				break;
 		}
-		this.coppia = new Pair(i,j,this.c);
+		this.coppia = new Tris(i,j,this.c);
 	}
 	
-	public Pair getCoppia() {
+	public Tris getCoppia() {
 		return coppia;
 	}
 
-	public void setCoppia(Pair coppia) {
+	public void setCoppia(Tris coppia) {
 		this.coppia = coppia;
 	}
 
