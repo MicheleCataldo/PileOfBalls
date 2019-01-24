@@ -4,13 +4,12 @@ public class IA{
 	int num;
 	public IA(){}
 	
-	public java.util.ArrayList<esame.ia.pileofballs.Lista> scegliPosizione(java.util.ArrayList<esami.ia.pileofballs.Lista> occupati, java.util.ArrayList<esami.ia.pileofballs.Lista> tripla){
+	public java.util.ArrayList<esame.ia.pileofballs.Lista> scegliPosizione(java.util.ArrayList<esami.ia.pileofballs.Lista> occupati, java.util.ArrayList<esami.ia.pileofballs.Lista> tripla, java.util.ArrayList<esami.ia.pileofballs.Lista> triplasucc){
 		this.risultato = new java.util.ArrayList<esame.ia.pileofballs.Lista>();
 		this.vuoto = new java.util.ArrayList<esame.ia.pileofballs.Lista>();
-		this.num = occupati.size()-1;
 		
 		<#
-			IN=occupati::occ,tripla::el,num::num;
+			IN=occupati::occ,tripla::el,triplasucc::elsucc;
 			OUT=risultato::scelta;
 			pari(0).
 			pari(2).
@@ -77,6 +76,9 @@ public class IA{
 			
 			//minimizziamo il numero di vicini diversi dalla tripla
 			:~ eldiversi(ID,COL1), vicini(_,V,COL2), vicinidiversi(_,V), COL1<>COL2. [1:2]
+			
+			:~ el(ID1,_,_,COL1), elsucc(ID2,_,_,COL2), COL1<>COL2. [1:2]
+			
 		#>
 		for_each_answerset{return risultato;}
 		if(!risultato.isEmpty()){
