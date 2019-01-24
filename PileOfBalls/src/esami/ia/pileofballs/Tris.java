@@ -27,6 +27,28 @@ public class Tris {
 	}
 	
 	public Tris() {}
+	
+	public boolean isColorEqual(Color color){
+		int c;
+		if(color.equals(Color.BLUE))
+			c = 0;
+		
+		else if(color.equals(Color.GREEN))
+			c = 1;
+		
+		else if(color.equals(Color.RED))
+			c = 2;
+		
+		else if(color.equals(Color.ORANGE))
+			c = 3;
+		
+		else if (color.equals(Color.MAGENTA))
+			c = 4;
+		else
+			c = -1;
+		
+		return c==this.color;
+	}
 
 	public int getI() {
 		return i;
