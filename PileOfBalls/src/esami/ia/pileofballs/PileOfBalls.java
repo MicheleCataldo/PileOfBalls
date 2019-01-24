@@ -244,7 +244,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 	}
 	
 	private boolean isOccup(int x, int y) {
-		Tris c = new Tris(x, y);
+		Tris c = new Tris(x, y, Color.WHITE);
 		for(int i = 0; i < array_coppie.size(); i++) {
 			if(array_coppie.get(i).getI() == c.getI() && array_coppie.get(i).getJ() == c.getJ()) 
 				return true;
@@ -330,7 +330,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 				else {
 					for(int j = 0; j < m.getInternSize(i); j++) {
 						col = m.get(i, j).getColor();
-						c = new Tris(i, j);
+						c = new Tris(i, j, col);
 						if(i+1 < m.getDim()) {
 							if(!m.get(i, j).isWhite() && m.get(i+1, j).isWhite()) {
 								this.freeMatrix(c);
@@ -466,9 +466,9 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 	private void aggiorna() throws InterruptedException {
 		if(parts.equals(Parts.PLAY)) {
 			coll = false;
-			Tris c1 = new Tris(p.getP0().getCoppia().getI(), p.getP0().getCoppia().getJ());
-			Tris c2 = new Tris(p.getP1().getCoppia().getI(), p.getP1().getCoppia().getJ());
-			Tris c3 = new Tris(p.getP2().getCoppia().getI(), p.getP2().getCoppia().getJ());
+			Tris c1 = new Tris(p.getP0().getCoppia().getI(), p.getP0().getCoppia().getJ(), p.getP0().getColor());
+			Tris c2 = new Tris(p.getP1().getCoppia().getI(), p.getP1().getCoppia().getJ(), p.getP1().getColor());
+			Tris c3 = new Tris(p.getP2().getCoppia().getI(), p.getP2().getCoppia().getJ(), p.getP2().getColor());
 			
 			if(!p.aggiorna(m)) {
 				settaPalline(c1.getI(), c2.getI(), c3.getI(), c1.getJ(), c2.getJ(), c3.getJ());

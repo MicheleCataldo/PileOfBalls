@@ -7,12 +7,6 @@ public class Tris {
 	private int j;
 	private int color;
 	
-	public Tris(int i, int j) {
-		this.i = i;
-		this.j = j;
-		this.color = 0;
-	}
-	
 	public Tris(int i, int j, Color color){
 		this.i = i;
 		this.j = j;
