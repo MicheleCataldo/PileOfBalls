@@ -7,7 +7,7 @@ public class IA {
 	
 	public IA(){}
 	
-	public java.util.ArrayList<esami.ia.pileofballs.Lista> scegliPosizione(java.util.ArrayList<esami.ia.pileofballs.Lista> occupati, java.util.ArrayList<esami.ia.pileofballs.Lista> tripla, java.util.ArrayList<esami.ia.pileofballs.Lista> triplasucc){
+	public java.util.ArrayList<esami.ia.pileofballs.Lista> scegliPosizione(java.util.ArrayList<esami.ia.pileofballs.Lista> occupati, java.util.ArrayList<esami.ia.pileofballs.Lista> tripla, java.util.ArrayList<esami.ia.pileofballs.Lista> triplasucc, java.util.ArrayList<esami.ia.pileofballs.Pair> costo){
 		
 		this.risultato = new java.util.ArrayList<esami.ia.pileofballs.Lista>();
 		this.vuoto = new java.util.ArrayList<esami.ia.pileofballs.Lista>();
@@ -28,6 +28,8 @@ public class IA {
 		it.unical.mat.jdlv.program.JDLV_Logger.getInstance().logInfoMessage("Add in-mapping 'tripla::el' in module EXECUTING:"+ it.unical.mat.jdlv.program.JDLV_Logger.getInstance().getPrettyCode(it.unical.mat.jdlv.program.TypeSolver.getNameTranslation(tripla,"el"), 0));
 		_JDLV_PROGRAM_EXECUTING.addText(it.unical.mat.jdlv.program.TypeSolver.getNameTranslation(triplasucc,"elsucc"));
 		it.unical.mat.jdlv.program.JDLV_Logger.getInstance().logInfoMessage("Add in-mapping 'triplasucc::elsucc' in module EXECUTING:"+ it.unical.mat.jdlv.program.JDLV_Logger.getInstance().getPrettyCode(it.unical.mat.jdlv.program.TypeSolver.getNameTranslation(num,"num"), 0));
+		_JDLV_PROGRAM_EXECUTING.addText(it.unical.mat.jdlv.program.TypeSolver.getNameTranslation(costo,"costop"));
+		it.unical.mat.jdlv.program.JDLV_Logger.getInstance().logInfoMessage("Add in-mapping 'costo::costop' in module EXECUTING:"+ it.unical.mat.jdlv.program.JDLV_Logger.getInstance().getPrettyCode(it.unical.mat.jdlv.program.TypeSolver.getNameTranslation(num,"num"), 0));
 
 		// ---- END - addInMapping ---- 
 		
@@ -78,6 +80,7 @@ public class IA {
 			_JDLV_PROGRAM_EXECUTING.addText(":~ eldiversi(ID,COL). [1:2]"+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText(":~ eldiversi(ID,COL1), vicini(_,V,COL2), vicinidiversi(_,V), COL1<>COL2. [1:2]"+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText(":~ el(ID1,_,_,COL1), elsucc(ID2,_,_,COL2), COL1<>COL2. [1:2]"+'\n');
+			_JDLV_PROGRAM_EXECUTING.addText(":~ costop(ID, C), scelta(ID,_,_,_). [C:3]"+'\n');
 			_JDLV_PROGRAM_BUFFER_EXECUTING.append("");
 			_JDLV_INVOCATION_EXECUTING.setInputProgram(_JDLV_PROGRAM_EXECUTING);
 			it.unical.mat.wrapper.ModelBufferedHandler _BUFFERED_HANDLER_EXECUTING=new it.unical.mat.wrapper.ModelBufferedHandler(_JDLV_INVOCATION_EXECUTING);

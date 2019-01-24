@@ -4,12 +4,12 @@ public class IA{
 	int num;
 	public IA(){}
 	
-	public java.util.ArrayList<esame.ia.pileofballs.Lista> scegliPosizione(java.util.ArrayList<esami.ia.pileofballs.Lista> occupati, java.util.ArrayList<esami.ia.pileofballs.Lista> tripla, java.util.ArrayList<esami.ia.pileofballs.Lista> triplasucc){
+	public java.util.ArrayList<esame.ia.pileofballs.Lista> scegliPosizione(java.util.ArrayList<esami.ia.pileofballs.Lista> occupati, java.util.ArrayList<esami.ia.pileofballs.Lista> tripla, java.util.ArrayList<esami.ia.pileofballs.Lista> triplasucc, java.util.ArrayList<esami.ia.pileofballs.Pair> costo){
 		this.risultato = new java.util.ArrayList<esame.ia.pileofballs.Lista>();
 		this.vuoto = new java.util.ArrayList<esame.ia.pileofballs.Lista>();
 		
 		<#
-			IN=occupati::occ,tripla::el,triplasucc::elsucc;
+			IN=occupati::occ,tripla::el,triplasucc::elsucc,costo::costop;
 			OUT=risultato::scelta;
 			pari(0).
 			pari(2).
@@ -77,7 +77,11 @@ public class IA{
 			//minimizziamo il numero di vicini diversi dalla tripla
 			:~ eldiversi(ID,COL1), vicini(_,V,COL2), vicinidiversi(_,V), COL1<>COL2. [1:2]
 			
+			//minimizziamo il numero di palline uguali alla tripla successiva
 			:~ el(ID1,_,_,COL1), elsucc(ID2,_,_,COL2), COL1<>COL2. [1:2]
+			
+			//minimizziamo le triple nella matrice
+			:~ costop(ID, C), scelta(ID,_,_,_). [C:3]
 			
 		#>
 		for_each_answerset{return risultato;}
