@@ -23,6 +23,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 	private static int HEIGHT = 680;
 	private AlternateMatrix m;
 	private TripleBalls p;
+	private TripleBalls p_succ;
 	private ArrayList<Pair> array_coppie;
 	private ArrayList<Pair> balls;
 	private boolean running = false;
@@ -61,6 +62,14 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 		int j = 4; 
 		int i = 0;
 		p = new TripleBalls(m.get(i,j),m.get(i+1,j),m.get(i+1,j+1));
+		p_succ = new TripleBalls(m.get(i,j),m.get(i+1,j),m.get(i+1,j+1));
+	}
+	
+	private void createTripleSucc(){
+		int j = 4; 
+		int i = 0;
+		p = p_succ;
+		p_succ = new TripleBalls(m.get(i,j),m.get(i+1,j),m.get(i+1,j+1));
 	}
 	
 	private void init() throws IncorrectInitAltMatrixException {
@@ -123,6 +132,23 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 	        g.drawString("Livello "+this.livello, 510, 100);
 	        g.drawString("Soglia lvl: "+this.sogliaLivello, 510, 150);
 	        g.drawString("IA: "+this.ia_attivo, 510, 200);
+	        for(int i = 0; i < 3; i++){
+	        	switch(i){
+	        		case 0:
+	        			g.setColor(p_succ.getP0().getColor());
+	        			g.fillOval(535, 250, 50, 50);
+	        			break;
+	        		case 1:
+	        			g.setColor(p_succ.getP1().getColor());
+	        			g.fillOval(510, 300, 50, 50);
+	        			break;
+	        		case 2:
+	        			g.setColor(p_succ.getP2().getColor());
+	        			g.fillOval(560, 300, 50, 50);
+	        			break;
+	        	}
+	        	
+	        }
 	        if(parts.equals(Parts.PAUSE)) {
 	        	Font fnt1 = new Font("8-bit pusab", Font.BOLD, 40);
 		        g.setFont(fnt1);
@@ -608,7 +634,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 					Thread.sleep(200);
 					balls.clear();
 				}
-				createTriple();
+				createTripleSucc();
 				this.dlv();
 			}
 				
@@ -753,6 +779,11 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 			tripla.add(new Lista(1, p.getP1().getCoppia().getI(), p.getP1().getCoppia().getJ(), p.getP1().getColor()));
 			tripla.add(new Lista(2, p.getP2().getCoppia().getI(), p.getP2().getCoppia().getJ(), p.getP2().getColor()));
 			
+			ArrayList<Lista> triplasucc = new ArrayList<Lista>();
+			triplasucc.add(new Lista(0, p_succ.getP0().getCoppia().getI(), p_succ.getP0().getCoppia().getJ(), p_succ.getP0().getColor()));
+			triplasucc.add(new Lista(1, p_succ.getP1().getCoppia().getI(), p_succ.getP1().getCoppia().getJ(), p_succ.getP1().getColor()));
+			triplasucc.add(new Lista(2, p_succ.getP2().getCoppia().getI(), p_succ.getP2().getCoppia().getJ(), p_succ.getP2().getColor()));
+		
 			ArrayList<Lista> occupati = new ArrayList<Lista>();
 			for(int i = 0; i < array_coppie.size(); i++)
 				occupati.add(new Lista(i, array_coppie.get(i).getI(), array_coppie.get(i).getJ(), array_coppie.get(i).getColor()));
@@ -760,7 +791,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 			try {
 				
 				disegna();
-				ArrayList<Lista> ris = ia.scegliPosizione(occupati, tripla);
+				ArrayList<Lista> ris = ia.scegliPosizione(occupati, tripla, triplasucc);
 				if(!ris.isEmpty()){
 					int j = ris.get(0).getThird();
 					if(j == 9)
