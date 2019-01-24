@@ -184,42 +184,84 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 	
 	private int formaUnaTripla(Tris ball){
 		int cont = 0;
-		if(!m.get(ball.getI(), ball.getJ()-1).isWhite())
-			if(m.get(ball.getI(), ball.getJ()-1).getColor().equals(ball.getColor()))
-				cont++;
+		int limite_j = 9;
+		if(ball.getI()%2==0)
+			limite_j = 8;
 		
-		if(!m.get(ball.getI(), ball.getJ()+1).isWhite())
-			if(m.get(ball.getI(), ball.getJ()+1).getColor().equals(ball.getColor()))
-				cont++;
+		if(ball.getJ()-1 >= 0){
+			if(!m.get(ball.getI(), ball.getJ()-1).isWhite()){
+				System.out.println("Entra");
+				if(ball.isColorEqual(m.get(ball.getI(), ball.getJ()-1).getColor())){
+					cont++;
+				}	
+			}
+		}
 		
-		if(!m.get(ball.getI()-1, ball.getJ()).isWhite())
-			if(m.get(ball.getI()-1, ball.getJ()).getColor().equals(ball.getColor()))
-				cont++;
-			
-		if(!m.get(ball.getI()+1, ball.getJ()).isWhite())
-			if(m.get(ball.getI()+1, ball.getJ()).getColor().equals(ball.getColor()))
-				cont++;
-			
-		if(ball.getI()%2==0){
-			if(!m.get(ball.getI()+1, ball.getJ()+1).isWhite())
-				if(m.get(ball.getI()+1, ball.getJ()+1).getColor().equals(ball.getColor()))
+		if(ball.getJ()+1 <= limite_j){
+			if(!m.get(ball.getI(), ball.getJ()+1).isWhite()){
+				System.out.println("Entra");
+				if(ball.isColorEqual(m.get(ball.getI(), ball.getJ()+1).getColor())){
 					cont++;
-				
-			if(!m.get(ball.getI()-1, ball.getJ()+1).isWhite())
-				if(m.get(ball.getI()-1, ball.getJ()+1).getColor().equals(ball.getColor()))
+				}	
+			}
+		}
+		
+		if(ball.getI()-1 >=0){
+			if(!m.get(ball.getI()-1, ball.getJ()).isWhite()){
+				System.out.println("Entra");
+				if(ball.isColorEqual(m.get(ball.getI()-1, ball.getJ()).getColor())){
 					cont++;
-		}else{
-			if(!m.get(ball.getI()+1, ball.getJ()-1).isWhite())
-				if(m.get(ball.getI()+1, ball.getJ()-1).getColor().equals(ball.getColor()))
-					cont++;
-			
-			if(!m.get(ball.getI()-1, ball.getJ()-1).isWhite())
-				if(m.get(ball.getI()-1, ball.getJ()-1).getColor().equals(ball.getColor()))
-					cont++;
+				}	
+			}
 		}
 			
+		if(ball.getI()+1 <= 11){
+			if(!m.get(ball.getI()+1, ball.getJ()).isWhite()){
+				System.out.println("Entra");
+				if(ball.isColorEqual(m.get(ball.getI()+1, ball.getJ()).getColor())){
+					cont++;
+				}	
+			}
+		}
 		
-		
+		if(ball.getI()%2==0){
+			if(ball.getI()+1 <= 11 && ball.getJ()+1 <= limite_j){
+				if(!m.get(ball.getI()+1, ball.getJ()+1).isWhite()){
+					System.out.println("Entra");
+					if(ball.isColorEqual(m.get(ball.getI()+1, ball.getJ()+1).getColor())){
+						cont++;
+					}	
+				}
+			}
+			
+			if(ball.getI()-1 >= 0 && ball.getJ()+1 <= limite_j){
+				if(!m.get(ball.getI()-1, ball.getJ()+1).isWhite()){
+					System.out.println("Entra");
+					if(ball.isColorEqual(m.get(ball.getI()-1, ball.getJ()+1).getColor())){
+						cont++;
+					}	
+				}
+			}
+		}else{
+			if(ball.getI()+1 <= 11 && ball.getJ()-1 >= 0){
+				if(!m.get(ball.getI()+1, ball.getJ()-1).isWhite()){
+					System.out.println("Entra");
+					if(ball.isColorEqual(m.get(ball.getI()+1, ball.getJ()-1).getColor())){
+						cont++;
+					}	
+				}
+			}
+			
+			if(ball.getI()-1 >= 0 && ball.getJ()-1 >= 0){
+				if(!m.get(ball.getI()-1, ball.getJ()-1).isWhite()){
+					System.out.println("Entra");
+					if(ball.isColorEqual(m.get(ball.getI()-1, ball.getJ()-1).getColor())){
+						cont++;
+					}	
+				}
+			}
+		}
+			
 		return 2-cont;
 	}
 	
@@ -815,6 +857,11 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 
 	private void dlv(){
 		if(this.ia_attivo){
+			for(int i = 0; i < array_coppie.size(); i++){
+				System.out.print(array_coppie.get(i)+" paga "+this.formaUnaTripla(array_coppie.get(i))+" ");
+			}
+			
+			
 			ArrayList<Lista> tripla = new ArrayList<Lista>();
 			tripla.add(new Lista(0, p.getP0().getCoppia().getI(), p.getP0().getCoppia().getJ(), p.getP0().getColor()));
 			tripla.add(new Lista(1, p.getP1().getCoppia().getI(), p.getP1().getCoppia().getJ(), p.getP1().getColor()));
