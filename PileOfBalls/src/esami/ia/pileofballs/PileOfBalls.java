@@ -32,8 +32,8 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
     private int punteggio;
     private Parts parts = Parts.PLAY;
     private IA ia;
-    private int livello = 1;
-    public static int sogliaLivello = 300;
+    public static int livello = 1;
+    private int sogliaLivello = 300;
     private boolean ia_attivo = true;
    // private boolean isCompl = true;
 	
@@ -84,7 +84,6 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 	
 	private void init2() throws IncorrectInitAltMatrixException{
 		this.init();
-		livello++;
 		Random r = new Random();
 		int c = 0;
 		for(int i = 0; i < 10; i+=2){
@@ -97,7 +96,6 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 	
 	private void init3() throws IncorrectInitAltMatrixException{
 		this.init();
-		livello++;
 		Random r = new Random();
 		int c = 0;
 		for(int i = 0; i < 10; i++){
@@ -758,23 +756,23 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 		
 		while(running) {
 			if(sogliaLivello < punteggio){
-				sogliaLivello+=100;
+				livello++;
 				punteggio = 0;
-				if(sogliaLivello == 400){
+				if(livello == 2){
 					try {
 						this.init2();
 					} catch (IncorrectInitAltMatrixException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-				}else if(sogliaLivello == 500){
+				}else if(livello == 3){
 					try {
 						this.init3();
 					} catch (IncorrectInitAltMatrixException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-				}else if(sogliaLivello > 500){
+				}else if(livello > 3){
 					try {
 						Thread.sleep(3000);
 						running = false;
@@ -922,11 +920,12 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 						}
 						
 						
-						if(!this.isOccup(ris.get(0).getSecond()-1, ris.get(0).getThird()-2))
-							while(!p.getP2().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
-								p.giraDx();
-								p.giraDx();
-							}
+						if(ris.get(0).getThird()-2 >= 0)
+							if(!this.isOccup(ris.get(0).getSecond()-1, ris.get(0).getThird()-2))
+								while(!p.getP2().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
+									p.giraDx();
+									p.giraDx();
+								}
 					}
 				}
 				Thread.sleep(1000);
