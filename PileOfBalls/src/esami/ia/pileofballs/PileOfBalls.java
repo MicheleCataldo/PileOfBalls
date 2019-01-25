@@ -755,7 +755,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 		//disegna();
 		
 		while(running) {
-			if(sogliaLivello < punteggio){
+			if(sogliaLivello <= punteggio){
 				livello++;
 				punteggio = 0;
 				if(livello == 2){
@@ -909,11 +909,11 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 					
 					if(this.isOccup(ris.get(0).getSecond()-1, ris.get(0).getThird())){
 						System.out.println("si");
-						p.getP0().getCoppia().setJ(p.getP0().getCoppia().getJ()-1);
-						p.getP1().getCoppia().setJ(p.getP1().getCoppia().getJ()-1);
-						p.getP2().getCoppia().setJ(p.getP2().getCoppia().getJ()-1);
-						
 						if(p.getP0().getCoppia().getJ() > 0){
+							p.getP0().getCoppia().setJ(p.getP0().getCoppia().getJ()-1);
+							p.getP1().getCoppia().setJ(p.getP1().getCoppia().getJ()-1);
+							p.getP2().getCoppia().setJ(p.getP2().getCoppia().getJ()-1);
+							
 							p.getP0().setX(p.getP0().getX()-50);
 							p.getP1().setX(p.getP1().getX()-50);
 							p.getP2().setX(p.getP2().getX()-50);
