@@ -242,5 +242,29 @@ public class TripleBalls {
 		this.p2 = p2;
 	}
 	
+	public Ball getBall(int i){
+		switch(i){
+			case 0:
+				return this.p0;
+			case 1:
+				return this.p1;
+			case 2:
+				return this.p2;
+			default:
+				return null;
+		}
+	}
+	
+	public int numBallForColor(Color color){
+		int cont = 0;
+		if(p0.getColor().equals(color))
+			cont++;
+		if(p1.getColor().equals(color))
+			cont++;
+		if(p2.getColor().equals(color))
+			cont++;
+			
+		return cont;	
+	}
 	
 }
