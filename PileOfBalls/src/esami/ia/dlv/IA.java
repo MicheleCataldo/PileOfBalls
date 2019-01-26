@@ -81,6 +81,7 @@ public class IA {
 			_JDLV_PROGRAM_EXECUTING.addText(":~ eldiversi(ID,COL1), vicini(_,V,COL2), vicinidiversi(_,V), COL1<>COL2. [1:2]"+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText(":~ el(ID1,_,_,COL1), elsucc(ID2,_,_,COL2), COL1<>COL2. [1:2]"+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText(":~ costop(ID, C), scelta(ID,_,_,_). [C:3]"+'\n');
+			_JDLV_PROGRAM_EXECUTING.addText(":~ scelta(_,I,_,_), X=11-I. [X:3]"+'\n');
 			_JDLV_PROGRAM_BUFFER_EXECUTING.append("");
 			_JDLV_INVOCATION_EXECUTING.setInputProgram(_JDLV_PROGRAM_EXECUTING);
 			it.unical.mat.wrapper.ModelBufferedHandler _BUFFERED_HANDLER_EXECUTING=new it.unical.mat.wrapper.ModelBufferedHandler(_JDLV_INVOCATION_EXECUTING);

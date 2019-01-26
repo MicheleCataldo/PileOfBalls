@@ -83,6 +83,7 @@ public class IA{
 			//minimizziamo le triple nella matrice
 			:~ costop(ID, C), scelta(ID,_,_,_). [C:3]
 			
+			:~ scelta(_,I,_,_), X=11-I. [X:3]
 		#>
 		for_each_answerset{return risultato;}
 		if(!risultato.isEmpty()){
