@@ -926,7 +926,18 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 									p.giraDx();
 									p.giraDx();
 								}
+					}else{
+						if(ris.get(0).getThird()+1 <= ultimo){
+							if(this.isOccup(ris.get(0).getSecond(), ris.get(0).getThird()+1)){
+								while(!p.getP0().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
+									p.giraDx();
+									p.giraDx();
+								}
+							}
+						}
 					}
+					
+					
 				}
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
