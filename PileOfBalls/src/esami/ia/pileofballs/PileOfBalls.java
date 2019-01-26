@@ -927,7 +927,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 									p.giraDx();
 								}
 					}else{
-						if(ris.get(0).getThird()+1 <= ultimo){
+						if(ris.get(0).getThird()+1 <= ultimo && ris.get(0).getThird() > 0){
 							if(this.isOccup(ris.get(0).getSecond(), ris.get(0).getThird()+1)){
 								while(!p.getP0().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
 									p.giraDx();
@@ -938,22 +938,21 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 					}
 					
 					if(ris.get(0).getSecond()+1 == m.getDim()-1){
-						if(this.isOccup(ris.get(0).getSecond()+1, ris.get(0).getThird()))
+						if(this.isOccup(ris.get(0).getSecond()+1, ris.get(0).getThird())){
+							while(!p.getP0().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
+								p.giraDx();
+								p.giraDx();
+							}
+						
 							if(p.numBallForColor(ris.get(0).getFourColor(ris.get(0).getFour())) >= 2)
 								while(!p.getP0().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))
 										&& !p.getP2().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
 									p.giraDx();
 									p.giraDx();
-								}
-							else
-								while(!p.getP0().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
-									p.giraDx();
-									p.giraDx();
-								}
+								}		
+						}
 					}
-					
 				}
-				
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
