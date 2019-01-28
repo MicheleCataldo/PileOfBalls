@@ -35,7 +35,7 @@ public class Lista {
 		this.four = four;
 	}
 	
-	public Lista (){
+	public Lista(){
 		this.first = 0;
 		this.second = 0;
 		this.third = 0;
@@ -92,7 +92,7 @@ public class Lista {
 	}
 	
 	public String toString(){
-		return "("+this.first+", "+this.second+", "+this.third+", "+this.four+")";
+		return "("+this.first+", "+this.second+", "+this.third+", "+this.four+", ";
 	}
 	
 }
