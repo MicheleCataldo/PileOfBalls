@@ -889,7 +889,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 			
 			try {
 				disegna();
-				ArrayList<Lista> ris = ia.scegliPosizione(occupati, tripla, triplasucc, costo, this.posLibere());
+				ArrayList<ListaSeven> ris = ia.scegliPosizione(occupati, tripla, triplasucc, costo, this.posLibere());
 				if(!ris.isEmpty()){
 					int j = ris.get(0).getThird();
 					if(j == 9)
@@ -904,78 +904,22 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 					p.getP0().getCoppia().setJ(ris.get(0).getThird());
 					p.getP1().getCoppia().setJ(ris.get(0).getThird());
 					p.getP2().getCoppia().setJ(ris.get(0).getThird()+1);
-				
-					int ultimo = 9;
-					if(ris.get(0).getSecond()%2 == 0)
-						ultimo--;
 					
-					if(j < ultimo){
-						while(!p.getP1().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
-							p.giraDx();
-							p.giraDx();
-						}
-					}else{
-						while(!p.getP2().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
-							p.giraDx();
-							p.giraDx();
-						}
+					if(p.getP0().getCoppia().getJ() > 0){
+						p.getP0().getCoppia().setJ(p.getP0().getCoppia().getJ()-ris.get(0).getFive());
+						p.getP1().getCoppia().setJ(p.getP1().getCoppia().getJ()-ris.get(0).getFive());
+						p.getP2().getCoppia().setJ(p.getP2().getCoppia().getJ()-ris.get(0).getFive());
+						
+						p.getP0().setX(p.getP0().getX()-(50*ris.get(0).getFive()));
+						p.getP1().setX(p.getP1().getX()-(50*ris.get(0).getFive()));
+						p.getP2().setX(p.getP2().getX()-(50*ris.get(0).getFive()));
 					}
 					
-					if(this.isOccup(ris.get(0).getSecond()-1, ris.get(0).getThird())){
-						System.out.println("si");
-						if(p.getP0().getCoppia().getJ() > 0){
-							p.getP0().getCoppia().setJ(p.getP0().getCoppia().getJ()-1);
-							p.getP1().getCoppia().setJ(p.getP1().getCoppia().getJ()-1);
-							p.getP2().getCoppia().setJ(p.getP2().getCoppia().getJ()-1);
-							
-							p.getP0().setX(p.getP0().getX()-50);
-							p.getP1().setX(p.getP1().getX()-50);
-							p.getP2().setX(p.getP2().getX()-50);
-						}
-						
-						
-						if(ris.get(0).getThird()-2 >= 0)
-							if(!this.isOccup(ris.get(0).getSecond()-1, ris.get(0).getThird()-2))
-								while(!p.getP2().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
-									p.giraDx();
-									p.giraDx();
-								}
-					}else{
-						if(ris.get(0).getThird()+1 <= ultimo && ris.get(0).getThird() > 0){
-							if(this.isOccup(ris.get(0).getSecond(), ris.get(0).getThird()+1)){
-								while(!p.getP0().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
-									p.giraDx();
-									p.giraDx();
-								}
-							}
-						}
-						
-						if(ris.get(0).getThird()-1 > 0){
-							if(this.isOccup(ris.get(0).getSecond(), ris.get(0).getThird()-1) &&
-									ris.get(0).getThird()%2==0){
-								while(!p.getP1().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
-									p.giraDx();
-									p.giraDx();
-								}
-							}
-						}
+					while(!p.getBall(ris.get(0).getSix()).getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
+						p.giraDx();
+						p.giraDx();
 					}
 					
-					if(ris.get(0).getSecond()+1 == m.getDim()-1){
-						if(this.isOccup(ris.get(0).getSecond()+1, ris.get(0).getThird())){
-							while(!p.getP0().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
-								p.giraDx();
-								p.giraDx();
-							}
-						
-							if(p.numBallForColor(ris.get(0).getFourColor(ris.get(0).getFour())) >= 2)
-								while(!p.getP0().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))
-										&& !p.getP2().getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
-									p.giraDx();
-									p.giraDx();
-								}		
-						}
-					}
 				}
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
