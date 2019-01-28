@@ -314,6 +314,20 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 			}
 	}
 	
+	private ArrayList<Tris> posLibere(){
+		ArrayList<Tris> pos_libere = new ArrayList<Tris>();
+		int limite;
+		for(int i = 0; i < m.getDim(); i++){
+			limite = 9;
+			if(i%2==0)
+				limite = 8;
+			for(int j = 0; j < limite; j++)
+				if(!this.isOccup(i, j))
+					pos_libere.add(new Tris(i,j,Color.WHITE));
+		}
+		return pos_libere;
+	}
+	
 	private void addBalls(Tris c) {
 		boolean is = false;
 		for(int i = 0; i < balls.size(); i++)
@@ -875,7 +889,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 			
 			try {
 				disegna();
-				ArrayList<Lista> ris = ia.scegliPosizione(occupati, tripla, triplasucc, costo);
+				ArrayList<Lista> ris = ia.scegliPosizione(occupati, tripla, triplasucc, costo, this.posLibere());
 				if(!ris.isEmpty()){
 					int j = ris.get(0).getThird();
 					if(j == 9)
