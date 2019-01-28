@@ -89,6 +89,7 @@ public class IA{
 			//prendiamo il colore nella tripla che combacia con la pallina
 			c(COL) :- sc(_,_,_,COL), el(_,_,_,COL).
 			
+			//in base alla situazione della pallina, calcoliamo la giusta posizione della tripla
 			pos(A,B,C) :- sc(_,I,J,_), occ(_,I1,J,_), occ(_,I1,J1,_), I1=I-1, J1=J-2, A=1, B=1, c(C).
 			pos(A,B,C) :- sc(_,I,J,_), occ(_,I1,J,_), poslibere(I1,J1,_), I1=I-1, J1=J-2, A=1, B=2, c(C).
 			pos(A,B,C) :- sc(_,I,J,_), poslibere(I1,J,_), occ(_,I,J1,_), I1=I-1, J1=J+1, A=0, B=0, c(C), dispari(I).
@@ -100,12 +101,16 @@ public class IA{
 			pos(A,B,C) :- sc(_,I,J,_), poslibere(I1,J,_), poslibere(I,J1,_), poslibere(I,J2,_), I1=I-1, J1=J+1, J2=J-1, A=0, B=1, c(C).
 			pos(A,B,C) :- sc(_,I,J,_), poslibere(I1,J,_), occ(_,I,J1,_), occ(_,I1,J1,_), I1=I-1, J1=J-1, A=0, B=1, c(C).
 			
+			//diamo delle indicazioni per la posizione standard della tripla
 			postandard(A,B,C) :- A=0, B=1, c(C), sc(_,I,J,_), J < 9, dispari(I).
 			postandard(A,B,C) :- A=0, B=1, c(C), sc(_,I,J,_), J < 8, pari(I).
 			postandard(A,B,C) :- A=0, B=2, c(C), sc(_,I,J,_), J = 9, dispari(I).
 			postandard(A,B,C) :- A=0, B=2, c(C), sc(_,I,J,_), J < 8, pari(I).
 			
+			//uniamo la pallina scelta con la posizione della tripla
 			scelta(ID,I,J,COL,A,B,C) :- sc(ID,I,J,COL), pos(A,B,C).
+			
+			//se la pallina non è in una posizione speciale, diamo il giro standard
 			scelta(ID,I,J,COL,A,B,C) :- sc(ID,I,J,COL), postandard(A,B,C).
 		#>
 		for_each_answerset{return risultato;}
