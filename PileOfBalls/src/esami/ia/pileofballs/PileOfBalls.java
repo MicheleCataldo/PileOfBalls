@@ -97,9 +97,12 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 	private void init3() throws IncorrectInitAltMatrixException{
 		this.init();
 		Random r = new Random();
-		int c = 0;
+		int c = r.nextInt(5);
+		int c1;
 		for(int i = 0; i < 10; i++){
-			c = r.nextInt(5);
+			c1 = c;
+			while(c1==c)
+				c = r.nextInt(5);	
 			m.setColor(c, 11, i);
 			array_coppie.add(new Tris(11, i, m.get(11, i).getColor()));
 		}
