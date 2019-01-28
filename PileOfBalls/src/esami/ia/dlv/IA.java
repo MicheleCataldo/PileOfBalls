@@ -87,7 +87,7 @@ public class IA {
 			_JDLV_PROGRAM_EXECUTING.addText("pos(A,B,C) :- sc(_,I,J,_), occ(_,I1,J,_), occ(_,I1,J1,_), I1=I-1, J1=J-2, A=1, B=1, c(C)."+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText("pos(A,B,C) :- sc(_,I,J,_), occ(_,I1,J,_), poslibere(I1,J1,_), I1=I-1, J1=J-2, A=1, B=2, c(C)."+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText("pos(A,B,C) :- sc(_,I,J,_), poslibere(I1,J,_), occ(_,I,J1,_), I1=I-1, J1=J+1, A=0, B=0, c(C), dispari(I)."+'\n');
-			_JDLV_PROGRAM_EXECUTING.addText("pos(A,B,C) :- sc(_,I,J,_), poslibere(I1,J,_), occ(_,I,J1,_), poslibere(I1,J1,_), I1=I-1, J1=J-1, A=0, B=0, c(C), dispari(I)."+'\n');
+			_JDLV_PROGRAM_EXECUTING.addText("pos(A,B,C) :- sc(_,I,J,_), poslibere(I1,J,_), occ(_,I,J1,_), poslibere(I1,J1,_), poslibere(I1,J2,_), J2=J-2, I1=I-1, J1=J-1, A=0, B=0, c(C), dispari(I)."+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText("pos(A,B,C) :- sc(_,I,J,_), poslibere(I1,J,_), occ(_,I,J1,_), poslibere(I,J2,_), I1=I-1, J1=J+1, J2=J-1, A=0, B=2, c(C), pari(I)."+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText("pos(A,B,C) :- sc(_,I,J,_), poslibere(I1,J,_), poslibere(I,J1,_), occ(_,I,J2,_), I1=I-1, J1=J+1, J2=J-1, A=0, B=1, c(C), pari(I)."+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText("pos(A,B,C) :- sc(_,I,J,COL), poslibere(I1,J,_), occ(_,I,J1,_), occ(_,I,J2,COL), I1=I-1, J1=J+1, J2=J-1, A=0, B=1, c(C), pari(I)."+'\n');
