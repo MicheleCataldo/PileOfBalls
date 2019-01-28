@@ -4,12 +4,12 @@ public class IA{
 	int num;
 	public IA(){}
 	
-	public java.util.ArrayList<esame.ia.pileofballs.Lista> scegliPosizione(java.util.ArrayList<esami.ia.pileofballs.Lista> occupati, java.util.ArrayList<esami.ia.pileofballs.Lista> tripla, java.util.ArrayList<esami.ia.pileofballs.Lista> triplasucc, java.util.ArrayList<esami.ia.pileofballs.Pair> costo){
+	public java.util.ArrayList<esame.ia.pileofballs.Lista> scegliPosizione(java.util.ArrayList<esami.ia.pileofballs.Lista> occupati, java.util.ArrayList<esami.ia.pileofballs.Lista> tripla, java.util.ArrayList<esami.ia.pileofballs.Lista> triplasucc, java.util.ArrayList<esami.ia.pileofballs.Pair> costo, java.util.ArrayList<esami.ia.pileofballs.Tris> libere){
 		this.risultato = new java.util.ArrayList<esame.ia.pileofballs.Lista>();
 		this.vuoto = new java.util.ArrayList<esame.ia.pileofballs.Lista>();
 		
 		<#
-			IN=occupati::occ,tripla::el,triplasucc::elsucc,costo::costop;
+			IN=occupati::occ,tripla::el,triplasucc::elsucc,costo::costop,libere::poslibere;
 			OUT=risultato::scelta;
 			pari(0).
 			pari(2).
@@ -84,6 +84,19 @@ public class IA{
 			:~ costop(ID, C), scelta(ID,_,_,_). [C:3]
 			
 			:~ scelta(_,I,_,_), X=11-I. [X:3]
+			
+			c(COL) :- scelta(_,_,_,COL), el(_,_,_,COL).
+			
+			poslibere(I,J) :- pari(I), pari(J), not occ(_,I,J,_).
+			poslibere(I,J) :- dispari(I), pari(J), occ(_,I1,J1,_), I<>I1, J<>J1.
+			poslibere(I,J) :- pari(I), dispari(J), occ(_,I1,J1,_), I<>I1, J<>J1.
+			poslibere(I,J) :- dispari(I), dispari(J), occ(_,I1,J1,_), I<>I1, J<>J1.
+			
+			pos(A,B,C) :- scelta(_,I,J,_), occ(_,I1,J,_), occ(_,I1,J1,_), I1=I-1, J1=J-2, A=1, B=1, c(C).
+			pos(A,B,C) :- scelta(_,I,J,_), occ(_,I1,J,_), poslibere(I1,J1), I1=I-1, J1=J-2, A=1, B=2, c(C).
+			pos(A,B,C) :- scelta(_,I,J,_), poslibere(_,I1,J,_), occ(_,I,J1,_), I1=I-1, J1=J+1, A=0, B=0, c(C).
+			pos(A,B,C) :- scelta(_,I,J,_), poslibere(_,I1,J,_), occ(_,I,J1,_), I1=I-1, J1=J-1, A=0, B=0, c(C).
+			pos(A,B,C) :- scelta(_,I,J,_), poslibere(_,I1,J,_), poslibere(_,I,J1,_), poslibere(_,I,J2,_), I1=I-1, J1=J+1, J2=J-1, A=0, B=1, c(C).
 		#>
 		for_each_answerset{return risultato;}
 		if(!risultato.isEmpty()){
