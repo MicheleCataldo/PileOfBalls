@@ -186,21 +186,27 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 	private void controllaBalls(){
 		ArrayList<Tris> id = new ArrayList<Tris>();
 		int limite;
-		for(int i = 0; i < balls.size(); i++){
-			limite = 9;
-			if(balls.get(i).getI()%2==0)
-				limite = 8;
-			
-			if(balls.get(i).getI() >= m.getDim())
-				id.add(balls.get(i));
-			
-			if(balls.get(i).getJ() > limite)
-				id.add(balls.get(i));
+		boolean is = true;
+		while(is){
+			is = false;
+			for(int i = 0; i < balls.size(); i++){
+				limite = 9;
+				if(balls.get(i).getI()%2==0)
+					limite = 8;
+				
+				if(balls.get(i).getI() >= m.getDim()){
+					balls.remove(balls.get(i));
+					is = true;
+					break;
+				}	
+				
+				if(balls.get(i).getJ() > limite){
+					balls.remove(balls.get(i));
+					is = true;
+					break;
+				}	
+			}
 		}
-		
-		for(int j = 0; j < id.size(); j++)
-			if(balls.contains(id.get(j)))
-				balls.remove(id.get(j));
 	}
 	
 	private int formaUnaTripla(Tris ball){
@@ -516,7 +522,7 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 				}
 			}
 			
-			this.controllaBalls();
+			//this.controllaBalls();
 			
 			if(balls.size() > 3) {
 				for(int y = 0; y < balls.size(); y++) {
