@@ -83,9 +83,6 @@ public class IA{
 			//minimizziamo le triple nella matrice
 			:~ costop(ID, C), sc(ID,_,_,_). [C:3]
 			
-			//le posizioni giù pagano meno
-			:~ sc(_,I,_,_), X=11-I. [X:3]
-			
 			//prendiamo il colore nella tripla che combacia con la pallina
 			c(COL) :- sc(_,_,_,COL), el(_,_,_,COL).
 			

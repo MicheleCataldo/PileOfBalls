@@ -82,7 +82,6 @@ public class IA {
 			_JDLV_PROGRAM_EXECUTING.addText(":~ eldiversi(ID,COL1), vicini(_,V,COL2), vicinidiversi(_,V), COL1<>COL2. [1:2]"+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText(":~ el(ID1,_,_,COL1), elsucc(ID2,_,_,COL2), COL1<>COL2. [1:2]"+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText(":~ costop(ID, C), sc(ID,_,_,_). [C:3]"+'\n');
-			_JDLV_PROGRAM_EXECUTING.addText(":~ sc(_,I,_,_), X=11-I. [X:3]"+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText("c(COL) :- sc(_,_,_,COL), el(_,_,_,COL)."+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText("pos(A,B,C) :- sc(_,I,J,_), occ(_,I1,J,_), poslibere(I1,J1,_), poslibere(I,J1,_), poslibere(I1,J2,_), I1=I-1, J1=J-1, J2=J-2, A=1, B=2, c(C), dispari(I)."+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText("pos(A,B,C) :- sc(_,I,J,_), occ(_,I1,J,_), poslibere(I1,J1,_), occ(_,I,J1,_), poslibere(I1,J2,_), I1=I-1, J1=J-1, J2=J-2, A=1, B=2, c(C), dispari(I)."+'\n');
