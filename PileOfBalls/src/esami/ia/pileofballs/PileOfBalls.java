@@ -922,31 +922,41 @@ public class PileOfBalls extends Canvas implements Runnable, KeyListener {
 				disegna();
 				ArrayList<ListaSeven> ris = ia.scegliPosizione(occupati, tripla, triplasucc, costo, this.posLibere());
 				if(!ris.isEmpty()){
-					int j = ris.get(0).getThird();
-					if(j == 9)
-						ris.get(0).setThird(ris.get(0).getThird()-1);
+					int pos = -1;
+					for(int i = 0; i < ris.size(); i++)
+						if(ris.get(i).getFive() != 2)
+							pos = i;
 					
-					System.out.println("Colore: "+ris.get(0).getFour());
-					System.out.println(ris.get(0));
-					p.getP0().setX(p.getP0().getX()-(50*(p.getP0().getCoppia().getJ()-ris.get(0).getThird())));
-					p.getP1().setX(p.getP1().getX()-(50*(p.getP1().getCoppia().getJ()-ris.get(0).getThird())));
-					p.getP2().setX(p.getP2().getX()-(50*((p.getP2().getCoppia().getJ()-1)-ris.get(0).getThird())));
-					
-					p.getP0().getCoppia().setJ(ris.get(0).getThird());
-					p.getP1().getCoppia().setJ(ris.get(0).getThird());
-					p.getP2().getCoppia().setJ(ris.get(0).getThird()+1);
-					
-					if(p.getP0().getCoppia().getJ() > 0){
-						p.getP0().getCoppia().setJ(p.getP0().getCoppia().getJ()-ris.get(0).getFive());
-						p.getP1().getCoppia().setJ(p.getP1().getCoppia().getJ()-ris.get(0).getFive());
-						p.getP2().getCoppia().setJ(p.getP2().getCoppia().getJ()-ris.get(0).getFive());
-						
-						p.getP0().setX(p.getP0().getX()-(50*ris.get(0).getFive()));
-						p.getP1().setX(p.getP1().getX()-(50*ris.get(0).getFive()));
-						p.getP2().setX(p.getP2().getX()-(50*ris.get(0).getFive()));
+					if(pos == -1){
+						pos = 0;
+						ris.get(pos).setFive(0);
 					}
 					
-					while(!p.getBall(ris.get(0).getSix()).getColor().equals(ris.get(0).getFourColor(ris.get(0).getFour()))){
+					int j = ris.get(pos).getThird();
+					if(j == 9)
+						ris.get(pos).setThird(ris.get(pos).getThird()-1);
+					
+					System.out.println("Colore: "+ris.get(pos).getFour());
+					System.out.println(ris.get(pos));
+					p.getP0().setX(p.getP0().getX()-(50*(p.getP0().getCoppia().getJ()-ris.get(pos).getThird())));
+					p.getP1().setX(p.getP1().getX()-(50*(p.getP1().getCoppia().getJ()-ris.get(pos).getThird())));
+					p.getP2().setX(p.getP2().getX()-(50*((p.getP2().getCoppia().getJ()-1)-ris.get(pos).getThird())));
+					
+					p.getP0().getCoppia().setJ(ris.get(pos).getThird());
+					p.getP1().getCoppia().setJ(ris.get(pos).getThird());
+					p.getP2().getCoppia().setJ(ris.get(pos).getThird()+1);
+					
+					if(p.getP0().getCoppia().getJ() > 0){
+						p.getP0().getCoppia().setJ(p.getP0().getCoppia().getJ()-ris.get(pos).getFive());
+						p.getP1().getCoppia().setJ(p.getP1().getCoppia().getJ()-ris.get(pos).getFive());
+						p.getP2().getCoppia().setJ(p.getP2().getCoppia().getJ()-ris.get(pos).getFive());
+						
+						p.getP0().setX(p.getP0().getX()-(50*ris.get(pos).getFive()));
+						p.getP1().setX(p.getP1().getX()-(50*ris.get(pos).getFive()));
+						p.getP2().setX(p.getP2().getX()-(50*ris.get(pos).getFive()));
+					}
+					
+					while(!p.getBall(ris.get(pos).getSix()).getColor().equals(ris.get(pos).getFourColor(ris.get(pos).getFour()))){
 						p.giraDx();
 						p.giraDx();
 					}
