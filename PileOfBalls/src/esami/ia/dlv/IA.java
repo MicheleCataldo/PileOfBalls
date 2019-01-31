@@ -130,10 +130,10 @@ public class IA {
 			_JDLV_PROGRAM_EXECUTING.addText("pos(A,B,C) :- sc(_,I,J,_), occ(_,I,J1,_), poslibere(I,J2,_), occ(_,I1,J1,_), occ(_,I1,J3,_), I1=I+1, J1=J1, J2=J+1, J3=J+2, J<2, A=0, B=1, c(C), pari(I)."+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText("pos(A,B,C) :- sc(_,I,J,_), poslibere(I,J1,_), occ(_,I,J2,_), occ(_,I1,J1,_), occ(_,I1,J3,_), I1=I+1, J1=J1, J2=J+1, J3=J+2, J<2, A=0, B=2, c(C), pari(I)."+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText("pos(A,B,C) :- sc(_,I,J,_), occ(_,I,J1,_), occ(_,I,J2,_), occ(_,I1,J1,_), occ(_,I1,J3,_), I1=I+1, J1=J1, J2=J+1, J3=J+2, A=0, J<2, B=2, c(C), pari(I)."+'\n');
-			_JDLV_PROGRAM_EXECUTING.addText("postandard(A,B,C) :- A=0, B=1, c(C), sc(_,I,J,_), J < 9, dispari(I)."+'\n');
-			_JDLV_PROGRAM_EXECUTING.addText("postandard(A,B,C) :- A=0, B=1, c(C), sc(_,I,J,_), J < 8, pari(I)."+'\n');
-			_JDLV_PROGRAM_EXECUTING.addText("postandard(A,B,C) :- A=0, B=2, c(C), sc(_,I,J,_), J = 9, dispari(I)."+'\n');
-			_JDLV_PROGRAM_EXECUTING.addText("postandard(A,B,C) :- A=0, B=2, c(C), sc(_,I,J,_), J = 8, pari(I)."+'\n');
+			_JDLV_PROGRAM_EXECUTING.addText("postandard(A,B,C) :- A=2, B=1, c(C), sc(_,I,J,_), J < 9, dispari(I)."+'\n');
+			_JDLV_PROGRAM_EXECUTING.addText("postandard(A,B,C) :- A=2, B=1, c(C), sc(_,I,J,_), J < 8, pari(I)."+'\n');
+			_JDLV_PROGRAM_EXECUTING.addText("postandard(A,B,C) :- A=2, B=2, c(C), sc(_,I,J,_), J = 9, dispari(I)."+'\n');
+			_JDLV_PROGRAM_EXECUTING.addText("postandard(A,B,C) :- A=2, B=2, c(C), sc(_,I,J,_), J = 8, pari(I)."+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText("scelta(ID,I,J,COL,A,B,C) :- sc(ID,I,J,COL), pos(A,B,C)."+'\n');
 			_JDLV_PROGRAM_EXECUTING.addText("scelta(ID,I,J,COL,A,B,C) :- sc(ID,I,J,COL), postandard(A,B,C)."+'\n');
 			_JDLV_PROGRAM_BUFFER_EXECUTING.append("");
