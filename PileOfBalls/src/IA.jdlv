@@ -93,11 +93,36 @@ public class IA{
 			pos(A,B,C) :- sc(_,I,J,_), poslibere(I1,J,_), occ(_,I1,J1,_), poslibere(I,J2,_), poslibere(I1,J2,_), I1=I-1, J1=J-1, J2=J+1, A=0, B=1, c(C), dispari(I).
 			pos(A,B,C) :- sc(_,I,J,_), poslibere(I1,J,_), occ(_,I1,J1,_), occ(_,I,J2,_), poslibere(I1,J2,_), I1=I-1, J1=J-1, J2=J+1, A=0, B=1, c(C), dispari(I).
 			pos(A,B,C) :- sc(_,I,J,_), poslibere(I1,J,_), occ(_,I1,J1,_), occ(_,I,J2,_), occ(_,I1,J2,_), I1=I-1, J1=J-1, J2=J+1, A=0, B=1, c(C), dispari(I).
-			pos(A,B,C) :- sc(_,I,J,_), poslibere(I1,J,_), poslibere(I1,J1,_), occ(_,I,J1,_), poslibere(I,J2,_), I1=I-1, J1=J-1, J2=J+1, A=0, B=0, c(C), dispari(I).
-			pos(A,B,C) :- sc(_,I,J,_), poslibere(I1,J,_), poslibere(I1,J1,_), occ(_,I,J1,_), occ(_,I,J2,_), I1=I-1, J1=J-1, J2=J+1, A=0, B=0, c(C), dispari(I).
-			pos(A,B,C) :- sc(_,I,J,_), poslibere(I1,J,_), poslibere(I1,J1,_), poslibere(I,J1,_), occ(_,I,J2,_), I1=I-1, J1=J-1, J2=J+1, A=0, B=0, c(C), dispari(I).
-			pos(A,B,C) :- sc(_,I,J,_), poslibere(I1,J,_), poslibere(I1,J1,_), poslibere(I,J1,_), poslibere(I,J2,_), I1=I-1, J1=J-1, J2=J+1, A=0, B=1, c(C), dispari(I).
-			
+			pos(A,B,C) :- sc(_,I,J,_), poslibere(I,J1,_), poslibere(I,J2,_), poslibere(I,J3,_), poslibere(I,J4,_), J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=0, B=1, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,COL), poslibere(I,J1,_), poslibere(I,J2,_), poslibere(I,J3,_), occ(_,I,J4,COL), J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=0, B=2, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,COL), poslibere(I,J1,_), poslibere(I,J2,_), poslibere(I,J3,_), occ(_,I,J4,COL1), J1=J-1, J2=J+1, J3=J-2, J4=J+2, COL<>COL1, A=0, B=1, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,COL), poslibere(I,J1,_), poslibere(I,J2,_), occ(_,I,J3,COL), poslibere(I,J4,_), J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=0, B=1, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,COL), poslibere(I,J1,_), poslibere(I,J2,_), occ(_,I,J3,COL1), poslibere(I,J4,_), J1=J-1, J2=J+1, J3=J-2, J4=J+2, COL<>COL1, A=0, B=2, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,_), poslibere(I,J1,_), occ(_,I,J2,_), poslibere(I1,J,_), poslibere(I,J3,_), poslibere(I,J4,_), I1=I-1,  J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=0, B=0, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,_), poslibere(I,J1,_), occ(_,I,J2,_), poslibere(I1,J,_), poslibere(I,J3,_), occ(_,I,J4,_), I1=I-1, J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=0, B=1, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,COL), poslibere(I,J1,_), occ(_,I,J2,COL), poslibere(I1,J,_), occ(_,I,J3,COL), poslibere(I,J4,_), I1=I-1, J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=0, B=1, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,COL), poslibere(I,J1,_), occ(_,I,J2,COL), poslibere(I1,J,_), occ(_,I,J3,COL1), poslibere(I,J4,_), I1=I-1, COL<>COL1,  J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=0, B=0, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,COL), poslibere(I,J1,_), occ(_,I,J2,COL1), poslibere(I1,J,_), occ(_,I,J3,COL), poslibere(I,J4,_), I1=I-1, COL<>COL1,  J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=0, B=1, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,COL), poslibere(I,J1,_), occ(_,I,J2,COL1), poslibere(I1,J,_), occ(_,I,J3,COL2), poslibere(I,J4,_), I1=I-1, COL<>COL1, COL<>COL2,  J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=0, B=0, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,_), poslibere(I,J1,_), occ(_,I,J2,_), poslibere(I1,J1,_), occ(_,I,J3,_), occ(_,I,J4,_), I1=I-1, J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=0, B=1, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,_), occ(_,I,J1,_), poslibere(I,J2,_), poslibere(I1,J1,_), poslibere(I,J3,_), poslibere(I,J4,_), I1=I-1, J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=0, B=1, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,_), occ(_,I,J1,_), poslibere(I,J2,_), poslibere(I1,J1,_), occ(_,I,J3,_), poslibere(I,J4,_), I1=I-1, J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=0, B=1, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,_), occ(_,I,J1,_), poslibere(I,J2,_), poslibere(I1,J1,_), poslibere(I,J3,_), occ(_,I,J4,_), I1=I-1, J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=0, B=0, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,_), occ(_,I,J1,_), poslibere(I,J2,_), poslibere(I1,J1,_), occ(_,I,J3,_), occ(_,I,J4,_), I1=I-1, J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=0, B=0, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,COL), occ(_,I,J1,COL), occ(_,I,J2,COL), poslibere(I1,J,_), poslibere(I1,J1,_), poslibere(I,J3,_), poslibere(I,J4,_), I1=I-1, J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=0, B=2, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,COL), occ(_,I,J1,COL1), occ(_,I,J2,COL2), poslibere(I1,J,_), poslibere(I1,J1,_), poslibere(I,J3,_), poslibere(I,J4,_), COL1<>COL, COL2<>COL, I1=I-1, J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=0, B=2, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,COL), occ(_,I,J1,COL1), occ(_,I,J2,COL), poslibere(I1,J,_), poslibere(I1,J1,_), poslibere(I,J3,_), poslibere(I,J4,_), COL1<>COL, I1=I-1, J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=0, B=0, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,COL), occ(_,I,J1,COL), occ(_,I,J2,COL2), poslibere(I1,J,_), poslibere(I1,J1,_), poslibere(I,J3,_), poslibere(I,J4,_), COL2<>COL, I1=I-1, J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=0, B=1, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,COL), occ(_,I,J1,COL), occ(_,I,J2,_), poslibere(I1,J,_), poslibere(I1,J1,_), poslibere(I,J3,_), occ(_,I,J4,_), I1=I-1, J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=0, B=1, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,COL), occ(_,I,J1,_), occ(_,I,J2,COL), poslibere(I1,J,_), poslibere(I1,J1,_), poslibere(I,J3,_), occ(_,I,J4,_), I1=I-1, J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=0, B=0, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,COL), occ(_,I,J1,_), occ(_,I,J2,_), poslibere(I1,J,_), poslibere(I1,J1,_), poslibere(I,J3,_), occ(_,I,J4,COL), I1=I-1, J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=0, B=2, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,COL), occ(_,I,J1,COL), occ(_,I,J2,_), poslibere(I1,J,_), poslibere(I1,J1,_), occ(_,I,J3,_), poslibere(I,J4,_), I1=I-1, J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=1, B=0, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,COL), occ(_,I,J1,_), occ(_,I,J2,COL), poslibere(I1,J,_), poslibere(I1,J1,_), occ(_,I,J3,_), poslibere(I,J4,_), I1=I-1, J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=1, B=2, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,COL), occ(_,I,J1,_), occ(_,I,J2,_), poslibere(I1,J,_), poslibere(I1,J1,_), occ(_,I,J3,COL), poslibere(I,J4,_), I1=I-1, J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=1, B=1, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,_), occ(_,I,J1,_), occ(_,I,J2,_), poslibere(I1,J,_), poslibere(I1,J1,_), occ(_,I,J3,_), occ(_,I,J4,_), poslibere(I1,J2,_), poslibere(I1,J3,_), I1=I-1, J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=1, B=0, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,_), occ(_,I,J1,_), occ(_,I,J2,_), poslibere(I1,J,_), poslibere(I1,J1,_), occ(_,I,J3,_), occ(_,I,J4,_), poslibere(I1,J2,_), occ(_,I1,J3,_), I1=I-1, J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=1, B=0, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,_), occ(_,I,J1,_), occ(_,I,J2,_), poslibere(I1,J,_), poslibere(I1,J1,_), occ(_,I,J3,_), occ(_,I,J4,_), occ(_,I1,J2,_), poslibere(I1,J3,_), I1=I-1, J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=1, B=0, c(C), dispari(I).
+			pos(A,B,C) :- sc(_,I,J,_), occ(_,I,J1,_), occ(_,I,J2,_), poslibere(I1,J,_), poslibere(I1,J1,_), occ(_,I,J3,_), occ(_,I,J4,_), occ(_,I1,J2,_), occ(_,I1,J3,_), I1=I-1, J1=J-1, J2=J+1, J3=J-2, J4=J+2, A=1, B=0, c(C), dispari(I).
 			pos(A,B,C) :- sc(_,I,J,_), poslibere(I,J1,_), poslibere(I,J2,_), poslibere(I1,J1,_), poslibere(I1,J3,_), I1=I+1, J1=J-1, J2=J+1, J3=J+2, A=0, B=0, c(C), pari(I).
 			pos(A,B,C) :- sc(_,I,J,_), poslibere(I,J1,_), poslibere(I,J2,_), poslibere(I1,J1,_), occ(_,I1,J3,_), I1=I+1, J1=J-1, J2=J+1, J3=J+2, A=0, B=0, c(C), pari(I).
 			pos(A,B,C) :- sc(_,I,J,_), poslibere(I,J1,_), poslibere(I,J2,_), occ(_,I1,J1,_), poslibere(I1,J3,_), I1=I+1, J1=J-1, J2=J+1, J3=J+2, A=0, B=0, c(C), pari(I).
