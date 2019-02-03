@@ -8,7 +8,7 @@ public class AlternateMatrix {
 	private int dim;
 	
 	public AlternateMatrix(int dim) throws IncorrectInitAltMatrixException {
-		if(dim%2!=0 || dim < 10)
+		if(dim%2!=0 || dim < 12)
 			throw new IncorrectInitAltMatrixException();
 		
 		matrix = new Ball[dim][];
