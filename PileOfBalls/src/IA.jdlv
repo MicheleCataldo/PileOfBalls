@@ -257,7 +257,25 @@ public class IA{
 			pos(A,B,C) :- sc(_,I,J,_), occ(_,I,J1,_), occ(_,I,J2,_), occ(_,I1,J1,_), occ(_,I1,J3,_), poslibere(I,J3,_), I1=I+1, J1=J-1, J2=J+1, J3=J+2,  A=0, B=1, c(C), pari(I), J=1.
 			pos(A,B,C) :- sc(_,I,J,_), occ(_,I,J1,_), occ(_,I,J2,_), occ(_,I1,J1,_), occ(_,I1,J3,_), occ(_,I,J3,_), I1=I+1, J1=J-1, J2=J+1, J3=J+2,  A=0, B=2, c(C), pari(I), J=1.
 			
-
+			//giro tripla per J=7 I pari
+			pos(A,B,C) :- sc(_,I,J,_), poslibere(I,J1,_), poslibere(I,J2,_), poslibere(I1,J1,_), I1=I+1, J1=J-1, J2=J+1,  A=0, B=0, c(C), pari(I), J=7.
+			pos(A,B,C) :- sc(_,I,J,_), poslibere(I,J1,_), poslibere(I,J2,_), occ(_,I1,J1,_), I1=I+1, J1=J-1, J2=J+1,  A=0, B=0, c(C), pari(I), J=7.
+			pos(A,B,C) :- sc(_,I,J,_), poslibere(I,J1,_), poslibere(I,J2,_), occ(_,I1,J1,_),  poslibere(I,J4,_), I1=I+1, J1=J-1, J2=J+1,  J4=J-2, A=0, B=0, c(C), pari(I), J=7.
+			pos(A,B,C) :- sc(_,I,J,COL), poslibere(I,J1,_), poslibere(I,J2,_), occ(_,I1,J1,_), occ(_,I,J4,COL), I1=I+1, J1=J-1, J2=J+1,  J4=J-2, A=0, B=1, c(C), pari(I), J=7.
+			pos(A,B,C) :- sc(_,I,J,COL1), poslibere(I,J1,_), poslibere(I,J2,_), occ(_,I1,J1,_), occ(_,I,J4,COL2), I1=I+1, J1=J-1, J2=J+1,  J4=J-2, COL1<>COL2, A=0, B=0, c(C), pari(I), J=7.
+			pos(A,B,C) :- sc(_,I,J,_), occ(_,I,J1,_), poslibere(I,J2,_), occ(_,I1,J1,_), poslibere(I,J4,_), I1=I+1, J1=J-1, J2=J+1,  J4=J-2, A=0, B=1, c(C), pari(I), J=7.
+			pos(A,B,C) :- sc(_,I,J,_), occ(_,I,J1,_), poslibere(I,J2,_), occ(_,I1,J1,_) occ(_,I,J4,_), I1=I+1, J1=J-1, J2=J+1,  J4=J-2, A=0, B=1, c(C), pari(I), J=7.
+			pos(A,B,C) :- sc(_,I,J,COL), occ(_,I,J1,_), poslibere(I,J2,_), occ(_,I1,J1,_), occ(_,I,J4,COL) I1=I+1, J1=J-1, J2=J+1,  J4=J-2, A=0, B=1, c(C), pari(I), J=7.
+			pos(A,B,C) :- sc(_,I,J,COL), occ(_,I,J1,_), poslibere(I,J2,_), occ(_,I1,J1,_), occ(_,I,J4,COL2), I1=I+1, J1=J-1, J2=J+1,  J4=J-2, COL<>COL2, A=0, B=1, c(C), pari(I), J=7.
+			pos(A,B,C) :- sc(_,I,J,COL), occ(_,I,J1,COL), poslibere(I,J2,_), occ(_,I1,J1,_), occ(_,I1,J3,_), occ(_,I,J4,COL), I1=I+1, J1=J-1, J2=J+1,  J4=J-2, A=0, B=1, c(C), pari(I), J=7.
+			pos(A,B,C) :- sc(_,I,J,COL), occ(_,I,J1,COL1), poslibere(I,J2,_), occ(_,I1,J1,_), occ(_,I1,J3,_), occ(_,I,J4,COL), I1=I+1, J1=J-1, J2=J+1,  J4=J-2, COL<>COL1, A=0, B=2, c(C), pari(I), J=7.
+			pos(A,B,C) :- sc(_,I,J,_), poslibere(I,J1,_), occ(_,I,J2,_), occ(_,I1,J1,_), poslibere(I,J4,_), I1=I+1, J1=J-1, J2=J+1,  J4=J-2, A=0, B=2, c(C), pari(I), J=7.
+			pos(A,B,C) :- sc(_,I,J,COL), poslibere(I,J1,_), occ(_,I,J2,_), occ(_,I1,J1,_), occ(_,I,J4,_), I1=I+1, J1=J-1, J2=J+1,  J4=J-2, A=0, B=2, c(C), pari(I), J=7.
+			pos(A,B,C) :- sc(_,I,J,COL), poslibere(I,J1,_), occ(_,I,J2,_), occ(_,I1,J1,_), occ(_,I,J4,COL2), I1=I+1, J1=J-1, J2=J+1,  J4=J-2, COL<>COL2, A=0, B=2, c(C), pari(I), J=7.
+			pos(A,B,C) :- sc(_,I,J,COL), poslibere(I,J1,_), occ(_,I,J2,COL), occ(_,I1,J1,_), occ(_,I,J4,COL), I1=I+1, J1=J-1, J2=J+1,  J4=J-2, A=0, B=2, c(C), pari(I), J=7.
+			pos(A,B,C) :- sc(_,I,J,COL), poslibere(I,J1,_), occ(_,I,J2,COL1), occ(_,I1,J1,_), occ(_,I,J4,COL), I1=I+1, J1=J-1, J2=J+1,  J4=J-2, COL<>COL1, A=0, B=1, c(C), pari(I), J=7.
+			pos(A,B,C) :- sc(_,I,J,_), occ(_,I,J1,_), occ(_,I,J2,_), occ(_,I1,J1,_), poslibere(I,J4,_) I1=I+1, J1=J-1, J2=J+1,  J4=J-2, A=0, B=1, c(C), pari(I), J=7.
+			pos(A,B,C) :- sc(_,I,J,_), occ(_,I,J1,_), occ(_,I,J2,_), occ(_,I1,J1,_), occ(_,I,J4,_). I1=I+1, J1=J-1, J2=J+1,  J4=J-2, A=0, B=1, c(C), pari(I), J=7.
 			
 			//diamo delle indicazioni per la posizione standard della tripla
 			postandard(A,B,C) :- A=2, B=1, c(C), sc(_,I,J,_), J < 9, dispari(I).
